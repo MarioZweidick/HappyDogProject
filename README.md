@@ -34,14 +34,14 @@
  ┃ ┃ ┃ ┃ ┃ ┣ 📂registrationUtil ----------- Registration and Token Entity + Validator
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂token                
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂validator
- ┃ ┃ ┃ ┃ ┃ ┣ 📂repository ----------------------------- Repositories for DB queries
- ┃ ┃ ┃ ┃ ┃ ┣ 📂security ------------------------------- Security + SecurityConfig
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository ----------------- Repositories for DB queries
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂security ------------------- Security + SecurityConfig
  ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┣ 📂service -------------------------------- Services
- ┃ ┗ 📂resources -------------------------------------- Resources
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂service -------------------- Services
+ ┃ ┗ 📂resources -------------------------- Resources
  ┃ ┃ ┣ 📂static
- ┃ ┃ ┣ 📂templates ------------------------------------ Templates - HTML Files
- ┗ 📂test --------------------------------------------- Tests
+ ┃ ┃ ┣ 📂templates ------------------------ Templates - HTML Files
+ ┗ 📂test --------------------------------- Tests
  ┃ ┗ 📂java
  ┃ ┃ ┗ 📂at
  ┃ ┃ ┃ ┗ 📂happydog
