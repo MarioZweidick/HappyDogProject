@@ -20,10 +20,10 @@
 -- Thymleaf (Template Engine)<br>
 
 ## Setting up development enviroment
-> https://github.com/horoscloud/HappyDogProject/wiki/Setup-development
+> <a href="https://github.com/horoscloud/HappyDogProject/wiki/Setup-development">Setup development enviroment</a>
 
 ## Application endpoints
-> https://github.com/horoscloud/HappyDogProject/wiki/Application-Endpoints
+> <a href="https://github.com/horoscloud/HappyDogProject/wiki/Application-Endpoints">Application endpoints</a>
 
 
 ## Folder Structure (12.03.)
