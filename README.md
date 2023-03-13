@@ -2,10 +2,10 @@
 
 ### A Website for dog owners and trainers to find high quality dog trainings.
 
-### Description
+## Description
 > HappyDog is a WebProject for the subject Requirments Engineering for the University of Applied Sciences "Campus02". 
 
-### Technicals
+## Technicals
 - **Backend:**<br>
 -- Java Spring<br>
 -- Spring Security<br>
@@ -19,8 +19,14 @@
 -- Jquery<br>
 -- Thymleaf (Template Engine)<br>
 
+## Setting up development enviroment
+> https://github.com/horoscloud/HappyDogProject/wiki/Setup-development
 
-### Folder Structure (12.03.)
+## Application endpoints
+> https://github.com/horoscloud/HappyDogProject/wiki/Application-Endpoints
+
+
+## Folder Structure (12.03.)
 ```
 📦src
  ┣ 📂main
