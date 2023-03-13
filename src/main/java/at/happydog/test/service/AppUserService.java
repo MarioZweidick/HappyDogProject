@@ -1,5 +1,6 @@
 package at.happydog.test.service;
 
+import at.happydog.test.setup.SetupEmailConfirmation;
 import at.happydog.test.email.EmailSender;
 import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.AppUserRoles;
@@ -90,7 +91,7 @@ public class AppUserService implements UserDetailsService {
 
             //Link für den MailSender wenn der Benutzer den Account aktiviert
             //Alle diese Links werden noch auf Konstante ausgelagert
-            String link = "http://localhost:8080/user/registration/confirm?token=" + token;
+            String link = SetupEmailConfirmation.EMAIL_CONFIRMATION_LINK + token;
             emailSender.send(
                     appUser.getEmail(),
                     buildEmail(appUser.getUsername(), link));
@@ -111,12 +112,16 @@ public class AppUserService implements UserDetailsService {
             appUser.setRole(AppUserRoles.DOG_OWNER);
         }
 
+        if(!SetupEmailConfirmation.EMAIL_CONFIRMATION_REQUIRED){
+            appUser.setEnabled(true);
+        }
         //Speichert User in DB
         appUserRepository.save(appUser);
 
         //Der Grund wieso der Code zweimal exisitert ist einmal falls der Benutzer den Token nochmal anfordert
         //und einmal falls der Benutzer den Token zum ersten mal anfordert
         //Hab noch keine Möglichkeit gefunden das schöner zu machen
+
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
                 LocalDateTime.now(),
@@ -125,7 +130,7 @@ public class AppUserService implements UserDetailsService {
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        String link = "http://localhost:8080/user/registration/confirm?token=" + token;
+        String link = SetupEmailConfirmation.EMAIL_CONFIRMATION_LINK + token;
         emailSender.send(
                 appUser.getEmail(),
                 buildEmail(appUser.getUsername(), link));
