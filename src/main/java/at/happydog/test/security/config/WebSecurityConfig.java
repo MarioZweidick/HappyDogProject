@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                 .formLogin()
                 .loginPage("/user/login").permitAll()
                 .successForwardUrl("/")
-                .failureForwardUrl("/user/login")
+                //.failureForwardUrl("/user/login")
                 .and()
                 .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)

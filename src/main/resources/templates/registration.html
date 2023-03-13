@@ -3,29 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-
-   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-  <style>
-    *{
-      margin: 0;
-    }
-
-    .roleoption{
-      padding-left: 10%;
-      padding-bottom: 10px;
-    }
-
-    #legend{
-      text-align: center;
-    }
-
-  </style>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
 
-  <form class="form-horizontal"
+  <form
         id="sumbit-form"
         action=''
         method="POST">
@@ -34,58 +16,58 @@
       <div id="legend">
         <legend class="">Register</legend>
       </div>
-      <div class="control-group">
+      <div>
         <!-- Username -->
-        <label class="control-label"  for="username">Username</label>
-        <div class="controls">
-          <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+        <label>Username</label>
+        <div>
+          <input type="text" id="username" name="username" placeholder="" required>
         </div>
       </div>
 
-      <div class="control-group">
+      <div>
         <!-- Firstname -->
-        <label class="control-label"  for="firstname">Vorname</label>
-        <div class="controls">
-          <input type="text" id="firstname" name="firstname" placeholder="" class="input-xlarge">
+        <label for="firstname">Vorname</label>
+        <div>
+          <input type="text" id="firstname" name="firstname" placeholder="" required>
         </div>
       </div>
 
-      <div class="control-group">
+      <div>
         <!-- Lastname -->
-        <label class="control-label"  for="lastname">Nachname</label>
-        <div class="controls">
-          <input type="text" id="lastname" name="lastname" placeholder="" class="input-xlarge">
+        <label for="lastname">Nachname</label>
+        <div>
+          <input type="text" id="lastname" name="lastname" placeholder="" required>
         </div>
       </div>
 
-      <div class="control-group">
+      <div>
         <!-- E-mail -->
-        <label class="control-label" for="email">E-Mail</label>
-        <div class="controls">
-          <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+        <label for="email">E-Mail</label>
+        <div>
+          <input type="text" id="email" name="email" placeholder="" required>
         </div>
       </div>
 
-      <div class="control-group">
+      <div>
         <!-- Password-->
-        <label class="control-label" for="password">Passwort</label>
-        <div class="controls">
-          <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+        <label for="password">Passwort</label>
+        <div>
+          <input type="password" id="password" name="password" placeholder="" required>
         </div>
       </div>
 
-      <div class="roleoption">
-        <select class="form-select" aria-label="Default select example" id="role" name="role">
+      <div>
+        <select id="role" name="role" required>
           <option selected>Als was möchtest du dich registrieren?</option>
           <option value="DOG_TRAINER">Hundetrainer</option>
           <option value="DOG_OWNER">Hundebesitzer</option>
         </select>
       </div>
 
-      <div class="control-group">
+      <div>
         <!-- Button -->
-        <div class="controls">
-          <button class="btn btn-success" type="submit" onclick="toggleEmailConfirmation()">Register</button>
+        <div>
+          <button id="register-button" type="submit" onclick="toggleEmailConfirmation()">Register</button>
         </div>
       </div>
     </fieldset>
@@ -94,8 +76,26 @@
   <div id="email-confirmation" style="display: none">
       <p>Bitte Bestätige deine E-Mail Adresse!</p>
   </div>
-
+  <br>
+  <a href="/user/login">Already have an account?</a>
+  <br>
+  <a href="/">Home</a>
   <script>
+    /*
+    let allFieldsValid = false;
+
+    $('#register-button').on("click", function(){
+      let valid = true;
+      $('[required]').each(function() {
+        if ($(this).is(':invalid') || !$(this).val()) valid = false;
+      })
+      if (!valid) allFieldsValid = false;
+      else allFieldsValid = true;
+    })
+
+     */
+
+
     const xhr = new XMLHttpRequest();
 
     const form = document.querySelector('#sumbit-form');
@@ -117,12 +117,13 @@
           console.log('Request failed');
         }
       };
-      xhr.send(jsonData);
+
+        xhr.send(jsonData);
+
     });
 
     function toggleEmailConfirmation() {
-
-      var confirmation = document.getElementById('email-confirmation');
+      const confirmation = document.getElementById('email-confirmation');
 
       if (confirmation.style.display === 'none') {
         confirmation.style.display = 'block';
