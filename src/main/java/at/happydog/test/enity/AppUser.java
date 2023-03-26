@@ -50,6 +50,11 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AppUserRoles role;
 
+    //OnetoOne Datenbank entry - User profile image
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_appuserimage_id")
+    private AppUserImage appUserImage;
+
     //OnetoMany Datenbank entry - Ein User kann mehrere Trainings haben
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_training_id")

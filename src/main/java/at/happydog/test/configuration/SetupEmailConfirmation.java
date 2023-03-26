@@ -1,4 +1,4 @@
-package at.happydog.test.setup;
+package at.happydog.test.configuration;
 
 public class SetupEmailConfirmation {
     public static final Boolean EMAIL_CONFIRMATION_REQUIRED = false;

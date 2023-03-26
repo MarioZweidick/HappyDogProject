@@ -1,11 +1,14 @@
 package at.happydog.test.service;
 
-import at.happydog.test.setup.SetupEmailConfirmation;
+import at.happydog.test.configuration.SetupEmailConfirmation;
 import at.happydog.test.email.EmailSender;
 import at.happydog.test.enity.AppUser;
+import at.happydog.test.enity.AppUserImage;
 import at.happydog.test.enity.AppUserRoles;
+import at.happydog.test.imageUtil.ImageUtil;
 import at.happydog.test.registrationUtil.token.ConfirmationToken;
 import at.happydog.test.registrationUtil.token.ConfirmationTokenService;
+import at.happydog.test.repository.AppUserImageRepository;
 import at.happydog.test.repository.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +16,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 /**
@@ -33,6 +39,7 @@ public class AppUserService implements UserDetailsService {
     private final ConfirmationTokenService confirmationTokenService;
 
     private final EmailSender emailSender;
+    private final AppUserImageRepository appUserImageRepository;
 
 
     //Kommt von UserDetailsService - bei jeder Authentication wird über diese Methode abgefragt ob der user
@@ -43,10 +50,11 @@ public class AppUserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username)));
     }
 
-    //Findet AppUser in Datenbank
-    public AppUser findAppUserByUsername(String username){
-        if(appUserRepository.findByUsername(username).isPresent())
-            return appUserRepository.findByUsername(username).get();
+
+    //Findet AppUser in Datenbank by id
+    public AppUser findAppUserById(Long id){
+        if(appUserRepository.findById(id).isPresent())
+            return appUserRepository.findById(id).get();
 
         return null;
     }
@@ -144,6 +152,39 @@ public class AppUserService implements UserDetailsService {
     //Bestätigt User Account
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
+    }
+
+
+    @Transactional
+    public AppUser addAppUserImage(AppUser appUser, MultipartFile multipartFile) throws IOException {
+
+        AppUserImage appUserImage = getAppUserImageFromMultipartfile(multipartFile);
+
+        appUserImage = appUserImageRepository.save(appUserImage);
+        appUser.setAppUserImage(appUserImage);
+
+        return appUserRepository.save(appUser);
+    }
+
+
+
+    //returns AppUserImage from multipartfile input
+    public AppUserImage getAppUserImageFromMultipartfile(MultipartFile file) throws IOException {
+        AppUserImage appUserImage = new AppUserImage();
+        appUserImage.setName(file.getOriginalFilename());
+        appUserImage.setType(file.getContentType());
+        appUserImage.setImageData(ImageUtil.compressImage(file.getBytes()));
+        return appUserImage;
+    }
+
+    //return decompressed image from AppUser
+    public byte[] downloadImageFromAppUser(AppUser appUser){
+        byte[] bytes = new byte[0];
+        if(appUser.getAppUserImage()!=null){
+            AppUserImage imageData = appUser.getAppUserImage();
+            return ImageUtil.decompressImage(imageData.getImageData());
+        }
+        return bytes;
     }
 
 
