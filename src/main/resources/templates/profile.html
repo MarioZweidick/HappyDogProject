@@ -7,6 +7,25 @@
 <body>
 
     <h1>User Profile</h1>
+
+
+    <form
+            th:action="@{profile/save-image}"
+            th:object="${appuser}"
+            method="POST"
+            enctype="multipart/form-data">
+
+        <div>
+            <label>Add profile picture</label>
+            <br>
+            <input type="file" name="image" accept="image/png, image/jpeg" required/>
+        </div>
+        <button type="submit">Add picture</button>
+    </form>
+
+
+    <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+
     <label>Username: </label>
     <p th:text="${appuser.username}"></p>
 
