@@ -160,6 +160,10 @@ public class AppUserService implements UserDetailsService {
 
         AppUserImage appUserImage = getAppUserImageFromMultipartfile(multipartFile);
 
+        if(!(appUser.getAppUserImage() == null)){
+            appUserImageRepository.delete(appUser.getAppUserImage());
+        }
+
         appUserImage = appUserImageRepository.save(appUserImage);
         appUser.setAppUserImage(appUserImage);
 
