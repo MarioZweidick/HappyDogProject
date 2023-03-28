@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 @Transactional
 @Table
@@ -58,7 +58,7 @@ public class AppUser implements UserDetails {
     //OnetoMany Datenbank entry - Ein User kann mehrere Trainings haben
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_training_id")
-    private List<Training> trainings;
+    private List<Training> trainings = new ArrayList<>();
 
     //OnetoMany Datenbank entry - Ein User kann mehrere Locations haben
     @OneToOne(cascade = CascadeType.ALL)
@@ -70,6 +70,7 @@ public class AppUser implements UserDetails {
     private Boolean enabled = false;
 
     public AppUser() {
+
 
     }
 
@@ -84,11 +85,29 @@ public class AppUser implements UserDetails {
         this.enabled = enabled;
     }
 
+    public AppUser(String username, String firstname, String lastname, String email, String password, AppUserRoles role, Boolean enabled) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+    }
+
     public AppUser(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+    }
+
+    public boolean addTraining(Training training){
+        return trainings.add(training);
+    }
+
+    public boolean deleteTraining(Training training){
+        return trainings.remove(training);
     }
 
     @Override
@@ -120,5 +139,12 @@ public class AppUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return enabled;
+    }
+
+    @Override
+    public String toString() {
+        return "AppUser{" +
+                "username='" + username + '\'' +
+                '}';
     }
 }

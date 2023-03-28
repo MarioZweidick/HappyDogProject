@@ -25,13 +25,36 @@
 </head>
 <body>
 
-<h1>HappyDog</h1>
-<br>
-<a href="/user/login">Login</a>
-<br>
-<a href="/user/registration">Registration</a>
-<br>
-<a href="/user/profile">Profile</a>
+    <h1>HappyDog</h1>
+    <br>
+    <a href="/user/login">Login</a>
+    <br>
+    <a href="/user/registration">Registration</a>
+    <br>
+    <a href="/user/profile">Profile</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Training</th>
+            <th scope="col">Beschreibung</th>
+            <th scope="col">Preis</th>
+            <th scope="col">Datum</th>
+            <th scope="col">Standort</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="training: ${trainings}">
+            <th th:text="${training.titel}"></th>
+            <td th:text="${training.description}"></td>
+            <td th:text="${training.price + '€'}"></td>
+            <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
+            <td th:text="${training.location.getName().toString()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 
 </body>
 </html>
