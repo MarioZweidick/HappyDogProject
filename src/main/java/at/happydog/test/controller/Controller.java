@@ -1,8 +1,10 @@
 package at.happydog.test.controller;
 
 import at.happydog.test.service.AppUserService;
+import at.happydog.test.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
 
@@ -15,17 +17,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @org.springframework.stereotype.Controller
 public class Controller {
 
+
+    private final TrainingService trainingService;
     private final AppUserService appUserService;
 
     @Autowired
-    public Controller(AppUserService appUserService) {
+    public Controller(TrainingService trainingService, AppUserService appUserService) {
+        this.trainingService = trainingService;
         this.appUserService = appUserService;
     }
 
-
-    @RequestMapping(value="/")
-    public String mainPage(){
-        return "index.html";
+    @RequestMapping(value={"/", "/index", "/home"})
+    public ModelAndView trainingList(){
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("trainings", trainingService.getTrainingList());
+        return mav;
     }
 
     @RequestMapping("/user/login")
@@ -38,10 +44,14 @@ public class Controller {
         return "logout.html";
     }
 
+    @RequestMapping("/successful-login")
+    public String onLoginSuccess(){
+        return "redirect:/user/profile";
+    }
+
     @RequestMapping("/email-confirmation")
     public String emailConfirmationPage(){
         return "email-confirmation.html";
     }
-
 
 }

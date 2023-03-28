@@ -5,11 +5,13 @@ import at.happydog.test.email.EmailSender;
 import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.AppUserImage;
 import at.happydog.test.enity.AppUserRoles;
+import at.happydog.test.enity.Training;
 import at.happydog.test.imageUtil.ImageUtil;
 import at.happydog.test.registrationUtil.token.ConfirmationToken;
 import at.happydog.test.registrationUtil.token.ConfirmationTokenService;
 import at.happydog.test.repository.AppUserImageRepository;
 import at.happydog.test.repository.AppUserRepository;
+import at.happydog.test.repository.TrainingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,6 +42,9 @@ public class AppUserService implements UserDetailsService {
 
     private final EmailSender emailSender;
     private final AppUserImageRepository appUserImageRepository;
+
+    private final TrainingRepository trainingRepository;
+
 
 
     //Kommt von UserDetailsService - bei jeder Authentication wird über diese Methode abgefragt ob der user
@@ -166,6 +171,16 @@ public class AppUserService implements UserDetailsService {
 
         appUserImage = appUserImageRepository.save(appUserImage);
         appUser.setAppUserImage(appUserImage);
+
+
+
+        return appUserRepository.save(appUser);
+    }
+
+    public AppUser addNewTraining(AppUser appUser, Training training){
+
+        trainingRepository.save(training);
+        appUser.addTraining(training);
 
         return appUserRepository.save(appUser);
     }

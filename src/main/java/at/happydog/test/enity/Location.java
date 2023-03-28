@@ -30,16 +30,16 @@ public class Location {
     private Long location_id;
 
     private String name;
-    private Double x;
-    private Double y;
+    private String N; //Latitude
+    private String E; //Longitude
 
     public Location() {
 
     }
 
-    public Location(String name, Double x, Double y) {
+    public Location(String name, String n, String e) {
         this.name = name;
-        this.x = x;
-        this.y = y;
+        N = n;
+        E = e;
     }
 }
