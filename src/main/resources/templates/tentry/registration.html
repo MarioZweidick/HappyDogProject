@@ -76,26 +76,14 @@
 </form>
 
   <div id="email-confirmation" style="display: none">
-      <p>Bitte Bestätige deine E-Mail Adresse!</p>
+      <p id="confirm-email">Bitte Bestätige deine E-Mail Adresse!</p>
   </div>
   <br>
   <a href="/user/login">Already have an account?</a>
   <br>
   <a href="/">Home</a>
   <script>
-    /*
-    let allFieldsValid = false;
 
-    $('#register-button').on("click", function(){
-      let valid = true;
-      $('[required]').each(function() {
-        if ($(this).is(':invalid') || !$(this).val()) valid = false;
-      })
-      if (!valid) allFieldsValid = false;
-      else allFieldsValid = true;
-    })
-
-     */
 
 
     const xhr = new XMLHttpRequest();
@@ -126,6 +114,8 @@
 
     function toggleEmailConfirmation() {
       const confirmation = document.getElementById('email-confirmation');
+
+      document.getElementById("register-button").innerText = "Email erneut senden";
 
       if (confirmation.style.display === 'none') {
         confirmation.style.display = 'block';
