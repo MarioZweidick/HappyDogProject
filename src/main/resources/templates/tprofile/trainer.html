@@ -78,28 +78,24 @@
         <div>
             <label>Beginnzeit</label>
             <div>
-                <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="beginn_time" name="beginntime" placeholder="" required>
+                <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="beginn_time" name="beginntime" placeholder="00:00" required>
             </div>
         </div>
 
         <div>
             <label>Endzeit</label>
             <div>
-                <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="end_time" name="endtime" placeholder="" required>
+                <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="end_time" name="endtime" placeholder="00:00" required>
             </div>
         </div>
 
         <div>
             <label>Standort</label>
-            <br>
-            <button type="button" onclick="getLocation()">Derzeitigen Standort verwenden</button>
-            <br>
-            <p id="msg"></p>
-            <input type="hidden" id="latitude" name="latitude" placeholder="">
-            <input type="hidden" id="longitude" name="longitude" placeholder="">
-            <input type="text" id="location-name" name="location-name" placeholder="Optional: Adresse">
+            <input type="text" id="street" name="street" placeholder="Straße" required>
+            <input type="text" id="street-number" name="streetNumber" placeholder="Hausnummer" required>
+            <input type="text" id="city" name="city" placeholder="Ort" required>
+            <input type="text" id="postalcode" name="plz" placeholder="Postleitzahl" required>
         </div>
-
 
         <button type="submit">Add Training</button>
     </form>
@@ -112,7 +108,7 @@
             <th scope="col">Beschreibung</th>
             <th scope="col">Preis</th>
             <th scope="col">Datum</th>
-            <th scope="col">Standort</th>
+
         </tr>
         </thead>
         <tbody>
@@ -121,44 +117,13 @@
             <td th:text="${training.description}"></td>
             <td th:text="${training.price + '€'}"></td>
             <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
-            <td th:text="${training.location.getName().toString()}"></td>
+
         </tr>
         </tbody>
     </table>
 
 
-    <script>
-        var x = document.getElementById("msg");
 
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(getPosition, showError);
-            } else {
-                x.innerHTML = "Geolocation wird vom Browser nicht unterstützt.";
-            }
-        }
 
-        function getPosition(position) {
-            document.getElementById("latitude").value = position.coords.latitude;
-            document.getElementById("longitude").value = position.coords.longitude;
-        }
-
-        function showError(error) {
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    x.innerHTML = "Benutzer hat anfrage für Geolocation zurückgewiesen."
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    x.innerHTML = "Kein Standort gefunden."
-                    break;
-                case error.TIMEOUT:
-                    x.innerHTML = "Zeitüberschreitung der Anfrage."
-                    break;
-                case error.UNKNOWN_ERROR:
-                    x.innerHTML = "Ein unbekannter fehler ist aufgetreten"
-                    break;
-            }
-        }
-    </script>
     </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Training</title>
+  <link rel="stylesheet" href="../../static/style/reset-config.css">
+  <link rel="stylesheet" href="../../static/style/profiles/profile.css">
+  <link rel="stylesheet" href="../../static/style/training.css">
+</head>
+<body style="margin: auto">
+
+<h2 th:text="${training.titel}"></h2>
+
+<label>Beschreibung: </label>
+<p th:text="${training.description}"></p>
+
+<label>Preis: </label>
+<p th:text="${training.price + '€'}"></p>
+
+<label>Datum:</label>
+<p th:text="${training.date}"></p>
+
+<label>Startzeit:</label>
+<p th:text="${training.beginnTime}"></p>
+
+<label>Endzeit:</label>
+<p th:text="${training.endTime}"></p>
+
+
+<label>Ort:</label>
+<p th:text="${training.location.street + ' ' + training.location.streetNumber + ', ' + training.location.plz + ', ' + training.location.city}"></p>
+
+<iframe
+        width="100%"
+        height="500"
+        th:src="@{'https://maps.google.com/maps?q='+ ${training.location.n}+','+${training.location.e}+'&hl=de&z=14&amp;output=embed'}"
+></iframe>
+
+<br>
+<a href="/">Home</a>
+
+
+</body>
+</html>
