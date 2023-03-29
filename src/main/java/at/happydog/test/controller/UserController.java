@@ -17,12 +17,12 @@ public class UserController {
 
     @RequestMapping("/user/login")
     public String loginPage(){
-        return "login.html";
+        return "tentry/login.html";
     }
 
     @RequestMapping("/user/logout-success")
     public String logoutPage(){
-        return "logout.html";
+        return "tentry/logout.html";
     }
 
     @RequestMapping("/successful-login")
@@ -32,6 +32,6 @@ public class UserController {
 
     @RequestMapping("/email-confirmation")
     public String emailConfirmationPage(){
-        return "email-confirmation.html";
+        return "tentry/email-confirmation.html";
     }
 }

@@ -1,6 +1,7 @@
 package at.happydog.test.controller;
 
 import at.happydog.test.enity.AppUser;
+import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.enity.Location;
 import at.happydog.test.enity.Training;
 import at.happydog.test.service.AppUserService;
@@ -44,20 +45,22 @@ public class ProfileController {
 
     @GetMapping
     public ModelAndView userProfileView(){
-        //Mapped die View auf profile.html
-        ModelAndView mav = new ModelAndView("profile.html");
 
-        //Holt den Context (eingeloggten User) aus dem SecurityContextHolder
+        ModelAndView owner = new ModelAndView("tprofile/owner");
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        //Erstellt einen temporären AppUser für den eingeloggten User
         AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
 
-        //Added den AppUser zur Model View um in durch die Template Engine (Thymleaf) aufzurufen
-        mav.addObject("appuser", appUser);
-        mav.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id()));
+        if(appUser.getRole() == AppUserRoles.DOG_TRAINER){
+            ModelAndView trainer = new ModelAndView("tprofile/trainer");
+            trainer.addObject("appuser", appUser);
+            trainer.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id()));
+            return trainer;
+        }
 
-        return mav;
+        owner.addObject("appuser", appUser);
+        return owner;
     }
 
     @GetMapping("/image/{id}")
