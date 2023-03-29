@@ -25,9 +25,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 /**
- Service Klasse für die gesamte Business Logic des Users
+ AppUserService class
 
- Implementiert UserDetailsService - wichtig für Spring Security und den SecurityContextHolder
+ Implements UserDetailsService for SecurityContextHolder (Sring Security)
+
+ This class handles business logic for the AppUser and receives data through the repositories
  **/
 
 @Service
@@ -47,8 +49,8 @@ public class AppUserService implements UserDetailsService {
 
 
 
-    //Kommt von UserDetailsService - bei jeder Authentication wird über diese Methode abgefragt ob der user
-    //exisitert
+
+    //Implemented with UserDetailsService. Every user request will be checked with this.
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return appUserRepository.findByUsername(username)
@@ -56,7 +58,7 @@ public class AppUserService implements UserDetailsService {
     }
 
 
-    //Findet AppUser in Datenbank by id
+    //Finds AppUser by id in the database
     public AppUser findAppUserById(Long id){
         if(appUserRepository.findById(id).isPresent())
             return appUserRepository.findById(id).get();
@@ -64,76 +66,70 @@ public class AppUserService implements UserDetailsService {
         return null;
     }
 
-    //Spicy Shit - registriert den Benutzer mit Token
+    //Registers the user and sends EmailConfirmationToken
     public String singUpUser(AppUser appUser) {
        boolean userEmailExists = appUserRepository.findByEmail(appUser.getEmail())
                 .isPresent();
         boolean userUsernameExists = appUserRepository.findByUsername(appUser.getUsername())
                 .isPresent();
 
-        //Random Token für Email-Confirmation
+
         String token = UUID.randomUUID().toString();
 
         if(userEmailExists || userUsernameExists) {
 
-            //Get existing user from database and check if it is enabled
             AppUser existingUser = appUserRepository.findByEmail(appUser.getEmail()).get();
 
             if(existingUser.isEnabled()){
-
-                //TODO Endpoint - User Registration
-                //throw new IllegalStateException("Username or Email already taken");
-                return "Username or Email already taken!";
+                throw new IllegalStateException("Username or Email already taken");
             }
 
 
-            //Implementation um, falls der Benutzer einen neuen Token anfordert, der alte Token gelöscht wird
+            //Deletes old token if a new token is requested
             confirmationTokenService.deleteConfirmationTokenByAppUserId(existingUser.getAppuser_id());
 
             AppUser existingAppUser = appUserRepository.findByUsername(appUser.getUsername()).get();
 
-            //Confirmation Token ist 15 Minuten viable
-            ConfirmationToken confirmationToken = new ConfirmationToken(
-                    token,
-                    LocalDateTime.now(),
-                    LocalDateTime.now().plusMinutes(15),
-                    existingAppUser
-            );
-            confirmationTokenService.saveConfirmationToken(confirmationToken);
+            //Sets new confirmation token for existing AppUser
+            setConfirmationToken(token, existingAppUser);
 
-
-            //Link für den MailSender wenn der Benutzer den Account aktiviert
-            //Alle diese Links werden noch auf Konstante ausgelagert
-            String link = SetupEmailConfirmation.EMAIL_CONFIRMATION_LINK + token;
-            emailSender.send(
-                    appUser.getEmail(),
-                    buildEmail(appUser.getUsername(), link));
-
-
-            //TODO Endpoint - User Registration
             return "resending confirmation Email with new token: " + token;
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(appUser.getPassword());
         appUser.setPassword(encodedPassword);
 
-        //Unschöne Abfrage welche Role der Benutzer hat und setzt damit dann die Role
+        //Sets role for AppUser
+        setAppUserRole(appUser);
+
+        if(!SetupEmailConfirmation.EMAIL_CONFIRMATION_REQUIRED){
+            appUser.setEnabled(true);
+        }
+
+        //Saves AppUser in database
+        appUserRepository.save(appUser);
+
+        //Sets confirmation token for AppUser
+        setConfirmationToken(token, appUser);
+
+        return token;
+    }
+
+    //Enables AppUser
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
+    }
+
+    public void setAppUserRole(AppUser appUser){
         if(appUser.getRole().toString() == "DOG_TRAINER"){
             appUser.setRole(AppUserRoles.DOG_TRAINER);
         }
         if(appUser.getRole().toString() == "DOG_OWNER"){
             appUser.setRole(AppUserRoles.DOG_OWNER);
         }
+    }
 
-        if(!SetupEmailConfirmation.EMAIL_CONFIRMATION_REQUIRED){
-            appUser.setEnabled(true);
-        }
-        //Speichert User in DB
-        appUserRepository.save(appUser);
-
-        //Der Grund wieso der Code zweimal exisitert ist einmal falls der Benutzer den Token nochmal anfordert
-        //und einmal falls der Benutzer den Token zum ersten mal anfordert
-        //Hab noch keine Möglichkeit gefunden das schöner zu machen
+    public void setConfirmationToken(String token, AppUser appUser){
 
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
@@ -147,18 +143,7 @@ public class AppUserService implements UserDetailsService {
         emailSender.send(
                 appUser.getEmail(),
                 buildEmail(appUser.getUsername(), link));
-
-
-        //TODO Endpoint - User Registration
-        //Instead of token redirect to confirmation age with req param username (to find in Database
-        return token;
     }
-
-    //Bestätigt User Account
-    public int enableAppUser(String email) {
-        return appUserRepository.enableAppUser(email);
-    }
-
 
     @Transactional
     public AppUser addAppUserImage(AppUser appUser, MultipartFile multipartFile) throws IOException {
@@ -171,8 +156,6 @@ public class AppUserService implements UserDetailsService {
 
         appUserImage = appUserImageRepository.save(appUserImage);
         appUser.setAppUserImage(appUserImage);
-
-
 
         return appUserRepository.save(appUser);
     }
@@ -207,7 +190,7 @@ public class AppUserService implements UserDetailsService {
     }
 
 
-    //Die Email die gesendet wird
+    //Builds the email that gets sent for registration
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +

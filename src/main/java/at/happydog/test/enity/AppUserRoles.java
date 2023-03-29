@@ -2,7 +2,9 @@ package at.happydog.test.enity;
 
 
 /**
- Benutzer Rolen - wichtig für granted Authorities in Spring Security
+ AppUserRole enum
+
+ Defines roles for the AppUser
  **/
 
 public enum AppUserRoles {

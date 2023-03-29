@@ -13,9 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
-
- AppUser Entity - nicht viel dazu zu sagen
-
+ AppUser entity
  **/
 
 @Entity

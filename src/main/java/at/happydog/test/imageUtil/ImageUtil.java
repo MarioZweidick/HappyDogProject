@@ -4,6 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+/**
+ ImageUtil class
+
+ Compresses and decompresses byte arrays for storage in the database
+ **/
+
 public class ImageUtil {
 
     public static byte[] compressImage(byte[] data) {

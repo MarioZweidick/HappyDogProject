@@ -15,11 +15,11 @@ import org.springframework.security.web.util.matcher.AndRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
- Custom WebSecurityConfig - Die Default Security Config wurde deaktiviert
+ WebSecurityConfig class
 
- Lookup Spring Security Docs für mehr infos
+ Deactivates default WebSecurity config on implementation
 
- !!Please don't change anything without calling me xd!!
+ Handles request to the website via SecurityFilterChains
  **/
 
 @Configuration

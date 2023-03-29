@@ -13,9 +13,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
- Implementiert JavaMailSender (Dependency) und sendet Email mittels Mime Message.
+ EmailService class
 
- Für die Testumgebung empfiehlt sich MailDev (google it)
+ Implements EmailSender interface
+
+ Sends and logs Emails with JavaMailSender and MimeMessage
  **/
 
 @Service

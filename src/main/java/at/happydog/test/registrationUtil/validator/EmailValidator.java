@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import java.util.function.Predicate;
 
 /**
- Email Validator - muss noch implementiert werden
+ EmailValidator class
+
+ Validates correct email addresses with regex function 'test'
  **/
 
 @Service

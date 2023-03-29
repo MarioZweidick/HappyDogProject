@@ -5,7 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 /**
- BCrypt Password Encoder damit wir Passwörter nicht unencrypted in die DB speichern
+ PasswordEncoder class
+
+ Uses BCryptPasswordEncoder to encrypt passwords before storing them into the database
  **/
 
 @Configuration

@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import java.util.function.Predicate;
 
 /**
- Passwort Validator - muss noch implementiert werden
+ PasswordValidator class
 
- z.b. Das Passwort muss 8 Zeichen haben etc.
+ Validates correct password with regex function 'test'
  **/
 
 @Service

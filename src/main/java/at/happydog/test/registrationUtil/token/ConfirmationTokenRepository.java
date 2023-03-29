@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
- Confirmation Token Repo für Datenbank queries
+ ConfirmationTokenRepository
  **/
 
 @Repository

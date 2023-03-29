@@ -1,14 +1,14 @@
 package at.happydog.test.enity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.Date;
+
+/**
+ Training entity
+ **/
 
 @Entity
 @AllArgsConstructor

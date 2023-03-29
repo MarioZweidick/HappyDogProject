@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- Die User Registration Request die im Controller vom Frontend verlangt wird
+ UserRegistrationRequest class
+
+ Is needed for the frontend registration process
  **/
 
 @Getter
