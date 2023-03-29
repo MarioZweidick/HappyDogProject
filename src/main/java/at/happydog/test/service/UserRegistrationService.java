@@ -1,7 +1,6 @@
 package at.happydog.test.service;
 
 import at.happydog.test.enity.AppUser;
-import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.registrationUtil.UserRegistrationRequest;
 import at.happydog.test.registrationUtil.token.ConfirmationToken;
 import at.happydog.test.registrationUtil.token.ConfirmationTokenService;
@@ -13,6 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+
+
+/**
+ UserRegistrationService class
+
+ This class handles business logic for the registration process
+ **/
 
 @Service
 @AllArgsConstructor

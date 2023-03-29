@@ -12,12 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+/**
+ PreloadDatabase class
+
+ This class is preloading AppUsers and Trainings into the database
+**/
 
 @Configuration
 public class PreloadDatabase {
@@ -79,8 +81,6 @@ public class PreloadDatabase {
 
     @Bean
     CommandLineRunner initDatabase(AppUserRepository repository, TrainingRepository trainingRepository) {
-
-
 
         return args -> {
 

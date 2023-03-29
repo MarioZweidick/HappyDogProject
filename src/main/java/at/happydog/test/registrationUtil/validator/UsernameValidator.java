@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import java.util.function.Predicate;
 
 /**
- Username Validator - muss noch implementiert werden
+ UsernameValidator class
 
- z.b. mindestens 4 Zeichen und keine Anstößigen namen etc.
+ Validates correct username with regex function 'test'
  **/
 
 @Service

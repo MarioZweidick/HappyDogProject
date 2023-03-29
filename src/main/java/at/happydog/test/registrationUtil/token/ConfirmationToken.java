@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 /**
- Confirmation Token Entity
+ ConfirmationToken entity
  **/
 
 @Getter

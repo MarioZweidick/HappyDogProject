@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
+/**
+ AppUserImage entity
+ **/
+
 @Entity
 @Getter
 @Setter

@@ -7,7 +7,6 @@
 <body>
         <h1>User Profile</h1>
 
-
         <form
                 th:action="@{profile/save-image}"
                 th:object="${appuser}"
@@ -21,7 +20,6 @@
             </div>
             <button type="submit">Add picture</button>
         </form>
-
 
         <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
 
@@ -41,8 +39,6 @@
     <a href="/user/logout">Logout</a>
     <a href="/">Home</a>
     <br>
-
-
 
     <form
             th:action="@{profile/save-training}"
@@ -160,9 +156,5 @@
             }
         }
     </script>
-
-        <br>
-        <a href="/user/logout">Logout</a>
-
     </body>
 </html>

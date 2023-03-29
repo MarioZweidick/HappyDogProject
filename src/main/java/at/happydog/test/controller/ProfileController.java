@@ -22,12 +22,11 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
+ ProfileController class
 
- Profile Controller mapped Requests an /user/profile zur richtigen HTML Page
+ This is the controller for the profile page.
 
- Kann in zukunft in den Main Controller eingefügt werden. Arbeitet mit MVC - Model View Controller
- damit den eingeloggte (Authentifizierte) Benutzer an das Frontend übergeben werden kann
-
+ This class is mapping: '/user/profile' , '/user/profile/image/{id}' , '/user/profile/save-image' , '/user/profile/save-training'
  **/
 
 @org.springframework.stereotype.Controller

@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
 
+/**
+ Location entity
+ **/
+
 @Entity
 @AllArgsConstructor
 @Getter

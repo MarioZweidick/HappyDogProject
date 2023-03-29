@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ AppUserImageRepository
+ **/
+
 @Repository
 public interface AppUserImageRepository extends JpaRepository<AppUserImage, Long> {
 

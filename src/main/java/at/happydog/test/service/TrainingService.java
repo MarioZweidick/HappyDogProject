@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ TrainingService class
+
+ This class handles business logic for the Trainings and receives data through the repositories
+ **/
+
 @Service
 public class TrainingService {
 
