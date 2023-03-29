@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 /**
  Location entity
  **/
@@ -33,16 +35,29 @@ public class Location {
     @Column(name = "location_id")
     private Long location_id;
 
-    private String name;
-    private String N; //Latitude
-    private String E; //Longitude
+    private String street;
+    private String streetNumber;
+    private String city;
+    private String plz;
+
+    private BigDecimal N; //Latitude
+    private BigDecimal E; //Longitude
 
     public Location() {
 
     }
 
-    public Location(String name, String n, String e) {
-        this.name = name;
+    public Location(String city, BigDecimal n, BigDecimal e) {
+        this.street = city;
+        N = n;
+        E = e;
+    }
+
+    public Location(String street, String streetNumber, String city, String plz, BigDecimal n, BigDecimal e) {
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.plz = plz;
         N = n;
         E = e;
     }

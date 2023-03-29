@@ -28,7 +28,7 @@
             <th scope="col">Beschreibung</th>
             <th scope="col">Preis</th>
             <th scope="col">Datum</th>
-            <th scope="col">Standort</th>
+            <th scope="col">Link</th>
         </tr>
         </thead>
         <tbody>
@@ -38,7 +38,9 @@
             <td th:text="${training.description}"></td>
             <td th:text="${training.price + '€'}"></td>
             <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
-            <td th:text="${training.location.getName().toString()}"></td>
+            <td>
+                <a th:href="@{/training/view(training_id=${training.training_id})}">Show</a>
+            </td>
         </tr>
         </tbody>
     </table>

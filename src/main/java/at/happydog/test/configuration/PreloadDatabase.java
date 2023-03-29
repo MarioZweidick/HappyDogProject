@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.Date;
 
@@ -59,7 +61,7 @@ public class PreloadDatabase {
             new Date(2023 - 1900,04, 14),
             LocalTime.of(10, 15, 0),
             LocalTime.of(11,0,0),
-            new Location("Graz", "47.0707", "15.4395"));
+            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)));
 
     private Training training2 = new Training("Hundetraining bonse",
             "Trainieren sie ihren Hund, gut!",
@@ -67,7 +69,7 @@ public class PreloadDatabase {
             new Date(2023 - 1900,4, 3),
             LocalTime.of(10, 15, 0),
             LocalTime.of(11,0,0),
-            new Location("Graz", "47.0707", "15.4395"));
+            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)));
 
     private Training training3 = new Training("Hundetraining ultra",
             "Trainieren sie vielleicht ihren Hund!",
@@ -75,7 +77,7 @@ public class PreloadDatabase {
             new Date(2023 - 1900,6,24),
             LocalTime.of(12, 30, 0),
             LocalTime.of(13,30,0),
-            new Location("Graz", "47.0707", "15.4395"));
+            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)));
 
 
 

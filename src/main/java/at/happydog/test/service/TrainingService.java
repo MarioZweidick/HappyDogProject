@@ -28,6 +28,12 @@ public class TrainingService {
         this.appUserRepository = appUserRepository;
     }
 
+    public Optional<Training> getTrainingById(Long id){
+        Optional<Training> training = trainingRepository.findById(id);
+
+        return training;
+    }
+
 
     public List<Training> getTrainingList(){return trainingRepository.findAll();}
 

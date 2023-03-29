@@ -1,5 +1,6 @@
 package at.happydog.test.controller;
 
+import at.happydog.test.api.google.geocoding.Geocoding;
 import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.enity.Location;
@@ -18,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -93,16 +96,16 @@ public class ProfileController {
                                @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
                                @RequestParam("beginntime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalTime beginn,
                                @RequestParam("endtime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalTime end,
-                               @RequestParam(value = "latitude", required = false) String latitude,
-                               @RequestParam(value = "longitude", required = false) String longitude,
-                               @RequestParam(value = "location-name", required = false) String locationName) throws IOException {
+                               @RequestParam(value = "street") String street,
+                               @RequestParam(value = "streetNumber") String streetNumber,
+                               @RequestParam(value = "city") String city,
+                               @RequestParam(value = "plz") String plz) throws IOException {
 
 
+        List<BigDecimal> cords= new Geocoding().geocode(street +","+streetNumber+","+plz+","+city);
 
-        Location newLocation = new Location(locationName, latitude, longitude);
-
+        Location newLocation = new Location(street, streetNumber, city, plz, cords.get(0), cords.get(1));
         Training newTraining = new Training(title, description, price, date, beginn, end, newLocation);
-
 
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
