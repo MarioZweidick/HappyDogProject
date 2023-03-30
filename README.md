@@ -26,29 +26,90 @@
 > <a href="https://github.com/horoscloud/HappyDogProject/wiki/Application-Endpoints">Application endpoints</a>
 
 
-## Folder Structure (12.03.)
+## Folder Structure (30.03.)
 ```
-📦src
- ┣ 📂main
- ┃ ┣ 📂java
- ┃ ┃ ┗ 📂at
- ┃ ┃ ┃ ┗ 📂happydog
- ┃ ┃ ┃ ┃ ┗ 📂test
- ┃ ┃ ┃ ┃ ┃ ┣ 📂controller ----------------- Controllers
- ┃ ┃ ┃ ┃ ┃ ┣ 📂email ---------------------- Email
- ┃ ┃ ┃ ┃ ┃ ┣ 📂enity ---------------------- Entitys
- ┃ ┃ ┃ ┃ ┃ ┣ 📂registrationUtil ----------- Registration and Token Entity + Validator
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂token                
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂validator
- ┃ ┃ ┃ ┃ ┃ ┣ 📂repository ----------------- Repositories for DB queries
- ┃ ┃ ┃ ┃ ┃ ┣ 📂security ------------------- Security + SecurityConfig
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┣ 📂service -------------------- Services
- ┃ ┗ 📂resources -------------------------- Resources
- ┃ ┃ ┣ 📂static
- ┃ ┃ ┣ 📂templates ------------------------ Templates - HTML Files
- ┗ 📂test --------------------------------- Tests
- ┃ ┗ 📂java
- ┃ ┃ ┗ 📂at
- ┃ ┃ ┃ ┗ 📂happydog
- ┃ ┃ ┃ ┃ ┗ 📂test
+main                                                   
+├─ java                                                
+│  └─ at                                               
+│     └─ happydog                                      
+│        └─ test                                       
+│           ├─ api                                     
+│           │  └─ google                               
+│           │     └─ geocoding                         
+│           │        ├─ ApiConstant.java               
+│           │        ├─ Geocoding.java                 
+│           │        └─ GeocodingInterface.java        
+│           ├─ configuration                           
+│           │  ├─ PreloadDatabase.java                 
+│           │  └─ SetupEmailConfirmation.java          
+│           ├─ controller                              
+│           │  ├─ FrontController.java                 
+│           │  ├─ ProfileController.java               
+│           │  ├─ TrainingController.java              
+│           │  ├─ UserController.java                  
+│           │  └─ UserRESTController.java              
+│           ├─ email                                   
+│           │  ├─ EmailConstant.java                   
+│           │  ├─ EmailSender.java                     
+│           │  └─ EmailService.java                    
+│           ├─ enity                                   
+│           │  ├─ AppUser.java                         
+│           │  ├─ AppUserImage.java                    
+│           │  ├─ AppUserRoles.java                    
+│           │  ├─ Location.java                        
+│           │  └─ Training.java                        
+│           ├─ imageUtil                               
+│           │  └─ ImageUtil.java                       
+│           ├─ jsonUtil                                
+│           │  └─ Parser.java                          
+│           ├─ registrationUtil                        
+│           │  ├─ token                                
+│           │  │  ├─ ConfirmationToken.java            
+│           │  │  ├─ ConfirmationTokenRepository.java  
+│           │  │  └─ ConfirmationTokenService.java     
+│           │  ├─ validator                            
+│           │  │  ├─ EmailValidator.java               
+│           │  │  ├─ PasswordValidator.java            
+│           │  │  └─ UsernameValidator.java            
+│           │  └─ UserRegistrationRequest.java         
+│           ├─ repository                              
+│           │  ├─ AppUserImageRepository.java          
+│           │  ├─ AppUserRepository.java               
+│           │  └─ TrainingRepository.java              
+│           ├─ security                                
+│           │  ├─ config                               
+│           │  │  └─ WebSecurityConfig.java            
+│           │  └─ PasswordEncoder.java                 
+│           ├─ service                                 
+│           │  ├─ AppUserService.java                  
+│           │  ├─ TrainingService.java                 
+│           │  └─ UserRegistrationService.java         
+│           └─ TestApplication.java                    
+└─ resources                                           
+   ├─ static                                           
+   │  └─ style                                         
+   │     ├─ entry                                      
+   │     │  ├─ email-confirmation.css                  
+   │     │  ├─ login.css                               
+   │     │  ├─ logout.css                              
+   │     │  └─ registration.css                        
+   │     ├─ profiles                                   
+   │     │  ├─ owner.css                               
+   │     │  ├─ profile.css                             
+   │     │  └─ trainer.css                             
+   │     ├─ main.css                                   
+   │     ├─ reset-config.css                           
+   │     └─ training.css                               
+   ├─ templates                                        
+   │  ├─ tentry                                        
+   │  │  ├─ email-confirmation.html                    
+   │  │  ├─ login.html                                 
+   │  │  ├─ logout.html                                
+   │  │  └─ registration.html                          
+   │  ├─ terror                                        
+   │  ├─ tprofile                                      
+   │  │  ├─ owner.html                                 
+   │  │  └─ trainer.html                               
+   │  ├─ index.html                                    
+   │  └─ training.html                                 
+   └─ application.properties                           
