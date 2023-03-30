@@ -13,27 +13,6 @@ import java.util.List;
 
 public class Parser {
 
-    public List<BigDecimal> parseGeolocationCordData(String json){
-
-        List<BigDecimal> list = new ArrayList<>();
-
-        JSONObject jsonObject = new JSONObject(json);
-
-        JSONObject results = jsonObject.getJSONArray("results").getJSONObject(0);
-
-        // get the location object
-        JSONObject location = results.getJSONObject("geometry").getJSONObject("location");
-
-        // get the lat and lng values as Strings
-        BigDecimal lat = location.getBigDecimal("lat");
-        BigDecimal lng = location.getBigDecimal("lng");
-
-        list.add(lat);
-        list.add(lng);
-
-
-        return list;
-    }
 
     public List<String> parseGeolocationAddressData(String json){
 
@@ -69,12 +48,26 @@ public class Parser {
                 }
             }
 
-            list.add(street);
-            list.add(streetNumber);
-            list.add(city);
-            list.add(postalCode);
-            list.add(country);
+            list.add(street);           //0
+            list.add(streetNumber);     //1
+            list.add(city);             //2
+            list.add(postalCode);       //3
         }
+
+
+        JSONObject resultsZero = jsonObject.getJSONArray("results").getJSONObject(0);
+
+        // get the location object
+        JSONObject location = resultsZero.getJSONObject("geometry").getJSONObject("location");
+
+        // get the lat and lng values as Strings
+        BigDecimal lat = location.getBigDecimal("lat");
+        BigDecimal lng = location.getBigDecimal("lng");
+
+        list.add(lat.toString());   //4
+        list.add(lng.toString());   //5
+        System.out.println(list.toString() + "___________________________________________________________________________________");
+        System.out.println(list.size() + "SIZE___________________________________________________________________________________");
         return list;
     }
 }
