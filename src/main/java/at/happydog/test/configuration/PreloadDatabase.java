@@ -79,6 +79,22 @@ public class PreloadDatabase {
             LocalTime.of(13,30,0),
             new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)));
 
+    private Training training4 = new Training("Hundetraining Wien",
+            "Trainieren sie noch morgen, meistens Hund!",
+            49.99,
+            new Date(2023 - 1900,6,24),
+            LocalTime.of(12, 30, 0),
+            LocalTime.of(13,30,0),
+            new Location("Wien", new BigDecimal(48.218230), new BigDecimal(16.403300)));
+
+    private Training training5 = new Training("Hundetraining Ficker",
+            "Trainieren sie in Wien, aber nur wenn sie möchten.",
+            29.95,
+            new Date(2023 - 1900,6,24),
+            LocalTime.of(12, 30, 0),
+            LocalTime.of(13,30,0),
+            new Location("Wien", new BigDecimal(48.2658534), new BigDecimal(16.4530547)));
+
 
 
     @Bean
@@ -90,6 +106,8 @@ public class PreloadDatabase {
             log.info("Preloading " + trainingRepository.save(training1));
             log.info("Preloading " + trainingRepository.save(training2));
             log.info("Preloading " + trainingRepository.save(training3));
+            log.info("Preloading " + trainingRepository.save(training4));
+            log.info("Preloading " + trainingRepository.save(training5));
 
 
 

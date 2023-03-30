@@ -3,10 +3,12 @@ package at.happydog.test.service;
 import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.Training;
 import at.happydog.test.repository.AppUserRepository;
+import at.happydog.test.repository.LocationRepository;
 import at.happydog.test.repository.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,10 +24,13 @@ public class TrainingService {
     private final TrainingRepository trainingRepository;
     private final AppUserRepository appUserRepository;
 
+    private final LocationRepository locationRepository;
+
     @Autowired
-    public TrainingService(TrainingRepository trainingRepository, AppUserRepository appUserRepository) {
+    public TrainingService(TrainingRepository trainingRepository, AppUserRepository appUserRepository, LocationRepository locationRepository) {
         this.trainingRepository = trainingRepository;
         this.appUserRepository = appUserRepository;
+        this.locationRepository = locationRepository;
     }
 
     public Optional<Training> getTrainingById(Long id){
@@ -44,6 +49,20 @@ public class TrainingService {
             return appUser.get().getTrainings();
         }
         return null;
+    }
+
+    public List<Training> getTrainingListByLocation(String location){
+
+        List<Training> trainings = trainingRepository.findAll();
+        List<Training> trainingsByLocation = new ArrayList<>();
+
+        for (Training t:trainings) {
+            if( t.getLocation().getCity().toLowerCase() == location){
+                trainingsByLocation.add(t);
+            }
+        }
+
+        return trainingsByLocation;
     }
 
 

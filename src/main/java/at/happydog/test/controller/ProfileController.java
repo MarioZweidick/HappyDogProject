@@ -6,6 +6,7 @@ import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.enity.Location;
 import at.happydog.test.enity.Training;
 import at.happydog.test.service.AppUserService;
+import at.happydog.test.service.LocationService;
 import at.happydog.test.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,10 +41,13 @@ public class ProfileController {
     private final AppUserService appUserService;
     private final TrainingService trainingService;
 
+    private final LocationService locationService;
+
     @Autowired
-    public ProfileController(AppUserService appUserService, TrainingService trainingService) {
+    public ProfileController(AppUserService appUserService, TrainingService trainingService, LocationService locationService) {
         this.appUserService = appUserService;
         this.trainingService = trainingService;
+        this.locationService = locationService;
     }
 
     @GetMapping
@@ -102,9 +106,19 @@ public class ProfileController {
                                @RequestParam(value = "plz") String plz) throws IOException {
 
 
-        List<BigDecimal> cords= new Geocoding().geocode(street +","+streetNumber+","+plz+","+city);
+        String geoLocation = (street +","+streetNumber+","+plz+","+city).replace("." ,"-").toLowerCase();
 
-        Location newLocation = new Location(street, streetNumber, city, plz, cords.get(0), cords.get(1));
+        List<String> cords= new Geocoding().geocode(geoLocation);
+
+        BigDecimal N = new BigDecimal(cords.get(4));
+        BigDecimal E = new BigDecimal(cords.get(5));
+
+        Location newLocation = new Location(street, streetNumber, city, plz, N, E);
+
+        if(locationService.findLocation(N,E)){
+            locationService.save(newLocation);
+        }
+
         Training newTraining = new Training(title, description, price, date, beginn, end, newLocation);
 
 

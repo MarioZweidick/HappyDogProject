@@ -22,23 +22,11 @@
     <a href="/user/profile">Profile</a>
     <br>
 
-    <form
-            id="search-form"
-            th:action="@{/search}"
-            method="POST"
-                        >
+    <br>
+    <a href="/">Home</a>
+    <br>
 
-        <input type="text" name="location" placeholder="Ort oder Adresse...">
-        <button type="submit">Search</button>
     </form>
-
-    <label for="range">Suchradius:</label>
-    <select id="range" name="range" form="search-form">
-        <option value=10>10 Km</option>
-        <option value=25>25 Km</option>
-        <option value=50>50 Km</option>
-        <option value=100>100 Km</option>
-    </select>
 
     <table>
         <thead>
