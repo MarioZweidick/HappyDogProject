@@ -1,40 +1,31 @@
 package at.happydog.test.service;
 
+import at.happydog.test.api.google.geocoding.Geocoding;
 import at.happydog.test.enity.Location;
 import at.happydog.test.enity.Training;
 import at.happydog.test.repository.LocationRepository;
 import at.happydog.test.repository.TrainingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class LocationService {
 
     private final LocationRepository locationRepository;
     private final TrainingRepository trainingRepository;
+    private final Geocoding geocoding;
 
 
-
-    @Autowired
-    public LocationService(LocationRepository locationRepository, TrainingRepository trainingRepository) {
-        this.locationRepository = locationRepository;
-        this.trainingRepository = trainingRepository;
-    }
 
     public Location save(Location location){
         return locationRepository.save(location);
     }
 
-    public Location getLocationById(Long id){
-        Optional<Location> location = locationRepository.findById(id);
-        return location.orElse(null);
-    }
 
     public Boolean findLocation(BigDecimal lat, BigDecimal lng){
         List<Location> locations = locationRepository.findAll();
@@ -45,6 +36,48 @@ public class LocationService {
             }
         }
         return false;
+    }
+
+
+    public String createRedirectString(String location, Integer range) {
+        String newLoc = formatLocation(location);
+        Location existingLocation = inputMatcher(location);
+
+        if (existingLocation == null) {
+            List<String> geolocation = geocoding.geocode(newLoc);
+            Location newLocation = createLocationFromGeolocation(geolocation);
+            save(newLocation);
+
+            if (geolocation.get(2).isEmpty()) {
+                return "redirect:/search?error=unspecific-location";
+            }
+
+            return buildRedirectString(geolocation.get(4), geolocation.get(5), range);
+        } else {
+            return buildRedirectString(existingLocation.getN().toString(), existingLocation.getE().toString(), range);
+        }
+    }
+
+    public String formatLocation(String location) {
+        String formatted = location.replaceAll("[^\\p{L}\\p{N}]+", "-");
+        formatted = formatted.replaceAll("-{2,}", "-");
+        return formatted;
+    }
+
+
+    private Location createLocationFromGeolocation(List<String> geolocation) {
+        return new Location(
+                geolocation.get(0),
+                geolocation.get(1),
+                geolocation.get(2),
+                geolocation.get(3),
+                new BigDecimal(geolocation.get(4)),
+                new BigDecimal(geolocation.get(5))
+        );
+    }
+
+    private String buildRedirectString(String lat, String lng, Integer range) {
+        return "redirect:/search?lat=" + lat + "&lng=" + lng + "&range=" + range;
     }
 
     public Location inputMatcher(String location){
@@ -88,8 +121,9 @@ public class LocationService {
         }
 
         return trainingsInRange;
-
     }
+
+
 
     public BigDecimal getLatRange(BigDecimal N, Double km){
         //Example:

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="../../static/css/reset-config.css">
+  <link rel="stylesheet" href="../../static/css/entry/registration.css">
+
+</head>
+<body>
+
+  <form
+        id="sumbit-form"
+        action='/user/registration/register'
+        method="POST">
+
+    <fieldset>
+      <div id="legend">
+        <legend class="">Register</legend>
+      </div>
+      <div>
+        <!-- Username -->
+        <label>Username</label>
+        <div>
+          <input type="text" id="username" name="username" placeholder="" required>
+        </div>
+      </div>
+
+      <div>
+        <!-- Firstname -->
+        <label for="firstname">Vorname</label>
+        <div>
+          <input type="text" id="firstname" name="firstname" placeholder="" required>
+        </div>
+      </div>
+
+      <div>
+        <!-- Lastname -->
+        <label for="lastname">Nachname</label>
+        <div>
+          <input type="text" id="lastname" name="lastname" placeholder="" required>
+        </div>
+      </div>
+
+      <div>
+        <!-- E-mail -->
+        <label for="email">E-Mail</label>
+        <div>
+          <input type="text" id="email" name="email" placeholder="" required>
+        </div>
+      </div>
+
+      <div>
+        <!-- Password-->
+        <label for="password">Passwort</label>
+        <div>
+          <input type="password" id="password" name="password" placeholder="" required>
+        </div>
+      </div>
+
+      <div>
+        <select id="role" name="role" required>
+          <option selected>Als was möchtest du dich registrieren?</option>
+          <option value="DOG_TRAINER">Hundetrainer</option>
+          <option value="DOG_OWNER">Hundebesitzer</option>
+        </select>
+      </div>
+
+      <div>
+        <!-- Button -->
+        <div>
+          <button id="register-button" type="submit">Register</button>
+        </div>
+      </div>
+    </fieldset>
+</form>
+
+  <div id="email-confirmation" style="display: none">
+    <p id="confirm-email">Bitte Bestätige deine E-Mail Adresse!</p>
+  </div>
+  <br>
+  <a href="/user/login">Already have an account?</a>
+  <br>
+  <a href="/">Home</a>
+  <script>
+    const form = document.querySelector("#sumbit-form");
+    const emailConfirmation = document.getElementById("email-confirmation");
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const data = {};
+      for (const [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+      const jsonData = JSON.stringify(data);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: jsonData,
+        });
+
+        if (response.status === 200) {
+          toggleEmailConfirmation();
+        } else {
+          response.text().then((body) => {
+            alert(body);
+          });
+        }
+      } catch (error) {
+        console.error("Error during fetch:", error);
+      }
+    });
+
+    function toggleEmailConfirmation() {
+      emailConfirmation.style.display = "block";
+    }
+  </script>
+</body>
+</html>

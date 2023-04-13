@@ -4,65 +4,71 @@
     <meta charset="UTF-8">
     <title>HappyDog</title>
 
-   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <link rel="stylesheet" href="../static/style/reset-config.css">
-    <link rel="stylesheet" href="../static/style/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+
 </head>
 <body>
 
-    <h1>HappyDog</h1>
-    <br>
-    <a href="/user/login">Login</a>
-    <br>
-    <a href="/user/registration">Registration</a>
-    <br>
-    <a href="/user/profile">Profile</a>
-    <br>
+    
+    <header>
+        <h1 class="title">HappyDog</h1>
 
-    <form
-            id="search-form"
-            th:action="@{/search}"
-            method="POST"
-                        >
+        <div class="nav-container">
+            <ul class="nav">
+                <li><a href="/user/login"><i class="fa fa-sign-in"></i></a></li>
+                <li><a href="/user/registration"><i class="fa fa-user"></i></a></li>
+            </ul>
+        </div>
+    </header>
 
-        <input type="text" name="location" placeholder="Ort oder Adresse...">
-        <button type="submit">Search</button>
-    </form>
+    
+    <div class="wrapper">
+        <div class="search-container">
 
-    <label for="range">Suchradius:</label>
-    <select id="range" name="range" form="search-form">
-        <option value=10>10 Km</option>
-        <option value=25>25 Km</option>
-        <option value=50>50 Km</option>
-        <option value=100>100 Km</option>
-    </select>
+            <h2 class="search-title">Finde das perfekte Hundetraining</h2>
+        
+            <div class="search-grid-container">   
+                <div class="grid-item-1">
 
-    <table>
-        <thead>
-        <tr>
-            <th scope="col">Training</th>
-            <th scope="col">Beschreibung</th>
-            <th scope="col">Preis</th>
-            <th scope="col">Datum</th>
-            <th scope="col">Link</th>
-        </tr>
-        </thead>
-        <tbody>
+                    <form
+                        id="search-form"
+                        th:action="@{/search}"
+                        method="POST"
+                                    >
+        
+                    <input type="text" name="location" placeholder="Ort oder Adresse...">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
 
-        <tr th:each="training: ${trainings}">
-            <th th:text="${training.titel}"></th>
-            <td th:text="${training.description}"></td>
-            <td th:text="${training.price + '€'}"></td>
-            <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
-            <td>
-                <a th:href="@{/training/view(training_id=${training.training_id})}">Show</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                </div>
+                <div class="grid-item-2">
+                    <div class="search-range">
+                        <select class="search-select" id="range" name="range" form="search-form">
+                            <option value=10>10 Km</option>
+                            <option value=25>25 Km</option>
+                            <option value=50>50 Km</option>
+                            <option value=100>100 Km</option>
+                        </select>
+                    </div>
+
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-links">
+
+            <a href="">Cookie Policy</a>
+            <a href="">HappyDog</a>
+            <a href="">Datenschutzerklärung</a>
+
+        </div>
+       
+    </footer>
 
 
 </body>

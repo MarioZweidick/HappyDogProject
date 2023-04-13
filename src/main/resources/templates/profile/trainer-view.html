@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="../../static/css/reset-config.css">
+    <link rel="stylesheet" href="../../static/css/profiles/profile.css">
+    <link rel="stylesheet" href="../../static/css/profiles/trainer.css">
+</head>
+<body>
+
+        <h1>Trainer Profile</h1>
+
+
+        <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+
+        <label>Username: </label>
+        <p th:text="${appuser.username}"></p>
+
+        <label>Vorname: </label>
+        <p th:text="${appuser.firstname}"></p>
+
+        <label>Nachname: </label>
+        <p th:text="${appuser.lastname}"></p>
+
+        <label>Email: </label>
+        <p th:text="${appuser.email}"></p>
+
+        <br>
+        <label>Durchschnittliche Bewertungen: </label>
+        <p th:text="${avgrating}"></p>
+        <br>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Training</th>
+            <th scope="col">Beschreibung</th>
+            <th scope="col">Preis</th>
+            <th scope="col">Datum</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="training: ${appuser.trainings}">
+            <th th:text="${training.titel}"></th>
+            <td th:text="${training.description}"></td>
+            <td th:text="${training.price + '€'}"></td>
+            <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
+            <td>
+                <a th:href="@{/training/view(training_id=${training.training_id})}">Show</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+        <br>
+        <a href="/">Home</a>
+
+
+        <a th:href="@{/rating/view(trainer_id=${appuser.appuser_id})}">Bewertungen</a>
+
+
+
+
+    </body>
+</html>

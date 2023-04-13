@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <link rel="stylesheet" href="../../static/css/reset-config.css">
+  <link rel="stylesheet" href="../../static/css/profiles/profile.css">
+  <link rel="stylesheet" href="../../static/css/profiles/trainer.css">
+</head>
+<body>
+
+<h1>Bewertungen</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th scope="col">Bewertung</th>
+    <th scope="col">Kommentar</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="rating: ${appuser.ratings}">
+    <th th:text="${rating.rating}"></th>
+    <td th:text="${rating.comment}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<br>
+<a href="/">Home</a>
+<a th:href="@{/trainer/view(trainer_id=${appuser.appuser_id})}">Zurück</a>
+
+
+
+
+</body>
+</html>

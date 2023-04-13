@@ -1,5 +1,6 @@
 package at.happydog.test.enity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
@@ -43,6 +44,8 @@ public class AppUser implements UserDetails {
     private String firstname;
     private String lastname;
     private String email;
+
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -58,7 +61,12 @@ public class AppUser implements UserDetails {
     @JoinColumn(name = "fk_training_id")
     private List<Training> trainings = new ArrayList<>();
 
-    //OnetoMany Datenbank entry - Ein User kann mehrere Locations haben
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_trainer_id")
+    private List<AppUserRating> ratings = new ArrayList<>();
+
+
+    //OnetoOne Datenbank entry - Ein User kann eine Location
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_location_id")
     private Location location;
@@ -98,6 +106,18 @@ public class AppUser implements UserDetails {
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+    }
+
+    public AppUser(String username, String firstname, String lastname, String email, String password, AppUserRoles role, List<AppUserRating> ratings, Location location, Boolean enabled) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.ratings = ratings;
+        this.location = location;
+        this.enabled = enabled;
     }
 
     public boolean addTraining(Training training){
