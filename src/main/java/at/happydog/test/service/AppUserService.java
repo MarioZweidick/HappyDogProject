@@ -85,8 +85,7 @@ public class AppUserService implements UserDetailsService {
             AppUser existingUser = appUserRepository.findByEmail(appUser.getEmail()).get();
 
             if(existingUser.isEnabled()){
-                System.out.println("___________________________________________________________________________________________________________WIRD GEWORFEN____________________________________________");
-                throw new AppUserException("Username or Email already taken");
+                   throw new AppUserException("Username or Email already taken");
             }
 
 
@@ -169,6 +168,7 @@ public class AppUserService implements UserDetailsService {
 
     public AppUser addNewTraining(AppUser appUser, Training training){
 
+        training.addAppUser(appUser);
         trainingRepository.save(training);
         appUser.addTraining(training);
 

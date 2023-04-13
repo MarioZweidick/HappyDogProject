@@ -1,9 +1,7 @@
 package at.happydog.test.service;
 
 import at.happydog.test.api.google.geocoding.Geocoding;
-import at.happydog.test.enity.AppUser;
-import at.happydog.test.enity.Location;
-import at.happydog.test.enity.Training;
+import at.happydog.test.enity.*;
 import at.happydog.test.repository.AppUserRepository;
 import at.happydog.test.repository.LocationRepository;
 import at.happydog.test.repository.TrainingRepository;
@@ -43,14 +41,44 @@ public class TrainingService {
         return training;
     }
 
-    public List<Training> getTrainingListForAppUser(Long id){
+    public List<Training> getTrainingListForAppUser(Long id, Boolean visible){
         Optional<AppUser> appUser = Optional.ofNullable(appUserService.findAppUserById(id));
 
+        System.out.println("---------------------------------------------------------SIZE OF APPUSER TRAININGS: " + appUser.get().getTrainings().size() + "---------------------------------------------");
+
+        List<Training> trainingList = new ArrayList<>();
+
+
         if(appUser.isPresent() && !appUser.get().getTrainings().isEmpty()){
-            return appUser.get().getTrainings();
+
+            if(appUser.get().getRole() == AppUserRoles.DOG_TRAINER){
+                return appUser.get().getTrainings();
+            }
+
+            if(appUser.get().getRole() == AppUserRoles.DOG_OWNER && !visible){
+                for (Training tr : appUser.get().getTrainings()) {
+                    if (!tr.getVisible()) {
+                        trainingList.add(tr);
+                    }
+                }
+                return trainingList;
+            }
+
+            if(visible){
+                for (Training tr:appUser.get().getTrainings()) {
+                    if(tr.getVisible()){
+                        trainingList.add(tr);
+                    }
+                }
+                return trainingList;
+            }
+
         }
         return null;
     }
+
+
+
 
     public String saveTraining(String title, String description, Double price, Date date, LocalTime beginn, LocalTime end, String street, String streetNumber, String city, String plz) throws IOException {
         String geoLocation = (street + "," + streetNumber + "," + plz + "," + city).replace(".", "-").toLowerCase();
@@ -66,7 +94,7 @@ public class TrainingService {
             locationService.save(newLocation);
         }
 
-        Training newTraining = new Training(title, description, price, date, beginn, end, newLocation);
+        Training newTraining = new Training(title, description, price, date, beginn, end, newLocation, true);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Bezahlung</title>
+  <link rel="stylesheet" href="../../static/css/reset-config.css">
+  <link rel="stylesheet" href="../../static/css/entry/email-confirmation.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/payment-form.css">
+
+</head>
+<body>
+
+<h2>Bezahlung (Mock)</h2>
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+      <form th:action="@{/payment-checkout(training_id=${training.training_id})}"
+            method="POST">
+
+        <div class="row">
+          <div class="col-50">
+            <h3>Zahlungsadresse</h3>
+            <label for="fname"><i class="fa fa-user"></i> Vollständiger Name</label>
+            <input type="text" id="fname" name="firstname" th:placeholder="${appuser.getFirstname() + ' ' + appuser.getLastname()}" disabled>
+            <label for="email"><i class="fa fa-envelope"></i> E-Mail</label>
+            <input type="text" id="email" name="email" th:placeholder="${appuser.getEmail()}" disabled>
+            <label for="adr"><i class="fa fa-address-card-o"></i> Adresse</label>
+            <input type="text" id="adr" name="address" th:placeholder="${appuser.getEmail()}" disabled>
+            <label for="city"><i class="fa fa-institution"></i> Stadt</label>
+            <input type="text" id="city" name="city" th:placeholder="${appuser.getEmail()}" disabled>
+
+            <div class="row">
+              <div class="col-50">
+                <label for="zip">PLZ</label>
+                <input type="text" id="zip" name="zip" th:placeholder="${appuser.getEmail()}" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-50">
+            <h3>Zahlung</h3>
+            <label for="fname">Akzeptierte Karten</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Name auf Karte</label>
+            <input type="text" id="cname" name="cardname" placeholder="Max Mustermann" disabled>
+            <label for="ccnum">Kreditkartennummer</label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="xxxxxxxxxxx" disabled>
+            <label for="expmonth">Ablaufmonat</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="Monat" disabled>
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Ablaufjahr</label>
+                <input type="text" id="expyear" name="expyear" placeholder="Jahr" disabled>
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="xxx" disabled>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <label>
+          <input type="checkbox" checked="checked" name="sameadr" disabled> Lieferadresse wie Rechnungsadresse
+        </label>
+        <input type="submit" value="Weiter zur Kasse" class="btn">
+      </form>
+    </div>
+  </div>
+  <div class="col-25">
+    <div class="container">
+      <h4>Training <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+      <p><a href="#">Product 1</a> <span class="price" th:text="${training.getPrice()}">€</span></p>
+      <hr>
+      <p>Gesamt <span class="price" style="color:black"><b th:text="${training.getPrice()}">€</b></span></p>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

@@ -28,11 +28,12 @@ public class ViewController {
         return new ModelAndView("index");
     }
 
-    @GetMapping( "/training/view")
-    public ModelAndView trainingView(@RequestParam Long training_id){
-        ModelAndView mav = new ModelAndView("training");
-        Training training = trainingService.getTrainingById(training_id).get();
-        mav.addObject("training", training);
+
+    @GetMapping( "/rating/view")
+    public ModelAndView ratingView(@RequestParam Long trainer_id){
+        ModelAndView mav = new ModelAndView("profile/rating-view");
+        AppUser appUser = appUserService.findAppUserById(trainer_id);
+        mav.addObject("appuser", appUser);
         return mav;
     }
 
@@ -44,14 +45,16 @@ public class ViewController {
         return mav;
     }
 
-
-    @GetMapping( "/rating/view")
-    public ModelAndView ratingView(@RequestParam Long trainer_id){
-        ModelAndView mav = new ModelAndView("profile/rating-view");
-        AppUser appUser = appUserService.findAppUserById(trainer_id);
-        mav.addObject("appuser", appUser);
+    @GetMapping( "/training/view")
+    public ModelAndView trainingView(@RequestParam Long training_id){
+        ModelAndView mav = new ModelAndView("training");
+        Training training = trainingService.getTrainingById(training_id).get();
+        mav.addObject("training", training);
         return mav;
     }
+
+
+
 
 
 }

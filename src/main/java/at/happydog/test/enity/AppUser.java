@@ -57,8 +57,10 @@ public class AppUser implements UserDetails {
     private AppUserImage appUserImage;
 
     //OnetoMany Datenbank entry - Ein User kann mehrere Trainings haben
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_training_id")
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "appuser_training",
+            joinColumns = @JoinColumn(name = "fk_appuser_id"),
+            inverseJoinColumns = @JoinColumn(name = "fk_training_id"))
     private List<Training> trainings = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
