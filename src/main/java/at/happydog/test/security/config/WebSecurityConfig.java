@@ -52,6 +52,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/trainer/view/**").permitAll()
                         .requestMatchers("/user/registration/**").permitAll()
                         .requestMatchers("/user/**").hasAnyAuthority("DOG_OWNER", "DOG_TRAINER")
+
+                        .requestMatchers("/payment-form**").hasAnyAuthority("DOG_OWNER")
+                        .requestMatchers("/payment-checkout**").hasAnyAuthority("DOG_OWNER")
+                        .requestMatchers("/book-training**").hasAnyAuthority("DOG_OWNER")
                         .anyRequest().authenticated()
                 );
 

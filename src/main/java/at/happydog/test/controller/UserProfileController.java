@@ -47,10 +47,7 @@ public class UserProfileController {
 
     private final AppUserService appUserService;
     private final TrainingService trainingService;
-    private final LocationService locationService;
 
-
-    //Misc
 
     @RequestMapping("/login")
     public String loginPage(){
@@ -85,10 +82,11 @@ public class UserProfileController {
         if(appUser.getRole() == AppUserRoles.DOG_TRAINER){
             ModelAndView trainer = new ModelAndView("profile/trainer");
             trainer.addObject("appuser", appUser);
-            trainer.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id()));
+            trainer.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id(), null));
             return trainer;
         }
         owner.addObject("appuser", appUser);
+        owner.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id(), false));
         return owner;
     }
 

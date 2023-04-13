@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  Training entity
@@ -42,20 +44,24 @@ public class Training {
 
     private LocalTime endTime;
 
+    private Boolean visible;
+    private Boolean isBooked = false;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_location_id")
     private Location location;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_appuser_id", referencedColumnName = "appuser_id")
-    private AppUser appUser;
+    @ManyToMany(mappedBy = "trainings")
+    private List<AppUser> appUsers = new ArrayList<>();
+
+    private Long buyer_id;
 
     public Training() {
 
 
     }
 
-    public Training(String titel, String description, Double price, Date date, LocalTime beginnTime, LocalTime endTime, Location location) {
+    public Training(String titel, String description, Double price, Date date, LocalTime beginnTime, LocalTime endTime, Location location, Boolean visible) {
         this.titel = titel;
         this.description = description;
         this.price = price;
@@ -63,6 +69,7 @@ public class Training {
         this.beginnTime = beginnTime;
         this.endTime = endTime;
         this.location = location;
+        this.visible = visible;
     }
 
     public Training(String titel, String description, Double price) {
@@ -71,5 +78,7 @@ public class Training {
         this.price = price;
     }
 
-
+    public void addAppUser(AppUser appUser) {
+        appUsers.add(appUser);
+    }
 }
