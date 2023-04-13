@@ -1,14 +1,23 @@
 package at.happydog.test.service;
 
+import at.happydog.test.api.google.geocoding.Geocoding;
 import at.happydog.test.enity.AppUser;
+import at.happydog.test.enity.Location;
 import at.happydog.test.enity.Training;
 import at.happydog.test.repository.AppUserRepository;
 import at.happydog.test.repository.LocationRepository;
 import at.happydog.test.repository.TrainingRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,19 +28,14 @@ import java.util.Optional;
  **/
 
 @Service
+@AllArgsConstructor
 public class TrainingService {
 
     private final TrainingRepository trainingRepository;
-    private final AppUserRepository appUserRepository;
+    private final AppUserService appUserService;
+    private final LocationService locationService;
+    private final Geocoding geocoding;
 
-    private final LocationRepository locationRepository;
-
-    @Autowired
-    public TrainingService(TrainingRepository trainingRepository, AppUserRepository appUserRepository, LocationRepository locationRepository) {
-        this.trainingRepository = trainingRepository;
-        this.appUserRepository = appUserRepository;
-        this.locationRepository = locationRepository;
-    }
 
     public Optional<Training> getTrainingById(Long id){
         Optional<Training> training = trainingRepository.findById(id);
@@ -39,11 +43,8 @@ public class TrainingService {
         return training;
     }
 
-
-    public List<Training> getTrainingList(){return trainingRepository.findAll();}
-
     public List<Training> getTrainingListForAppUser(Long id){
-        Optional<AppUser> appUser = appUserRepository.findById(id);
+        Optional<AppUser> appUser = Optional.ofNullable(appUserService.findAppUserById(id));
 
         if(appUser.isPresent() && !appUser.get().getTrainings().isEmpty()){
             return appUser.get().getTrainings();
@@ -51,18 +52,48 @@ public class TrainingService {
         return null;
     }
 
-    public List<Training> getTrainingListByLocation(String location){
+    public String saveTraining(String title, String description, Double price, Date date, LocalTime beginn, LocalTime end, String street, String streetNumber, String city, String plz) throws IOException {
+        String geoLocation = (street + "," + streetNumber + "," + plz + "," + city).replace(".", "-").toLowerCase();
 
-        List<Training> trainings = trainingRepository.findAll();
-        List<Training> trainingsByLocation = new ArrayList<>();
+        List<String> cords = geocoding.geocode(geoLocation);
 
-        for (Training t:trainings) {
-            if( t.getLocation().getCity().toLowerCase() == location){
-                trainingsByLocation.add(t);
-            }
+        BigDecimal N = new BigDecimal(cords.get(4));
+        BigDecimal E = new BigDecimal(cords.get(5));
+
+        Location newLocation = new Location(street, streetNumber, city, plz, N, E);
+
+        if (locationService.findLocation(N, E)) {
+            locationService.save(newLocation);
         }
 
-        return trainingsByLocation;
+        Training newTraining = new Training(title, description, price, date, beginn, end, newLocation);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        appUserService.addNewTraining(appUser, newTraining);
+        return "redirect:/user/profile";
+    }
+
+    public String saveLocation(String street, String streetNumber, String city, String plz) throws IOException {
+        String geoLocation = (street + "," + streetNumber + "," + plz + "," + city).replace(".", "-").toLowerCase();
+
+        List<String> cords = geocoding.geocode(geoLocation);
+
+        BigDecimal N = new BigDecimal(cords.get(4));
+        BigDecimal E = new BigDecimal(cords.get(5));
+
+        Location newLocation = new Location(street, streetNumber, city, plz, N, E);
+
+        if (locationService.findLocation(N, E)) {
+            locationService.save(newLocation);
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        appUserService.addNewLocation(appUser, newLocation);
+        return "redirect:/user/profile";
     }
 
 

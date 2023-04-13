@@ -2,6 +2,7 @@ package at.happydog.test.api.google.geocoding;
 
 
 import at.happydog.test.jsonUtil.Parser;
+import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,16 +12,18 @@ import java.net.http.HttpResponse;
 import java.util.List;
 
 
+
 public class Geocoding implements GeocodingInterface {
 
     private final Parser parser = new Parser();
 
     @Override
+    @Bean
     public List<String> geocode(String address) {
 
-        if(ApiConstant.ACTIVATE_API) {
+        if(ApiConfiguration.ACTIVATE_API) {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "+&key=" + ApiConstant.API_KEY))
+                    .uri(URI.create("https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "+&key=" + ApiConfiguration.API_KEY))
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = null;

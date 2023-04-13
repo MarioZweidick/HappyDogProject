@@ -36,7 +36,7 @@ public class WebSecurityConfig {
                 .csrf().disable()
                 .formLogin()
                 .loginPage("/user/login").permitAll()
-                .successForwardUrl("/successful-login")
+                .successForwardUrl("/user/successful-login")
                 //.failureForwardUrl("/user/login")
                 .and()
                 .logout().invalidateHttpSession(true)
@@ -46,9 +46,12 @@ public class WebSecurityConfig {
                 .and()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/*").permitAll()
+                        .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/user/login").permitAll()
-                        .requestMatchers( "/user/registration/**").permitAll()
-                        .requestMatchers("/user/profile/**").hasAnyAuthority("DOG_OWNER", "DOG_TRAINER")
+                        .requestMatchers("/rating/view/**").permitAll()
+                        .requestMatchers("/trainer/view/**").permitAll()
+                        .requestMatchers("/user/registration/**").permitAll()
+                        .requestMatchers("/user/**").hasAnyAuthority("DOG_OWNER", "DOG_TRAINER")
                         .anyRequest().authenticated()
                 );
 

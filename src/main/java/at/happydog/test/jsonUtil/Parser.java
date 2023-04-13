@@ -1,9 +1,5 @@
 package at.happydog.test.jsonUtil;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -12,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
-
 
     public List<String> parseGeolocationAddressData(String json){
 

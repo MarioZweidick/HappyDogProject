@@ -8,8 +8,8 @@
    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    <link rel="stylesheet" href="../static/style/reset-config.css">
-    <link rel="stylesheet" href="../static/style/main.css">
+    <link rel="stylesheet" href="../static/css/reset-config.css">
+    <link rel="stylesheet" href="../static/main.css">
 </head>
 <body>
 
@@ -31,22 +31,19 @@
     <table>
         <thead>
         <tr>
-            <th scope="col">Training</th>
-            <th scope="col">Beschreibung</th>
-            <th scope="col">Preis</th>
-            <th scope="col">Datum</th>
-            <th scope="col">Link</th>
+            <th scope="col">Trainer</th>
+            <th scope="col">Ort</th>
+            <th scope="col">Anzahl der Trainings</th>
         </tr>
         </thead>
         <tbody>
 
-        <tr th:each="training: ${trainings}">
-            <th th:text="${training.titel}"></th>
-            <td th:text="${training.description}"></td>
-            <td th:text="${training.price + '€'}"></td>
-            <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
+        <tr th:each="appuser: ${appusers}">
+            <th th:text="${appuser.username}"></th>
+            <td th:text="${appuser.location.city}"></td>
+            <td th:text="${appuser.trainings.size()}"></td>
             <td>
-                <a th:href="@{/training/view(training_id=${training.training_id})}">Show</a>
+                <a th:href="@{/trainer/view(trainer_id=${appuser.appuser_id})}">Show</a>
             </td>
         </tr>
         </tbody>

@@ -1,16 +1,16 @@
 package at.happydog.test.service;
 
-import at.happydog.test.configuration.SetupEmailConfirmation;
+import at.happydog.test.email.EmailConfiguration;
 import at.happydog.test.email.EmailSender;
-import at.happydog.test.enity.AppUser;
-import at.happydog.test.enity.AppUserImage;
-import at.happydog.test.enity.AppUserRoles;
-import at.happydog.test.enity.Training;
+import at.happydog.test.enity.*;
+import at.happydog.test.exception.custom.AppUserException;
+import at.happydog.test.exception.custom.RatingException;
 import at.happydog.test.imageUtil.ImageUtil;
 import at.happydog.test.registrationUtil.token.ConfirmationToken;
 import at.happydog.test.registrationUtil.token.ConfirmationTokenService;
 import at.happydog.test.repository.AppUserImageRepository;
 import at.happydog.test.repository.AppUserRepository;
+import at.happydog.test.repository.LocationRepository;
 import at.happydog.test.repository.TrainingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 /**
  AppUserService class
@@ -46,8 +49,8 @@ public class AppUserService implements UserDetailsService {
     private final AppUserImageRepository appUserImageRepository;
 
     private final TrainingRepository trainingRepository;
-
-
+    private final LocationRepository locationRepository;
+    private final LocationService locationService;
 
 
     //Implemented with UserDetailsService. Every user request will be checked with this.
@@ -59,15 +62,16 @@ public class AppUserService implements UserDetailsService {
 
 
     //Finds AppUser by id in the database
-    public AppUser findAppUserById(Long id){
+    public AppUser findAppUserById(Long id) throws AppUserException{
         if(appUserRepository.findById(id).isPresent())
             return appUserRepository.findById(id).get();
+        else
+            throw new AppUserException("Fehler: Benutzer wurde nicht gefunden!");
 
-        return null;
     }
 
     //Registers the user and sends EmailConfirmationToken
-    public String singUpUser(AppUser appUser) {
+    public String singUpUser(AppUser appUser) throws AppUserException {
        boolean userEmailExists = appUserRepository.findByEmail(appUser.getEmail())
                 .isPresent();
         boolean userUsernameExists = appUserRepository.findByUsername(appUser.getUsername())
@@ -81,7 +85,8 @@ public class AppUserService implements UserDetailsService {
             AppUser existingUser = appUserRepository.findByEmail(appUser.getEmail()).get();
 
             if(existingUser.isEnabled()){
-                throw new IllegalStateException("Username or Email already taken");
+                System.out.println("___________________________________________________________________________________________________________WIRD GEWORFEN____________________________________________");
+                throw new AppUserException("Username or Email already taken");
             }
 
 
@@ -102,7 +107,7 @@ public class AppUserService implements UserDetailsService {
         //Sets role for AppUser
         setAppUserRole(appUser);
 
-        if(!SetupEmailConfirmation.EMAIL_CONFIRMATION_REQUIRED){
+        if(!EmailConfiguration.EMAIL_CONFIRMATION_REQUIRED){
             appUser.setEnabled(true);
         }
 
@@ -139,10 +144,12 @@ public class AppUserService implements UserDetailsService {
         );
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        String link = SetupEmailConfirmation.EMAIL_CONFIRMATION_LINK + token;
+
+        String link = EmailConfiguration.EMAIL_CONFIRMATION_LINK + token;
         emailSender.send(
                 appUser.getEmail(),
                 buildEmail(appUser.getUsername(), link));
+
     }
 
     @Transactional
@@ -166,6 +173,45 @@ public class AppUserService implements UserDetailsService {
         appUser.addTraining(training);
 
         return appUserRepository.save(appUser);
+    }
+
+    public AppUser addNewLocation(AppUser appUser, Location location){
+
+        locationRepository.save(location);
+        appUser.setLocation(location);
+
+        return appUserRepository.save(appUser);
+    }
+
+    public List<AppUser> getAppUsersInRange(BigDecimal Lat, BigDecimal Lng, Double km){
+
+        List<AppUser> appUsers = appUserRepository.findAll();
+
+        double N = Lat.doubleValue();
+        double E = Lng.doubleValue();
+
+        BigDecimal latRange = locationService.getLatRange(Lat, km).abs();
+        BigDecimal lngRange = locationService.getLngRange(Lng, km).abs();
+
+        List<AppUser> appUserInRange = new ArrayList<>();
+
+        for (AppUser a:appUsers) {
+            Location location = a.getLocation();
+
+
+            if (location != null) {
+                double tN = location.getN().doubleValue();
+                double tE = location.getE().doubleValue();
+
+                // Check if the training's N and E values are within the range of the given location
+                if (tN >= (N - latRange.doubleValue()) && tN <= (N + latRange.doubleValue()) &&
+                        tE >= (E - lngRange.doubleValue()) && tE <= (E + lngRange.doubleValue())) {
+                    appUserInRange.add(a);
+                }
+            }
+        }
+
+        return appUserInRange;
     }
 
 
