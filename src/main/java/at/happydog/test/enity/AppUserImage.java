@@ -37,6 +37,8 @@ public class AppUserImage {
 
     @Lob
     @Column(name = "imagedata")
+    @Getter
+    @Setter
     private byte[] imageData;
 
     public AppUserImage() {
