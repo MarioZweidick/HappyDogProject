@@ -41,6 +41,9 @@ public class AppUser implements UserDetails {
 
     private String username;
 
+    @Column(columnDefinition = "text")
+    private String description;
+
     private String firstname;
     private String lastname;
     private String email;
@@ -121,6 +124,19 @@ public class AppUser implements UserDetails {
         this.ratings = ratings;
         this.location = location;
         this.enabled = enabled;
+    }
+
+    public AppUser(String username, String firstname, String lastname, String email, String password, AppUserRoles role, List<AppUserRating> ratings, Location location, Boolean enabled,String description) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.ratings = ratings;
+        this.location = location;
+        this.enabled = enabled;
+        this.description = description;
     }
 
     public boolean addTraining(Training training){

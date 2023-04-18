@@ -1,0 +1,25 @@
+.TrainerPage{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top:0.5%;
+
+
+}
+
+.TrainerPageText{
+    margin-left: 5%;
+    background-color: whitesmoke;
+}
+
+.TrainerPageText label{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.TrainerPage img
+{
+    width: 100%;
+    height: fit-content;
+}
