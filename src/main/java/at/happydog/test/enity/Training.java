@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,9 +42,9 @@ public class Training {
 
     private Date date;
 
-    private LocalTime beginnTime;
+    private String beginnTime;
 
-    private LocalTime endTime;
+    private String endTime;
 
     private Boolean visible;
     private Boolean isBooked = false;
@@ -66,12 +68,19 @@ public class Training {
         this.description = description;
         this.price = price;
         this.date = date;
-        this.beginnTime = beginnTime;
-        this.endTime = endTime;
+        this.beginnTime = formatTimeForFrontend(beginnTime);
+        this.endTime = formatTimeForFrontend(endTime);
         this.location = location;
         this.visible = visible;
     }
 
+
+    public String formatTimeForFrontend(LocalTime Time)
+    {
+        String returnTime = null;
+        returnTime = Time.format(DateTimeFormatter.ofPattern("hh-mm"));
+        return returnTime;
+    }
     public Training(String titel, String description, Double price) {
         this.titel = titel;
         this.description = description;

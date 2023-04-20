@@ -45,7 +45,7 @@ public class WebSecurityConfig {
                 .logoutSuccessUrl("/user/logout-success").permitAll()
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/*").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/user/login").permitAll()
                         .requestMatchers("/rating/view/**").permitAll()

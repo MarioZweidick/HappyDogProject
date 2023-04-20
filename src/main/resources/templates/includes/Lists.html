@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="trainerList" th:each="appuser: ${appusers}">
+    <a th:href="@{/trainer/view(trainer_id=${appuser.appuser_id})}" class="list-item">
+        <div class="img-div">
+            <img th:src="@{'user/profile/image/' + ${appuser.appuser_id}}"/>
+        </div>
+        <div class="list-item-text">
+            <p th:text="${appuser.username}"/>
+            <p th:text="${appuser.location.city}"/>
+            <p th:text="${appuser.trainings.size()}"/>
+        </div>
+    </a>
+</div>
+</body>
+</html>

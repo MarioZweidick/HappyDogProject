@@ -18,7 +18,7 @@ import java.nio.file.Path;
 
 public class ApiConfiguration {
 
-    private static final Path API_KEY_PATH = Path.of("C:/Users/Asterisk/Documents/apikeys/GoogleApiKey.txt");
+    private static final Path API_KEY_PATH = Path.of("C:/Users/Patrick Kainer/Documents/API-Keys/GoogleAPI_Key.txt");
     public static final String API_KEY;
 
     static {

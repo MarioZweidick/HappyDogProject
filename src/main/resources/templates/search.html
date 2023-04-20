@@ -3,39 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>HappyDog</title>
-
    <!--<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">-->
    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/css/search.css">
 </head>
 <body>
     <div th:replace="~{includes/fragments :: header}"></div>
-    <div class="wrapper">        
-        <table>
-            <thead>
-            <tr>
-                <th scope="col">Trainer</th>
-                <th scope="col">Ort</th>
-                <th scope="col">Anzahl der Trainings</th>
-                <embed src="includes/fragments.html" type="text/html">
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr th:each="appuser: ${appusers}">
-                <th th:text="${appuser.username}"></th>
-                <td th:text="${appuser.location.city}"></td>
-                <td th:text="${appuser.trainings.size()}"></td>
-                <td>
-                    <a th:href="@{/trainer/view(trainer_id=${appuser.appuser_id})}">Show</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <ScrollViewer class="content">
+        <div th:replace="~{includes/Lists :: trainerList}"></div>
+    </ScrollViewer>
     <div th:replace="~{includes/fragments::footer}"></div>
-
 </body>
 </html>

@@ -41,6 +41,9 @@ public class AppUser implements UserDetails {
 
     private String username;
 
+    @Column(columnDefinition = "text")
+    private String description;
+
     private String firstname;
     private String lastname;
     private String email;
@@ -54,6 +57,7 @@ public class AppUser implements UserDetails {
     //OnetoOne Datenbank entry - User profile image
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_appuserimage_id")
+    @Setter
     private AppUserImage appUserImage;
 
     //OnetoMany Datenbank entry - Ein User kann mehrere Trainings haben
@@ -120,6 +124,19 @@ public class AppUser implements UserDetails {
         this.ratings = ratings;
         this.location = location;
         this.enabled = enabled;
+    }
+
+    public AppUser(String username, String firstname, String lastname, String email, String password, AppUserRoles role, List<AppUserRating> ratings, Location location, Boolean enabled,String description) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.ratings = ratings;
+        this.location = location;
+        this.enabled = enabled;
+        this.description = description;
     }
 
     public boolean addTraining(Training training){
