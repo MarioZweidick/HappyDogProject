@@ -5,7 +5,6 @@ import jakarta.transaction.Transactional;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 /**
  AppUserImage entity
@@ -17,7 +16,7 @@ import org.hibernate.annotations.Type;
 @EqualsAndHashCode
 @Table
 @Transactional
-public class AppUserImage {
+public class UserImages {
 
     @Id
     @SequenceGenerator(
@@ -31,17 +30,16 @@ public class AppUserImage {
     )
     private Long appuserimage_id;
 
+
     private String name;
     private String type;
 
 
     @Lob
     @Column(name = "imagedata")
-    @Getter
-    @Setter
     private byte[] imageData;
 
-    public AppUserImage() {
+    public UserImages() {
         imageData = new byte[0];
     }
 }

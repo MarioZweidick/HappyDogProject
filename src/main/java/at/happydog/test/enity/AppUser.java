@@ -57,8 +57,7 @@ public class AppUser implements UserDetails {
     //OnetoOne Datenbank entry - User profile image
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_appuserimage_id")
-    @Setter
-    private AppUserImage appUserImage;
+    private UserImages userImages;
 
     //OnetoMany Datenbank entry - Ein User kann mehrere Trainings haben
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

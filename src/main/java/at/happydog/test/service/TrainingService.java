@@ -1,15 +1,17 @@
 package at.happydog.test.service;
 
+import at.happydog.test.Handler.ImageHandler;
 import at.happydog.test.api.google.geocoding.Geocoding;
 import at.happydog.test.enity.*;
-import at.happydog.test.repository.AppUserRepository;
-import at.happydog.test.repository.LocationRepository;
+import at.happydog.test.exception.custom.AppUserException;
 import at.happydog.test.repository.TrainingRepository;
+import at.happydog.test.repository.TrainingsImageRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -33,6 +35,10 @@ public class TrainingService {
     private final AppUserService appUserService;
     private final LocationService locationService;
     private final Geocoding geocoding;
+
+    private final TrainingsImageRepository trainingsImageRepository;
+
+
 
 
     public Optional<Training> getTrainingById(Long id){
@@ -80,7 +86,7 @@ public class TrainingService {
 
 
 
-    public String saveTraining(String title, String description, Double price, Date date, LocalTime beginn, LocalTime end, String street, String streetNumber, String city, String plz) throws IOException {
+    public String saveTraining(String title, String description, Double price, Date date, LocalTime beginn, LocalTime end, String street, String streetNumber, String city, String plz, MultipartFile picture) throws IOException {
         String geoLocation = (street + "," + streetNumber + "," + plz + "," + city).replace(".", "-").toLowerCase();
 
         List<String> cords = geocoding.geocode(geoLocation);
@@ -96,6 +102,7 @@ public class TrainingService {
 
         Training newTraining = new Training(title, description, price, date, beginn, end, newLocation, true);
 
+        addTrainingImage(newTraining, picture);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
 
@@ -124,5 +131,29 @@ public class TrainingService {
         return "redirect:/user/profile";
     }
 
+    @Transactional
+    public Training addTrainingImage(Training training, MultipartFile multipartFile) throws IOException {
+
+        ImageHandler trainingsImageHandler = new ImageHandler();
+
+        UserImages trainingsImage = trainingsImageHandler.getAppUserImageFromMultipartfile(multipartFile);
+
+        if(!(training.getTrainingsImage()== null)){
+            trainingsImageRepository.delete(training.getTrainingsImage());
+        }
+
+        trainingsImage = trainingsImageRepository.save(trainingsImage);
+        training.setTrainingsImage(trainingsImage);
+
+        return trainingRepository.save(training);
+    }
+
+    public Training findTrainingById(Long id) throws Exception {
+        if(trainingRepository.findById(id).isPresent())
+            return trainingRepository.findById(id).get();
+        else
+            throw new AppUserException("Fehler: Benutzer wurde nicht gefunden!");
+
+    }
 
 }

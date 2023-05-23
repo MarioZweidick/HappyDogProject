@@ -5,7 +5,6 @@ import jakarta.transaction.Transactional;
 import lombok.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Transactional
 @Table
-public class Training {
+public class Training{
 
     @Id
     @SequenceGenerator(
@@ -48,6 +47,12 @@ public class Training {
 
     private Boolean visible;
     private Boolean isBooked = false;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "fk_trainingsimage_id")
+    private UserImages trainingsImage;
+
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_location_id")

@@ -1,0 +1,48 @@
+.profil-div{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    margin-top: 1em;
+}
+label{
+    margin-bottom: 1em;
+}
+
+.left-profil-div{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.left-div{
+    margin-right: 2em;
+    margin-left: 2em;
+}
+
+.location-div{
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+}
+input{
+    width: 100%;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin-bottom: 1em;
+    width: 90%;
+}
+
+button{
+    width: 90%;
+
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+ h3{
+     padding-bottom:1em;
+ }
+.Training-h1{
+    margin-left: 5%;
+}
+
+img{
+    height: 10em;
+}
