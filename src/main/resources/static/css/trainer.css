@@ -1,0 +1,44 @@
+.trainerview {
+    margin-top:2%;
+    margin-left: 2em;
+    margin-right: 2em;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    background-color: #cccccc;
+}
+
+.trainerview img {
+    width: 15em;
+    height: 15em;
+    background-color: white;
+    align-items: center;
+}
+.trainerview div{
+    width: 100%;
+    align-items: center;
+    margin-right: 2em;
+}
+
+.verticalDesign{
+    display: grid;
+    grid-template-rows: 1fr 1fr ;
+}
+
+.startEndTime {
+    display: grid;
+    grid-template-columns: auto auto;
+    font-size: 1.5em;
+
+}
+
+.descriptionSpan{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    font-size: 1.5em;
+    font-weight: normal;
+}
+ a{
+     font-style: normal;
+     text-decoration: none;
+     color: black;
+ }

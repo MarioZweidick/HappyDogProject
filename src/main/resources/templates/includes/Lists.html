@@ -17,5 +17,27 @@
         </div>
     </a>
 </div>
+<div th:fragment="traingingsList" th:each="training: ${appuser.trainings}">
+    <a th:href="@{/training/view(training_id = ${training.training_id})}">
+        <div class="trainerview">
+            <img th:src="@{'/user/training/image/' + ${training.training_id}}"/>
+            <div class="verticalDesign">
+                <div class="verticalDesign">
+                    <h1 th:text="${training.titel}"></h1>
+                    <h2 th:text="${training.price} + ' €'"></h2>
+                </div>
+                <h2 th:text="${training.description}" class="descriptionSpan"></h2>
+            </div>
+            <div class="verticalDesign">
+                <div class="verticalDesign">
+                    <p th:text="${#dates.format(training.date,'dd.MM.yyyy')}"></p>
+                    <div class="startEndTime">
+                        <p th:text="|${training.beginnTime} bis ${training.endTime}|"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
 </body>
 </html>

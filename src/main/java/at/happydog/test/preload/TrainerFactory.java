@@ -1,15 +1,12 @@
 package at.happydog.test.preload;
 
 import at.happydog.test.enity.AppUser;
-import at.happydog.test.enity.AppUserImage;
 import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.enity.Location;
 import at.happydog.test.security.PasswordEncoder;
-import javassist.expr.Cast;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TrainerFactory {

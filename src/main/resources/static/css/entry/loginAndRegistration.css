@@ -1,0 +1,46 @@
+.login-div{
+
+    align-items: center;
+    padding: 2em;
+    background-color: whitesmoke;
+    border-radius: 1em;
+    width: min-content;
+    margin:auto;
+    border: 0;
+}
+h1{
+    margin-bottom:1em;
+}
+
+input{
+    padding-top: 0.5em;
+    padding-bottom: 1em ;
+    margin-bottom: 1em;
+    width: 30em;
+}
+
+.aling-body {
+    display: grid;
+    grid-template-rows:  1fr ;
+    grid-template-columns:  1fr ;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+select{
+    width: 30em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    margin-bottom: 1em;
+}
+
+button{
+    width: 30em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+fieldset{
+    border: 0;
+}

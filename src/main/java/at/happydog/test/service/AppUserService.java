@@ -1,10 +1,10 @@
 package at.happydog.test.service;
 
+import at.happydog.test.Handler.ImageHandler;
 import at.happydog.test.email.EmailConfiguration;
 import at.happydog.test.email.EmailSender;
 import at.happydog.test.enity.*;
 import at.happydog.test.exception.custom.AppUserException;
-import at.happydog.test.exception.custom.RatingException;
 import at.happydog.test.imageUtil.ImageUtil;
 import at.happydog.test.registrationUtil.token.ConfirmationToken;
 import at.happydog.test.registrationUtil.token.ConfirmationTokenService;
@@ -154,14 +154,16 @@ public class AppUserService implements UserDetailsService {
     @Transactional
     public AppUser addAppUserImage(AppUser appUser, MultipartFile multipartFile) throws IOException {
 
-        AppUserImage appUserImage = getAppUserImageFromMultipartfile(multipartFile);
+        ImageHandler userImageHandler = new ImageHandler();
 
-        if(!(appUser.getAppUserImage() == null)){
-            appUserImageRepository.delete(appUser.getAppUserImage());
+        UserImages appUserImages = userImageHandler.getAppUserImageFromMultipartfile(multipartFile);
+
+        if(!(appUser.getUserImages() == null)){
+            appUserImageRepository.delete(appUser.getUserImages());
         }
 
-        appUserImage = appUserImageRepository.save(appUserImage);
-        appUser.setAppUserImage(appUserImage);
+        appUserImages = appUserImageRepository.save(appUserImages);
+        appUser.setUserImages(appUserImages);
 
         return appUserRepository.save(appUser);
     }
@@ -216,24 +218,7 @@ public class AppUserService implements UserDetailsService {
 
 
 
-    //returns AppUserImage from multipartfile input
-    public AppUserImage getAppUserImageFromMultipartfile(MultipartFile file) throws IOException {
-        AppUserImage appUserImage = new AppUserImage();
-        appUserImage.setName(file.getOriginalFilename());
-        appUserImage.setType(file.getContentType());
-        appUserImage.setImageData(ImageUtil.compressImage(file.getBytes()));
-        return appUserImage;
-    }
 
-    //return decompressed image from AppUser
-    public byte[] downloadImageFromAppUser(AppUser appUser){
-        byte[] bytes = new byte[0];
-        if(appUser.getAppUserImage()!=null){
-            AppUserImage imageData = appUser.getAppUserImage();
-            return ImageUtil.decompressImage(imageData.getImageData());
-        }
-        return bytes;
-    }
 
 
     //Builds the email that gets sent for registration

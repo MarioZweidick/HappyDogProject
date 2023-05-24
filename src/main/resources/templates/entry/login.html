@@ -3,26 +3,27 @@
 <head>
   <title>Please Log In</title>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
-  <link rel="stylesheet" href="../../static/css/entry/login.css">
+  <link rel="stylesheet" href="../../static/css/entry/loginAndRegistration.css">
+  <link rel="stylesheet" href="../../static/css/main.css">
 </head>
-<body>
-<h1>Please Log In</h1>
-<div th:if="${param.error}">
-  Invalid username and password.</div>
-<div th:if="${param.logout}">
-  You have been logged out.</div>
-<form th:action="@{/user/login}" method="post">
-  <div>
-    <input type="text" name="username" placeholder="Username"/>
+<body class="aling-body">
+  <div class="login-div">
+    <h1>Please Log In</h1>
+    <div th:if="${param.error}">
+      Invalid username and password.</div>
+    <div th:if="${param.logout}">
+      You have been logged out.</div>
+    <form th:action="@{/user/login}" method="post">
+      <div>
+        <input type="text" name="username" placeholder="Username"/>
+      </div>
+      <div>
+        <input type="password" name="password" placeholder="Password"/>
+      </div>
+      <input type="submit" value="Log in" />
+    </form>
+    <br>
+    <a href="/user/registration">No Account? Register here!</a>
   </div>
-  <div>
-    <input type="password" name="password" placeholder="Password"/>
-  </div>
-  <input type="submit" value="Log in" />
-</form>
-<br>
-<a href="/user/registration">No Account? Register here!</a>
-<br>
-<a href="/">Home</a>
 </body>
 </html>

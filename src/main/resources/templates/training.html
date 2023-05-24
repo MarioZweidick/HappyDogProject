@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Training</title>
-  <link rel="stylesheet" href="../../static/style/reset-config.css">
-  <link rel="stylesheet" href="../../static/style/profiles/profile.css">
-  <link rel="stylesheet" href="../../static/style/training.css">
+    <meta charset="UTF-8">
+    <title>Training</title>
+    <link rel="stylesheet" href="../static/css/profiles/training.css">
+    <link rel="stylesheet" href="../static/main.css">
 </head>
 <body style="margin: auto">
 <div th:replace="~{includes/fragments :: header}"></div>
 
-<h2 th:text="${training.titel}"></h2>
+<div class="content-Box">
+    <div class="content-Img-Place">
+        <img th:src="@{'/user/training/image/' + ${training.training_id}}"/>
+        <iframe th:src="@{'https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='+${training.location.street}+'%20'+${training.location.streetNumber}+',%20'+${training.location.plz}+'%20'+${training.location.city}+'+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'}">
+            <a href="https://www.maps.ie/distance-area-calculator.html">measure area map</a></iframe>
+    </div>
+    <div class="textPart">
+        <div class="topItem">
+            <h1 th:text="${training.titel}"></h1>
+            <h2 th:text="${training.price} + ' €'"></h2>
+            <h3 th:text="|${#dates.format(training.date,'dd.MM.yyyy')} von ${training.beginnTime} bis ${training.endTime}|"></h3>
+        </div>
+        <div>
+            <h3>Beschreibung: </h3>
+            <p th:text="${training.description}"></p>
+            <h3>Addresse:</h3>
+            <p th:text="${training.location.street + ' ' + training.location.streetNumber + ', ' + training.location.plz + ', ' + training.location.city}"></p>
+        </div>
+        <a th:href="@{/payment-form(training_id=${training.training_id})}">
+            <button>Jetzt buchen!</button>
+        </a>
+    </div>
+</div>
 
-<label>Beschreibung: </label>
-<p th:text="${training.description}"></p>
-
-<label>Preis: </label>
-<p th:text="${training.price + '€'}"></p>
-
-<label>Datum:</label>
-<p th:text="${training.date}"></p>
-
-<label>Startzeit:</label>
-<p th:text="${training.beginnTime}"></p>
-
-<label>Endzeit:</label>
-<p th:text="${training.endTime}"></p>
-
-
-<label>Ort:</label>
-<p th:text="${training.location.street + ' ' + training.location.streetNumber + ', ' + training.location.plz + ', ' + training.location.city}"></p>
-
-
-<div style="width: 100%"><iframe width="400" height="400"  th:src="@{'https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='+${training.location.street}+'%20'+${training.location.streetNumber}+',%20'+${training.location.plz}+'%20'+${training.location.city}+'+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'}"><a href="https://www.maps.ie/distance-area-calculator.html">measure area map</a></iframe></div>
-
-<br>
-<a th:href="@{/payment-form(training_id=${training.training_id})}">Training buchen</a>
-<a href="/">Home</a>
 <div th:replace="~{includes/fragments::footer}"></div>
-
 </body>
+
 </html>

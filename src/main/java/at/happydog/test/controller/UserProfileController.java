@@ -1,5 +1,6 @@
 package at.happydog.test.controller;
 
+import at.happydog.test.Handler.ImageHandler;
 import at.happydog.test.api.google.geocoding.Geocoding;
 import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.AppUserRoles;
@@ -91,11 +92,25 @@ public class UserProfileController {
     }
 
     @GetMapping("/profile/image/{id}")
-    public ResponseEntity<byte[]> downloadImage(@PathVariable Long id) {
+    public ResponseEntity<byte[]> downloadUserImage(@PathVariable Long id) {
         Optional<AppUser> optionalAppUser = Optional.ofNullable(appUserService.findAppUserById(id));
+        ImageHandler imageHandler = new ImageHandler();
 
         if(optionalAppUser.isPresent()){
-            byte[] image = appUserService.downloadImageFromAppUser(optionalAppUser.get());
+            byte[] image = imageHandler.downloadImageFromAppUser(optionalAppUser.get());
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/jpeg")).body(image);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.valueOf("image/jpeg")).body(null);
+        }
+    }
+
+    @GetMapping("/training/image/{id}")
+    public ResponseEntity<byte[]> downloadTrainingsImage(@PathVariable Long id) throws Exception {
+        Optional<Training> optionalTraining = Optional.ofNullable(trainingService.findTrainingById(id));
+        ImageHandler imageHandler = new ImageHandler();
+
+        if(optionalTraining.isPresent()){
+            byte[] image = imageHandler.downloadImageFromTraining(optionalTraining.get());
             return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/jpeg")).body(image);
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.valueOf("image/jpeg")).body(null);
@@ -121,10 +136,14 @@ public class UserProfileController {
                                @RequestParam(value = "street") String street,
                                @RequestParam(value = "streetNumber") String streetNumber,
                                @RequestParam(value = "city") String city,
-                               @RequestParam(value = "plz") String plz) throws IOException {
+                               @RequestParam(value = "plz") String plz ,
+                               @RequestParam("picture") MultipartFile picture)
+    throws IOException {
 
-        return trainingService.saveTraining(title, description, price, date, beginn, end, street, streetNumber, city, plz);
+        return trainingService.saveTraining(title, description, price, date, beginn, end, street, streetNumber, city, plz, picture);
     }
+
+
 
     @PostMapping("/profile/save-location")
     public String saveLocation(@RequestParam(value = "street") String street,

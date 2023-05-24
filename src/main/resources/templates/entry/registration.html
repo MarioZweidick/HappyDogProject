@@ -5,84 +5,85 @@
     <title>Registration</title>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
-  <link rel="stylesheet" href="../../static/css/entry/registration.css">
+  <link rel="stylesheet" href="../../static/css/entry/loginAndRegistration.css">
+  <link rel="stylesheet" href="../../static/css/main.css">
+
 
 </head>
-<body>
+<body class="aling-body">
+  <div class="login-div">
+    <form
+          id="sumbit-form"
+          action='/user/registration/register'
+          method="POST">
 
-  <form
-        id="sumbit-form"
-        action='/user/registration/register'
-        method="POST">
-
-    <fieldset>
-      <div id="legend">
-        <legend class="">Register</legend>
-      </div>
-      <div>
-        <!-- Username -->
-        <label>Username</label>
-        <div>
-          <input type="text" id="username" name="username" placeholder="" required>
+      <fieldset>
+        <div id="legend">
+          <legend class="">Register</legend>
         </div>
-      </div>
-
-      <div>
-        <!-- Firstname -->
-        <label for="firstname">Vorname</label>
         <div>
-          <input type="text" id="firstname" name="firstname" placeholder="" required>
+          <!-- Username -->
+          <label>Username</label>
+          <div>
+            <input type="text" id="username" name="username" placeholder="" required>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <!-- Lastname -->
-        <label for="lastname">Nachname</label>
         <div>
-          <input type="text" id="lastname" name="lastname" placeholder="" required>
+          <!-- Firstname -->
+          <label for="firstname">Vorname</label>
+          <div>
+            <input type="text" id="firstname" name="firstname" placeholder="" required>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <!-- E-mail -->
-        <label for="email">E-Mail</label>
         <div>
-          <input type="text" id="email" name="email" placeholder="" required>
+          <!-- Lastname -->
+          <label for="lastname">Nachname</label>
+          <div>
+            <input type="text" id="lastname" name="lastname" placeholder="" required>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <!-- Password-->
-        <label for="password">Passwort</label>
         <div>
-          <input type="password" id="password" name="password" placeholder="" required>
+          <!-- E-mail -->
+          <label for="email">E-Mail</label>
+          <div>
+            <input type="text" id="email" name="email" placeholder="" required>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <select id="role" name="role" required>
-          <option selected>Als was möchtest du dich registrieren?</option>
-          <option value="DOG_TRAINER">Hundetrainer</option>
-          <option value="DOG_OWNER">Hundebesitzer</option>
-        </select>
-      </div>
-
-      <div>
-        <!-- Button -->
         <div>
-          <button id="register-button" type="submit">Register</button>
+          <!-- Password-->
+          <label for="password">Passwort</label>
+          <div>
+            <input type="password" id="password" name="password" placeholder="" required>
+          </div>
         </div>
-      </div>
-    </fieldset>
-</form>
 
-  <div id="email-confirmation" style="display: none">
-    <p id="confirm-email">Bitte Bestätige deine E-Mail Adresse!</p>
+        <div>
+          <select id="role" name="role" required>
+            <option selected>Als was möchtest du dich registrieren?</option>
+            <option value="DOG_TRAINER">Hundetrainer</option>
+            <option value="DOG_OWNER">Hundebesitzer</option>
+          </select>
+        </div>
+
+        <div>
+          <!-- Button -->
+          <div>
+            <button id="register-button" type="submit">Register</button>
+          </div>
+        </div>
+      </fieldset>
+  </form>
+
+    <div id="email-confirmation" style="display: none">
+      <p id="confirm-email">Bitte Bestätige deine E-Mail Adresse!</p>
+    </div>
+    <br>
+    <a href="/user/login">Already have an account?</a>
   </div>
-  <br>
-  <a href="/user/login">Already have an account?</a>
-  <br>
-  <a href="/">Home</a>
   <script>
     const form = document.querySelector("#sumbit-form");
     const emailConfirmation = document.getElementById("email-confirmation");

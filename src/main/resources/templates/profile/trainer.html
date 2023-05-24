@@ -7,72 +7,58 @@
     <link rel="stylesheet" href="../../static/css/profiles/profile.css">
     <link rel="stylesheet" href="../../static/css/profiles/trainer-view.css">
     <link rel="stylesheet" href="../../static/css/main.css">
+    <link rel="stylesheet" href="../../static/css/trainer.css">
 </head>
 <body>
 <div>
-    <div>
-        <div th:replace="~{includes/fragments :: header}"></div>
-        <p>TRAINER</p>
-        <h1>User Profile</h1>
+    <div th:replace="~{includes/fragments :: header}"></div>
+    <div class="profil-div">
 
-        <form
-                th:action="@{profile/save-image}"
-                th:object="${appuser}"
-                method="POST"
-                enctype="multipart/form-data">
-
-            <div>
-                <label>Add profile picture</label>
-                <br>
-                <input type="file" name="image" accept="image/png, image/jpeg" required/>
+        <div class="left-div">
+            <div class="left-profil-div">
+                <h1 th:text="${appuser.username}"></h1>
+                <h2 th:text="${appuser.firstname} + ' ' + ${appuser.lastname} "></h2>
+                <!--<a th:href="'mailto:' + ${appuser.email}" th:text="${appuser.email}"></a>-->
             </div>
-            <button type="submit">Add picture</button>
-        </form>
-
-        <img th:src="@{'/profile/image/' + ${appuser.appuser_id}}"/>
-
-        <label>Username: </label>
-        <p th:text="${appuser.username}"></p>
-
-        <label>Vorname: </label>
-        <p th:text="${appuser.firstname}"></p>
-
-        <label>Nachname: </label>
-        <p th:text="${appuser.lastname}"></p>
-
-        <label>Email: </label>
-        <p th:text="${appuser.email}"></p>
-    </div>
-    <br>
-    <br>
-    <div>
-        <p>Ohne gültige Location kann dein Profil nicht gefunden werden!</p>
-        <form
-                th:action="@{profile/save-location}"
-                method="POST">
             <div>
-                <label>Standort</label>
-                <input type="text" name="street" placeholder="Straße" required>
-                <input type="text" name="streetNumber" placeholder="Hausnummer" required>
-                <input type="text" name="city" placeholder="Ort" required>
-                <input type="text" name="plz" placeholder="Postleitzahl" required>
+                <h3>Location angeben!</h3>
+                <form
+                        th:action="@{profile/save-location}"
+                        method="POST">
+                    <div class="location-div">
+                        <input type="text" name="street" placeholder="Straße" required>
+                        <input type="text" name="streetNumber" placeholder="Hausnummer" required>
+                        <input type="text" name="city" placeholder="Ort" required>
+                        <input type="text" name="plz" placeholder="Postleitzahl" required>
+                    </div>
+
+                    <button type="submit">Add Location</button>
+                </form>
+
             </div>
+        </div>
+        <div>
+            <form
+                    th:action="@{profile/save-image}"
+                    th:object="${appuser}"
+                    method="POST"
+                    enctype="multipart/form-data">
 
-            <button type="submit">Add Location</button>
-        </form>
-
-        <br>
-        <br>
-        <a href="/user/logout">Logout</a>
-        <a href="/">Home</a>
-        <br>
-        <br>
+                <div>
+                    <label>Add profile picture</label>
+                    <br>
+                    <input type="file" name="image" accept="image/png, image/jpeg" required/>
+                </div>
+                <button type="submit">Add picture</button>
+            </form>
+            <img th:src="@{'/user/profile/image/' + ${appuser.appuser_id}}"/>
+        </div>
     </div>
-
     <div>
         <form
                 th:action="@{profile/save-training}"
-                method="POST">
+                method="POST"
+                enctype="multipart/form-data">
 
             <div>
                 <label>Title</label>
@@ -125,32 +111,14 @@
                 <input type="text" id="city" name="city" placeholder="Ort" required>
                 <input type="text" id="postalcode" name="plz" placeholder="Postleitzahl" required>
             </div>
-
+            <div>
+                <input type="file" id="picture" name="picture" accept="image/png, image/jpeg, image/jpg" required/>
+            </div>
             <button type="submit">Add Training</button>
         </form>
     </div>
-
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th scope="col">Training</th>
-                <th scope="col">Beschreibung</th>
-                <th scope="col">Preis</th>
-                <th scope="col">Datum</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="training: ${trainings}">
-                <th th:text="${training.titel}"></th>
-                <td th:text="${training.description}"></td>
-                <td th:text="${training.price + '€'}"></td>
-                <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
-
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <h1 class="Training-h1">Angebotene Trainings: </h1>
+    <div th:replace="~{includes/Lists:: traingingsList}"></div>
 </div>
 </body>
 </html>
