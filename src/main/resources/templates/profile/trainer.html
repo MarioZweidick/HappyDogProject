@@ -119,8 +119,10 @@
                 <input type="file" id="picture" name="picture" accept="image/png, image/jpeg, image/jpg" required/>
             </div>
             <button type="submit">Add Training</button>
-            <h2 th:if="${!param.containsKey(qt)}">Ortseingabe für das Training ist nicht valide!</h2>
         </form>
+    </div>
+    <div th:if="${!param.isEmpty()}">
+        <h2 th:if="${param.q.contains('error_training')}">Ortseingabe für das Training ist nicht valide!</h2>
     </div>
     <h1 class="Training-h1">Angebotene Trainings: </h1>
     <div th:replace="~{includes/Lists:: traingingsList}"></div>

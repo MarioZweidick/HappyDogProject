@@ -92,7 +92,7 @@ public class TrainingService {
         List<String> cords = geocoding.geocode(geoLocation);
 
         if(cords ==  null)
-            return "redirect:/user/profile?qt=error_Trainings_Location";
+            return "redirect:/user/profile?q=error_training";
 
         BigDecimal N = new BigDecimal(cords.get(4));
         BigDecimal E = new BigDecimal(cords.get(5));
