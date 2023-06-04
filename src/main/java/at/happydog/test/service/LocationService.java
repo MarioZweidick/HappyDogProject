@@ -8,6 +8,7 @@ import at.happydog.test.repository.TrainingRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,18 +40,18 @@ public class LocationService {
     }
 
 
-    public String createRedirectString(String location, Integer range) {
+    public String createRedirectString(String location, Integer range) throws IOException, InterruptedException {
         String newLoc = formatLocation(location);
         Location existingLocation = inputMatcher(location);
 
         if (existingLocation == null) {
             List<String> geolocation = geocoding.geocode(newLoc);
+            if (geolocation == null) {
+                return null;
+            }
             Location newLocation = createLocationFromGeolocation(geolocation);
             save(newLocation);
 
-            if (geolocation.get(2).isEmpty()) {
-                return "redirect:/search?error=unspecific-location";
-            }
 
             return buildRedirectString(geolocation.get(4), geolocation.get(5), range);
         } else {

@@ -138,9 +138,21 @@ public class UserProfileController {
                                @RequestParam(value = "city") String city,
                                @RequestParam(value = "plz") String plz ,
                                @RequestParam("picture") MultipartFile picture)
-    throws IOException {
+    {
 
-        return trainingService.saveTraining(title, description, price, date, beginn, end, street, streetNumber, city, plz, picture);
+        String returnString;
+        try {
+            returnString = trainingService.saveTraining(title, description, price, date, beginn, end, street, streetNumber, city, plz, picture);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        if(returnString.isEmpty())
+            returnString = "Der Ort wurde nicht gefunden!";
+
+        return returnString;
+
     }
 
 
@@ -151,6 +163,17 @@ public class UserProfileController {
                                @RequestParam(value = "city") String city,
                                @RequestParam(value = "plz") String plz) throws IOException {
 
-        return trainingService.saveLocation(street,streetNumber,city,plz);
+
+        String returnLocation;
+        try {
+            returnLocation = trainingService.saveLocation(street,streetNumber,city,plz);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        if(returnLocation.isEmpty())
+            returnLocation = "Der Ort wurde nicht gefunden!";
+
+        return returnLocation;
     }
 }

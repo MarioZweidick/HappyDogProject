@@ -19,7 +19,7 @@ public class Geocoding implements GeocodingInterface {
 
     @Override
     @Bean
-    public List<String> geocode(String address) {
+    public List<String> geocode(String address) throws IOException, InterruptedException {
 
         if(ApiConfiguration.ACTIVATE_API) {
             HttpRequest request = HttpRequest.newBuilder()
@@ -27,15 +27,13 @@ public class Geocoding implements GeocodingInterface {
                     .method("GET", HttpRequest.BodyPublishers.noBody())
                     .build();
             HttpResponse<String> response = null;
-            try {
-                response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            List<String> returnFromParser = parser.parseGeolocationAddressData((response.body()));
+            if(returnFromParser == null)
+                return null;
 
-            return parser.parseGeolocationAddressData((response.body()));
+            return returnFromParser;
+
 
         }else{
             System.out.println("API CALLS DEACTIVATED");
