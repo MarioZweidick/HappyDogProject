@@ -86,10 +86,13 @@ public class TrainingService {
 
 
 
-    public String saveTraining(String title, String description, Double price, Date date, LocalTime beginn, LocalTime end, String street, String streetNumber, String city, String plz, MultipartFile picture) throws IOException {
+    public String saveTraining(String title, String description, Double price, Date date, LocalTime beginn, LocalTime end, String street, String streetNumber, String city, String plz, MultipartFile picture) throws IOException, InterruptedException {
         String geoLocation = (street + "," + streetNumber + "," + plz + "," + city).replace(".", "-").toLowerCase();
 
         List<String> cords = geocoding.geocode(geoLocation);
+
+        if(cords ==  null)
+            return "redirect:/user/profile?qt=error_Trainings_Location";
 
         BigDecimal N = new BigDecimal(cords.get(4));
         BigDecimal E = new BigDecimal(cords.get(5));
@@ -110,10 +113,12 @@ public class TrainingService {
         return "redirect:/user/profile";
     }
 
-    public String saveLocation(String street, String streetNumber, String city, String plz) throws IOException {
+    public String saveLocation(String street, String streetNumber, String city, String plz) throws IOException, InterruptedException {
         String geoLocation = (street + "," + streetNumber + "," + plz + "," + city).replace(".", "-").toLowerCase();
 
         List<String> cords = geocoding.geocode(geoLocation);
+        if(cords==null)
+            return "redirect:/user/profile?q=error_location";
 
         BigDecimal N = new BigDecimal(cords.get(4));
         BigDecimal E = new BigDecimal(cords.get(5));

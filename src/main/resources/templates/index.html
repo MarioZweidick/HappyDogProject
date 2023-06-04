@@ -9,43 +9,45 @@
 
 </head>
 <body>
-    <div th:replace="~{includes/fragments :: header}"></div>
-    <div class="wrapper">
-        <div class="search-container">
+<div th:replace="~{includes/fragments :: header}"></div>
+<div class="wrapper">
+    <div class="search-container">
 
-            <h2 class="search-title">Finde das perfekte Hundetraining</h2>
-            <embed src="includes/fragments.html" type="text/html">
-        
-            <div class="search-grid-container">   
-                <div class="grid-item-1">
+        <h2 class="search-title">Finde das perfekte Hundetraining</h2>
 
-                    <form
+        <div class="search-grid-container">
+            <div class="grid-item-1">
+
+                <form
                         id="search-form"
                         th:action="@{/search}"
                         method="POST"
-                                    >
-        
+                >
+
                     <input type="text" name="location" placeholder="Ort oder Adresse...">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
 
-                </div>
-                <div class="grid-item-2">
-                    <div class="search-range">
-                        <select class="search-select" id="range" name="range" form="search-form">
-                            <option value=10>10 Km</option>
-                            <option value=25>25 Km</option>
-                            <option value=50>50 Km</option>
-                            <option value=100>100 Km</option>
-                        </select>
-                    </div>
-
-                </div> 
             </div>
+            <div class="grid-item-2">
+                <div class="search-range">
+                    <select class="search-select" id="range" name="range" form="search-form">
+                        <option value=10>10 Km</option>
+                        <option value=25>25 Km</option>
+                        <option value=50>50 Km</option>
+                        <option value=100>100 Km</option>
+                    </select>
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <div th:replace="~{includes/fragments::footer}"></div>
+    <div th:if="${!param.isEmpty()}">
+        <h2 th:if="${param.q.contains('error_location')}">Der Ort konnte nicht gefunden werden!</h2>
+        <h2 th:if="${param.q.contains('error_no_location')}">Bitte Geben sie einen Ort ein!</h2>
+    </div>
+</div>
+<div th:replace="~{includes/fragments::footer}"></div>
 
 </body>
 </html>
