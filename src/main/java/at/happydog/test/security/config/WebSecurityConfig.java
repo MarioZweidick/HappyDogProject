@@ -36,7 +36,6 @@ public class WebSecurityConfig {
                 .csrf().disable()
                 .formLogin()
                 .loginPage("/user/login").permitAll()
-                .successForwardUrl("/user/successful-login")
                 //.failureForwardUrl("/user/login")
                 .and()
                 .logout().invalidateHttpSession(true)

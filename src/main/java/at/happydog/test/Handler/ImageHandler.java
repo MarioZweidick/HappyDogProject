@@ -22,18 +22,18 @@ public class ImageHandler {
     //return decompressed image from AppUser
     public byte[] downloadImageFromAppUser(AppUser appUser){
         byte[] bytes = new byte[0];
-        //if(appUser.getUserImages()!=null){
+        if(appUser.getUserImages()!=null){
             UserImages imageData = appUser.getUserImages();
             return ImageUtil.decompressImage(imageData.getImageData());
-        //}
-        //return bytes;
+        }
+        return bytes;
     }
     public byte[] downloadImageFromTraining(Training training){
         byte[] bytes = new byte[0];
-        //if(appUser.getUserImages()!=null){
+        if(training.getTrainingsImage()!=null){
         UserImages imageData = training.getTrainingsImage();
         return ImageUtil.decompressImage(imageData.getImageData());
-        //}
-        //return bytes;
+        }
+        return bytes;
     }
 }

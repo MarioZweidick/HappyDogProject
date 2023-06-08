@@ -154,6 +154,7 @@ public class AppUserService implements UserDetailsService {
     @Transactional
     public AppUser addAppUserImage(AppUser appUser, MultipartFile multipartFile) throws IOException {
 
+
         ImageHandler userImageHandler = new ImageHandler();
 
         UserImages appUserImages = userImageHandler.getAppUserImageFromMultipartfile(multipartFile);

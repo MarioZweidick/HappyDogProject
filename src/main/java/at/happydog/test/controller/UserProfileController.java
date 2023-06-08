@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,11 +61,6 @@ public class UserProfileController {
         return "entry/logout.html";
     }
 
-    @RequestMapping("/successful-login")
-    public String onLoginSuccess(){
-        return "redirect:/user/profile";
-    }
-
     @RequestMapping("/email-confirmation")
     public String emailConfirmationPage(){
         return "entry/email-confirmation.html";
@@ -98,9 +94,12 @@ public class UserProfileController {
 
         if(optionalAppUser.isPresent()){
             byte[] image = imageHandler.downloadImageFromAppUser(optionalAppUser.get());
-            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/jpeg")).body(image);
+
+            String type = optionalAppUser.get().getUserImages().getType();
+
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.valueOf("image/jpeg")).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -111,9 +110,11 @@ public class UserProfileController {
 
         if(optionalTraining.isPresent()){
             byte[] image = imageHandler.downloadImageFromTraining(optionalTraining.get());
-            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf("image/jpeg")).body(image);
+
+            String type = optionalTraining.get().getTrainingsImage().getType();
+            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.valueOf("image/jpeg")).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -123,6 +124,7 @@ public class UserProfileController {
         appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
 
         appUserService.addAppUserImage(appUser, multipartFile);
+
         return "redirect:/user/profile";
     }
 
