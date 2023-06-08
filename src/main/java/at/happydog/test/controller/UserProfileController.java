@@ -95,9 +95,12 @@ public class UserProfileController {
         if(optionalAppUser.isPresent()){
             byte[] image = imageHandler.downloadImageFromAppUser(optionalAppUser.get());
 
-            String type = optionalAppUser.get().getUserImages().getType();
-
-            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
+            if(optionalAppUser.get().getUserImages() != null){
+                String type = optionalAppUser.get().getUserImages().getType();
+                return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
+            }else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -111,8 +114,12 @@ public class UserProfileController {
         if(optionalTraining.isPresent()){
             byte[] image = imageHandler.downloadImageFromTraining(optionalTraining.get());
 
-            String type = optionalTraining.get().getTrainingsImage().getType();
-            return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
+            if(optionalTraining.get().getTrainingsImage() != null){
+                String type = optionalTraining.get().getTrainingsImage().getType();
+                return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
+            }else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
