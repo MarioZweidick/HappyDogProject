@@ -30,7 +30,7 @@
             <h3>Addresse:</h3>
             <p th:text="${training.location.street + ' ' + training.location.streetNumber + ', ' + training.location.plz + ', ' + training.location.city}"></p>
         </div>
-        <a th:href="@{/payment-form(training_id=${training.training_id})}">
+        <a th:if="${!training.isBooked} "th:href="@{/payment-form(training_id=${training.training_id})}">
             <button>Jetzt buchen!</button>
         </a>
     </div>

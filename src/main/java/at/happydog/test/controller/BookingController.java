@@ -11,10 +11,7 @@ import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -63,6 +60,26 @@ public class BookingController {
         return "redirect:/order-confirmation-sucess";
     }
 
+    @GetMapping( "/cancel-training")
+    public String cancelTraining(@RequestParam Long training_id){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser buyer = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        Training training = trainingService.getTrainingById(training_id).get();
+
+        try {
+        bookingService.cancelTraining(training, buyer.getAppuser_id(), training.getAppUsers().get(0));
+        }catch (BookingException bex){
+            System.out.println(bex.getErrorMessage());
+            return "redirect:/storno-confirmation-failure";
+        }
+
+        return "redirect:/storno-confirmation-sucess";
+
+
+    }
+
     @RequestMapping("/order-confirmation-sucess")
     public ModelAndView orderConfirmationSuccessPage(){
         return new ModelAndView("payment/order-confirmation-success");
@@ -71,5 +88,15 @@ public class BookingController {
     @RequestMapping("/order-confirmation-failure")
     public ModelAndView orderConfirmationFailurePage(){
         return new ModelAndView("payment/order-confirmation-failure");
+    }
+
+    @RequestMapping("/storno-confirmation-sucess")
+    public ModelAndView stornoConfirmationSuccessPage(){
+        return new ModelAndView("payment/storno-confirmation-sucess");
+    }
+
+    @RequestMapping("/storno-confirmation-failure")
+    public ModelAndView stornoConfirmationFailurePage(){
+        return new ModelAndView("payment/storno-confirmation-failure");
     }
 }

@@ -6,6 +6,8 @@ import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.enity.Location;
 import at.happydog.test.enity.Training;
+import at.happydog.test.exception.custom.BookingException;
+import at.happydog.test.exception.custom.TrainingException;
 import at.happydog.test.registrationUtil.UserRegistrationRequest;
 import at.happydog.test.service.AppUserService;
 import at.happydog.test.service.LocationService;
@@ -72,19 +74,59 @@ public class UserProfileController {
     @GetMapping("/profile")
     public ModelAndView userProfileView(){
         ModelAndView owner = new ModelAndView("profile/owner");
+        ModelAndView trainer = new ModelAndView("profile/trainer");
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
 
         if(appUser.getRole() == AppUserRoles.DOG_TRAINER){
-            ModelAndView trainer = new ModelAndView("profile/trainer");
+
             trainer.addObject("appuser", appUser);
             trainer.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id(), null));
             return trainer;
+        }else{
+            owner.addObject("appuser", appUser);
+            owner.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id(), false));
+            return owner;
+        }
+
+    }
+
+    @GetMapping("/profile-edit")
+    public ModelAndView userProfileEditView(){
+        ModelAndView owner = new ModelAndView("profile/edit-owner");
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        if(appUser.getRole() == AppUserRoles.DOG_TRAINER){
+            ModelAndView trainer = new ModelAndView("profile/edit-trainer");
+            trainer.addObject("appuser", appUser);
+            return trainer;
         }
         owner.addObject("appuser", appUser);
-        owner.addObject("trainings", trainingService.getTrainingListForAppUser(appUser.getAppuser_id(), false));
+
         return owner;
+    }
+
+    @GetMapping( "/delete-training")
+    public String deleteTraining(@RequestParam Long training_id){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser user = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        Training training = trainingService.getTrainingById(training_id).get();
+
+        try {
+            trainingService.deleteTraining(training, user.getAppuser_id());
+        }catch (TrainingException tex){
+            System.out.println(tex.getErrorMessage());
+            return "redirect:/user/profile";
+        }
+
+        return "redirect:/user/profile";
+
+
     }
 
     @GetMapping("/profile/image/{id}")
@@ -95,7 +137,6 @@ public class UserProfileController {
         if(optionalAppUser.isPresent()){
             byte[] image = imageHandler.downloadImageFromAppUser(optionalAppUser.get());
 
-            if(optionalAppUser.get().getUserImages() != null){
                 String type = optionalAppUser.get().getUserImages().getType();
                 return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
             }else{
@@ -132,7 +173,7 @@ public class UserProfileController {
 
         appUserService.addAppUserImage(appUser, multipartFile);
 
-        return "redirect:/user/profile";
+        return "redirect:/user/profile-edit";
     }
 
     @PostMapping("/profile/save-training")

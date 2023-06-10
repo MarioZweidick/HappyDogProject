@@ -1,33 +1,52 @@
 
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .container-wrapper{
+    margin-top: 20px;
+    margin-bottom: 20px;
     background-color: white;
     border-radius: 25px;
     box-shadow: 0px 10px 30px 1px #0000004b;
 }
 
-.profile, .user-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 80%;
+fieldset{
+    border: none;
+}
+
+
+.profile{
+    max-width: 50%;
     padding: 1em;
     margin: auto;
+    text-align: center;
 }
+
+.user-details {
+    max-width: 50%;
+    padding: 1em;
+    margin: auto;
+    text-align: center;
+    border: 0;
+}
+
+.user-details-form input{
+    text-align: left;
+    display: block;
+    width: 100%;
+}
+
+.user-details-form label{
+    text-align: left;
+    display: block;
+}
+
 
 .user-details p{
     margin-top: 10px;
     font-size: 24px;
-
 }
 
 .user-details-links{
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .user-details-links a{
@@ -37,13 +56,13 @@
 
 .user-details-links i{
     color: black;
-    margin: 10px;
+    margin: 20px;
     font-size: 24px;
 
 }
 .user-details-links i a:hover{
     color: darkgray;
-    margin: 10px;
+    margin: 20px;
 
 }
 
@@ -56,14 +75,11 @@
     width: 250px;
     height: 250px;
     border-radius: 20%;
-    text-align: center;
-    justify-content: center;
-    align-self: center;
 }
 
 .profile form {
-    display: flex;
-    flex-direction: column;
+
+    margin: auto;
     align-items: center;
     text-align: center;
 }
@@ -74,8 +90,17 @@
 }
 
 .table-wrapper{
-    margin-top: 50px;
+    margin-top: 20px;
     background-color: white;
     border-radius: 25px;
     box-shadow: 0px 10px 30px 1px #0000004b;
 }
+
+.form-label{
+    text-align: center;
+}
+
+.location-wrapper{
+    margin-top: 30px;
+}
+

@@ -6,94 +6,74 @@
     <link rel="stylesheet" href="../../static/css/reset-config.css">
     <link rel="stylesheet" href="../../static/css/profiles/profile.css">
     <link rel="stylesheet" href="../../static/css/profiles/owner.css">
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/css/main.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap-tables.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 <body>
 
-<div th:replace="~{includes/fragments :: header}"></div>
-<main>
+        <div th:replace="includes/fragments ::header"></div>
 
-    <div class="user-container">
-        <form class="user-settings"
-                th:action="@{profile/save-image}"
-                th:object="${appuser}"
-                method="POST"
-                enctype="multipart/form-data">
+        <div class="content">
 
-            <div class="user-settings-container-right">
-                <div class="user-settings-image-align">
-                    <div class="user-settings-image">
-                       <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+            <div class="container-wrapper">
+
+            <div class="container">
+                <div class="profile">
+                    <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+                    <h1 th:text="${appuser.username}" id="username"></h1>
+                </div>
+
+                <div class="user-details">
+
+                    <p th:text="${appuser.firstname}"></p>
+                    <p th:text="${appuser.lastname}"></p>
+                    <p th:text="${appuser.email}"></p>
+
+                    <div class="user-details-links">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/user/profile-edit"><i class="fa fa-pencil-square-o"></i> Bearbeiten</a>
+                        <a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
                 </div>
-                <div class="user-settings-sub-image-align">
-                    <label>Add profile picture</label>
-                    <input type="file" name="image" accept="image/png, image/jpeg" required/>
-                    <button type="submit" style="width:100%;">Add picture</button>
-                </div>
             </div>
-        </form>
-        <div class="user-info">
-
-            <div class="user-description">User Profile</div>
-
-            <div class="user-info-row">
-                <label>Username: </label>
-                <p th:text="${appuser.username}"></p>
-            </div>
-
-            <div class="user-info-row">
-                <label>Vorname: </label>
-                <p th:text="${appuser.firstname}"></p>
-            </div>
-
-            <div class="user-info-row">
-                <label>Nachname: </label>
-                <p th:text="${appuser.lastname}"></p>
-            </div>
-
-            <div class="user-info-row">
-                <label>Email: </label>
-                <p th:text="${appuser.email}"></p>
-            </div>
-
-            <a href="/user/logout">Logout</a>
-
-            <a href="/">Home</a>
-
-
-
-
         </div>
+
+    <div class="table-wrapper">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Training</th>
+                <th scope="col">Beschreibung</th>
+                <th scope="col">Preis</th>
+                <th scope="col">Datum</th>
+                <th scope="col"></th>
+                <th scope="col">Stornieren</th>
+            </tr>
+            </thead>
+            <tbody style="text-align: center">
+            <tr th:each="training: ${trainings}">
+                <th th:text="${training.titel}"></th>
+                <td th:text="${training.description}"></td>
+                <td th:text="${training.price + '€'}"></td>
+                <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
+                <td><a th:href="@{/training/view(training_id = ${training.training_id})}"><i class="fa fa-search" style="font-size: 24px; color: black"></i></a></td>
+                <td><a th:href="@{/cancel-training(training_id = ${training.training_id})}"><i class="fa fa-times" style="font-size: 24px; color: red"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 
+        </div>
 
 
-    <table>
-        <thead>
-        <tr><th>Ihre gebuchten Trainings</th></tr>
-        <tr>
-            <th scope="col">Training</th>
-            <th scope="col">Beschreibung</th>
-            <th scope="col">Preis</th>
-            <th scope="col">Datum</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="training: ${trainings}">
-            <th th:text="${training.titel}"></th>
-            <td th:text="${training.description}"></td>
-            <td th:text="${training.price + '€'}"></td>
-            <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
-        </tr>
-        </tbody>
-    </table>
-</main>
 
-<div th:replace="~{includes/fragments::footer}"></div>
+        <div th:replace="~{includes/fragments :: footer}"></div>
+
 
     </body>
 </html>
