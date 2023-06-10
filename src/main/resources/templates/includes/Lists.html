@@ -21,7 +21,7 @@
 <div  th:fragment="noTrainer">
     <H2>Leider wurde kein Hundetrainer gefunden</H2>
 </div>
-<div th:fragment="traingingsList" th:each="training: ${appuser.trainings}">
+<div th:fragment="traingingsList" th:each="training: ${appuser.trainings}" th:if="${!training.isBooked}">
     <a th:href="@{/training/view(training_id = ${training.training_id})}">
         <div class="trainerview">
             <img th:src="@{'/user/training/image/' + ${training.training_id}}"/>
@@ -43,5 +43,6 @@
         </div>
     </a>
 </div>
+
 </body>
 </html>

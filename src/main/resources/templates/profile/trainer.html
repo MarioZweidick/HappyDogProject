@@ -8,124 +8,157 @@
     <link rel="stylesheet" href="../../static/css/profiles/trainer-view.css">
     <link rel="stylesheet" href="../../static/css/main.css">
     <link rel="stylesheet" href="../../static/css/trainer.css">
+    <link rel="stylesheet" href="../../static/css/button.css">
+
+    <link rel="stylesheet" href="../../static/css/bootstrap-tables.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 </head>
 <body>
 <div>
-    <div th:replace="~{includes/fragments :: header}"></div>
-    <div class="profil-div">
 
-        <div class="left-div">
-            <div class="left-profil-div">
-                <h1 th:text="${appuser.username}"></h1>
-                <h2 th:text="${appuser.firstname} + ' ' + ${appuser.lastname} "></h2>
-                <!--<a th:href="'mailto:' + ${appuser.email}" th:text="${appuser.email}"></a>-->
-            </div>
-            <div>
-                <h3>Location angeben!</h3>
-                <form
-                        th:action="@{profile/save-location}"
-                        method="POST">
-                    <div class="location-div">
-                        <input type="text" name="street" placeholder="Straße" required>
-                        <input type="text" name="streetNumber" placeholder="Hausnummer" required>
-                        <input type="text" name="city" placeholder="Ort" required>
-                        <input type="text" name="plz" placeholder="Postleitzahl" required>
+
+    <div th:replace="~{includes/fragments :: header}"></div>
+
+    <div class="content">
+
+
+            <div class="container-wrapper">
+                <div class="container">
+                    <div class="profile">
+                        <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+                        <h1 th:text="${appuser.username}" id="username"></h1>
                     </div>
-                    <div>
-                        <button type="submit">Add Location</button>
-                        <div th:if="${!param.isEmpty()}">
-                            <h2 th:if="${param.q.contains('error_location')}">Die Ortseingabe ist nicht Valide!</h2>
+
+                    <div class="user-details">
+
+                        <p th:text="${appuser.firstname}"></p>
+                        <p th:text="${appuser.lastname}"></p>
+                        <p th:text="${appuser.email}"></p>
+                        <p th:text="${appuser.description}"></p>
+
+                        <div class="user-details-links">
+                            <a href="/"><i class="fa fa-home"></i> Home</a>
+                            <a href="/user/profile-edit"><i class="fa fa-pencil-square-o"></i> Bearbeiten</a>
+                            <a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="notifier">
+                <p th:if="${appuser.location != null}">Damit dein Profil öffentlich sichtbar ist, musst du einen Ort hinzufügen!</p>
+            </div>
+
+
+            <div class="table-wrapper">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Training</th>
+                        <th scope="col">Beschreibung</th>
+                        <th scope="col">Preis</th>
+                        <th scope="col">Datum</th>
+                        <th scope="col"></th>
+                        <th scope="col">Löschen</th>
+                    </tr>
+                    </thead>
+                    <tbody style="text-align: center">
+                    <tr th:each="training: ${trainings}">
+                        <th><img th:src="@{'/user/training/image/' + ${training.training_id}}" style="border-radius: 10px"/></th>
+                        <th th:text="${training.titel}"></th>
+                        <td th:text="${training.description}"></td>
+                        <td th:text="${training.price + '€'}"></td>
+                        <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
+                        <td><a th:href="@{/training/view(training_id = ${training.training_id})}"><i class="fa fa-search" style="font-size: 24px; color: black"></i></a></td>
+                        <td><a th:href="@{/user/delete-training(training_id = ${training.training_id})}"><i class="fa fa-times" style="font-size: 24px; color: red"></i></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        <div class="add-training-wrapper">
+
+            <div class="add-training">
+                <h2>Training hinzufügen</h2>
+
+                <form
+                        th:action="@{profile/save-training}"
+                        method="POST"
+                        enctype="multipart/form-data">
+
+
+                    <div>
+                        <label>Title</label>
+                        <div>
+                            <input type="text" id="titel" name="title" placeholder="" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Beschreibung</label>
+                        <div>
+                            <input type="text" id="description" name="description" placeholder="" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Preis</label>
+                        <div>
+                            <input type="number" id="preis" name="price" placeholder="" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Datum</label>
+                        <div>
+                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" id="date" name="date" placeholder="" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Beginnzeit</label>
+                        <div>
+                            <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="beginn_time" name="beginntime"
+                                   placeholder="00:00"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Endzeit</label>
+                        <div>
+                            <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="end_time" name="endtime" placeholder="00:00"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Standort</label><br>
+                        <input type="text" id="street" name="street" placeholder="Straße" required>
+                        <input type="text" id="street-number" name="streetNumber" placeholder="Hausnummer" required>
+                        <input type="text" id="city" name="city" placeholder="Ort" required>
+                        <input type="text" id="postalcode" name="plz" placeholder="Postleitzahl" required>
+                    </div>
+                    <div>
+                        <input type="file" id="picture" name="picture" accept="image/png, image/jpeg, image/jpg" required/>
+                    </div>
+                    <button  class="button" type="submit">Training hinzufügen</button>
                 </form>
-
             </div>
         </div>
-        <div>
-            <form
-                    th:action="@{profile/save-image}"
-                    th:object="${appuser}"
-                    method="POST"
-                    enctype="multipart/form-data">
-
-                <div>
-                    <label>Add profile picture</label>
-                    <br>
-                    <input type="file" name="image" accept="image/png, image/jpeg" required/>
-                </div>
-                <button type="submit">Add picture</button>
-            </form>
-            <img th:src="@{'/user/profile/image/' + ${appuser.appuser_id}}"/>
+        <div th:if="${!param.isEmpty()}">
+            <h2 th:if="${param.q.contains('error_training')}">Ortseingabe für das Training ist nicht valide!</h2>
         </div>
+
     </div>
-    <div>
-        <form
-                th:action="@{profile/save-training}"
-                method="POST"
-                enctype="multipart/form-data">
 
-            <div>
-                <label>Title</label>
-                <div>
-                    <input type="text" id="titel" name="title" placeholder="" required>
-                </div>
-            </div>
+    <div th:replace="~{includes/fragments :: footer}"></div>
 
-            <div>
-                <label>Beschreibung</label>
-                <div>
-                    <input type="text" id="description" name="description" placeholder="" required>
-                </div>
-            </div>
-
-            <div>
-                <label>Preis</label>
-                <div>
-                    <input type="number" id="preis" name="price" placeholder="" required>
-                </div>
-            </div>
-            <div>
-                <label>Datum</label>
-                <div>
-                    <input type="date" pattern="\d{4}-\d{2}-\d{2}" id="date" name="date" placeholder="" required>
-                </div>
-            </div>
-
-            <div>
-                <label>Beginnzeit</label>
-                <div>
-                    <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="beginn_time" name="beginntime"
-                           placeholder="00:00"
-                           required>
-                </div>
-            </div>
-
-            <div>
-                <label>Endzeit</label>
-                <div>
-                    <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="end_time" name="endtime" placeholder="00:00"
-                           required>
-                </div>
-            </div>
-
-            <div>
-                <label>Standort</label>
-                <input type="text" id="street" name="street" placeholder="Straße" required>
-                <input type="text" id="street-number" name="streetNumber" placeholder="Hausnummer" required>
-                <input type="text" id="city" name="city" placeholder="Ort" required>
-                <input type="text" id="postalcode" name="plz" placeholder="Postleitzahl" required>
-            </div>
-            <div>
-                <input type="file" id="picture" name="picture" accept="image/png, image/jpeg, image/jpg" required/>
-            </div>
-            <button type="submit">Add Training</button>
-        </form>
-    </div>
-    <div th:if="${!param.isEmpty()}">
-        <h2 th:if="${param.q.contains('error_training')}">Ortseingabe für das Training ist nicht valide!</h2>
-    </div>
-    <h1 class="Training-h1">Angebotene Trainings: </h1>
-    <div th:replace="~{includes/Lists:: traingingsList}"></div>
 </div>
 </body>
 </html>

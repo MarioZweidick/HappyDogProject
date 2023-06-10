@@ -4,6 +4,7 @@ import at.happydog.test.Handler.ImageHandler;
 import at.happydog.test.api.google.geocoding.Geocoding;
 import at.happydog.test.enity.*;
 import at.happydog.test.exception.custom.AppUserException;
+import at.happydog.test.exception.custom.TrainingException;
 import at.happydog.test.repository.TrainingRepository;
 import at.happydog.test.repository.TrainingsImageRepository;
 import lombok.AllArgsConstructor;
@@ -50,8 +51,6 @@ public class TrainingService {
     public List<Training> getTrainingListForAppUser(Long id, Boolean visible){
         Optional<AppUser> appUser = Optional.ofNullable(appUserService.findAppUserById(id));
 
-        System.out.println("---------------------------------------------------------SIZE OF APPUSER TRAININGS: " + appUser.get().getTrainings().size() + "---------------------------------------------");
-
         List<Training> trainingList = new ArrayList<>();
 
 
@@ -84,6 +83,19 @@ public class TrainingService {
     }
 
 
+    public void deleteTraining(Training training, Long userid){
+
+        AppUser user = appUserService.findAppUserById(userid);
+
+        if(user.getRole().equals(AppUserRoles.DOG_TRAINER) && !training.getIsBooked() && user.getTrainings().size() > 0){
+
+            user.deleteTraining(training);
+            trainingRepository.delete(training);
+
+        }else{
+            throw new TrainingException("Training konnte nicht gelöscht werden!");
+        }
+    }
 
 
     public String saveTraining(String title, String description, Double price, Date date, LocalTime beginn, LocalTime end, String street, String streetNumber, String city, String plz, MultipartFile picture) throws IOException, InterruptedException {

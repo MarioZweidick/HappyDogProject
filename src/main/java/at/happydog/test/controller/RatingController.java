@@ -48,6 +48,4 @@ public class RatingController {
         }
         return ResponseEntity.status(HttpStatus.OK).body("Bewertung wurde hinzugefügt!");
     }
-
-
 }
