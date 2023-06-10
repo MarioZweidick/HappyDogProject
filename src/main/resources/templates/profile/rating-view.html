@@ -6,8 +6,13 @@
   <link rel="stylesheet" href="../../static/css/reset-config.css">
   <link rel="stylesheet" href="../../static/css/profiles/profile.css">
   <link rel="stylesheet" href="../../static/css/profiles/trainer-view.css">
+  <link rel="stylesheet" type="text/css" href="/static/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
+
+<div th:replace="~{includes/fragments :: header}"></div>
 
 <h1>Bewertungen</h1>
 
@@ -30,7 +35,7 @@
 <a href="/">Home</a>
 <a th:href="@{/trainer/view(trainer_id=${appuser.appuser_id})}">Zurück</a>
 
-
+<div th:replace="~{includes/fragments::footer}"></div>
 
 
 </body>

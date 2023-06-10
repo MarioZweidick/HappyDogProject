@@ -6,47 +6,75 @@
     <link rel="stylesheet" href="../../static/css/reset-config.css">
     <link rel="stylesheet" href="../../static/css/profiles/profile.css">
     <link rel="stylesheet" href="../../static/css/profiles/owner.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
-        <p>OWNER</p>
-        <h1>User Profile</h1>
 
-        <form
+<div th:replace="~{includes/fragments :: header}"></div>
+<main>
+
+    <div class="user-container">
+        <form class="user-settings"
                 th:action="@{profile/save-image}"
                 th:object="${appuser}"
                 method="POST"
                 enctype="multipart/form-data">
 
-            <div>
-                <label>Add profile picture</label>
-                <br>
-                <input type="file" name="image" accept="image/png, image/jpeg" required/>
+            <div class="user-settings-container-right">
+                <div class="user-settings-image-align">
+                    <div class="user-settings-image">
+                       <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+                    </div>
+                </div>
+                <div class="user-settings-sub-image-align">
+                    <label>Add profile picture</label>
+                    <input type="file" name="image" accept="image/png, image/jpeg" required/>
+                    <button type="submit" style="width:100%;">Add picture</button>
+                </div>
             </div>
-            <button type="submit">Add picture</button>
         </form>
+        <div class="user-info">
 
-        <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+            <div class="user-description">User Profile</div>
 
-        <label>Username: </label>
-        <p th:text="${appuser.username}"></p>
+            <div class="user-info-row">
+                <label>Username: </label>
+                <p th:text="${appuser.username}"></p>
+            </div>
 
-        <label>Vorname: </label>
-        <p th:text="${appuser.firstname}"></p>
+            <div class="user-info-row">
+                <label>Vorname: </label>
+                <p th:text="${appuser.firstname}"></p>
+            </div>
 
-        <label>Nachname: </label>
-        <p th:text="${appuser.lastname}"></p>
+            <div class="user-info-row">
+                <label>Nachname: </label>
+                <p th:text="${appuser.lastname}"></p>
+            </div>
 
-        <label>Email: </label>
-        <p th:text="${appuser.email}"></p>
+            <div class="user-info-row">
+                <label>Email: </label>
+                <p th:text="${appuser.email}"></p>
+            </div>
 
-    <br>
-    <a href="/user/logout">Logout</a>
-    <a href="/">Home</a>
-    <br>
+            <a href="/user/logout">Logout</a>
+
+            <a href="/">Home</a>
+
+
+
+
+        </div>
+    </div>
+
+
 
 
     <table>
         <thead>
+        <tr><th>Ihre gebuchten Trainings</th></tr>
         <tr>
             <th scope="col">Training</th>
             <th scope="col">Beschreibung</th>
@@ -63,8 +91,9 @@
         </tr>
         </tbody>
     </table>
+</main>
 
-
+<div th:replace="~{includes/fragments::footer}"></div>
 
     </body>
 </html>

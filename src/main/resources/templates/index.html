@@ -10,7 +10,7 @@
 </head>
 <body>
 <div th:replace="~{includes/fragments :: header}"></div>
-<div class="wrapper">
+<main class="wrapper">
     <div class="search-container">
 
         <h2 class="search-title">Finde das perfekte Hundetraining</h2>
@@ -46,7 +46,7 @@
         <h2 th:if="${param.q.contains('error_location')}">Der Ort konnte nicht gefunden werden!</h2>
         <h2 th:if="${param.q.contains('error_no_location')}">Bitte Geben sie einen Ort ein!</h2>
     </div>
-</div>
+</main>
 <div th:replace="~{includes/fragments::footer}"></div>
 
 </body>

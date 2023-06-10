@@ -6,11 +6,14 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
   <link rel="stylesheet" href="../../static/css/entry/loginAndRegistration.css">
-  <link rel="stylesheet" href="../../static/css/main.css">
+  <link rel="stylesheet" href="../../../static/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 </head>
 <body class="aling-body">
+<div th:replace="~{includes/fragments :: header}"></div>
+<main>
   <div class="login-div">
     <form
           id="sumbit-form"
@@ -84,6 +87,7 @@
     <br>
     <a href="/user/login">Already have an account?</a>
   </div>
+</main>
   <script>
     const form = document.querySelector("#sumbit-form");
     const emailConfirmation = document.getElementById("email-confirmation");
@@ -122,5 +126,6 @@
       emailConfirmation.style.display = "block";
     }
   </script>
+<div th:replace="~{includes/fragments :: footer}"></div>
 </body>
 </html>

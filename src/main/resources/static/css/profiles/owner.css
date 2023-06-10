@@ -1,0 +1,78 @@
+.user-container {
+    display: flex;
+    flex-flow: row-reverse;
+}
+
+.user-settings-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-settings {
+    flex-basis: 50%;
+    padding: 20px;
+}
+
+.user-info {
+    flex-basis: 50%;
+    padding: 20px;
+}
+
+.user-info-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.user-info-row > * {
+    width: fit-content;
+    margin: 0;
+}
+
+.user-info-row label {
+
+}
+
+.user-description {
+    display: flex;
+    justify-content: center;
+}
+
+.user-settings-image {
+    width: 50%;
+    height: auto;
+    aspect-ratio: 1;
+    border: 1px solid white;
+    background: grey;
+}
+
+.user-settings-image img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.user-settings-container-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-settings-image-align {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    width: 500px;
+}
+
+.user-settings-sub-image-align{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+}

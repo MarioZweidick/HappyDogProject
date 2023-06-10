@@ -4,9 +4,12 @@
   <title>Please Log In</title>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
   <link rel="stylesheet" href="../../static/css/entry/loginAndRegistration.css">
-  <link rel="stylesheet" href="../../static/css/main.css">
+  <link rel="stylesheet" href="../../static/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="aling-body">
+<div th:replace="~{includes/fragments :: header}"></div>
+<main>
   <div class="login-div">
     <h1>Please Log In</h1>
     <div th:if="${param.error}">
@@ -25,5 +28,7 @@
     <br>
     <a href="/user/registration">No Account? Register here!</a>
   </div>
+</main>
+<div th:replace="~{includes/fragments::footer}"></div>
 </body>
 </html>

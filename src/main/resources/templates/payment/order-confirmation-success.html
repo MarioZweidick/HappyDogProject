@@ -5,13 +5,21 @@
   <title>Buchung erfolgreich</title>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
   <link rel="stylesheet" href="../../static/css/entry/email-confirmation.css">
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
+<div th:replace="~{includes/fragments :: header}"></div>
+
+<main>
 <h1>Training erfolgreich gebucht!</h1>
 <p>Du kannst dein gebuchtes Training auf deinem Profil einsehen.</p>
 <hr>
 <a href="/">Zurück zur Startseite!</a>
+</main>
+
+<div th:replace="~{includes/fragments::footer}"></div>
 
 </body>
 </html>
