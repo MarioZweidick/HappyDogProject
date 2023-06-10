@@ -1,44 +1,115 @@
-.trainerview {
-    margin-top:2%;
-    margin-left: 2em;
-    margin-right: 2em;
-    display: grid;
-    grid-template-columns: auto 1fr 1fr;
-    background-color: #cccccc;
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.trainerview img {
-    width: 15em;
-    height: 15em;
+.container-wrapper{
     background-color: white;
-    align-items: center;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px 1px #0000004b;
 }
-.trainerview div{
+
+.profile, .user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80%;
+    padding: 1em;
+    margin: auto;
+}
+
+.user-details p{
+    margin-top: 10px;
+    font-size: 24px;
+
+}
+
+.user-details-links{
+    margin-top: 30px;
+}
+
+.user-details-links a{
+    text-decoration: none;
+    color: black;
+}
+
+.user-details-links i{
+    color: black;
+    margin: 10px;
+    font-size: 24px;
+
+}
+.user-details-links i a:hover{
+    color: darkgray;
+    margin: 10px;
+
+}
+
+.profile{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.profile img {
+    width: 250px;
+    height: 250px;
+    border-radius: 20%;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.profile form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#username {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.table-wrapper{
+    margin-top: 50px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px 1px #0000004b;
+}
+
+.notifier{
+    padding: 5px;
+    font-size: 18px;
+    margin-top: 50px;
+    text-align: center;
     width: 100%;
-    align-items: center;
-    margin-right: 2em;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px 1px #0000004b;
 }
 
-.verticalDesign{
-    display: grid;
-    grid-template-rows: 1fr 1fr ;
+.add-training-wrapper{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px 1px #0000004b;
+    width: 100%;
+    height: 100%;
+
+
 }
 
-.startEndTime {
-    display: grid;
-    grid-template-columns: auto auto;
-    font-size: 1.5em;
-
+.add-training{
+    width: 50%;
+    height: 80%;
+    margin: auto;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
-.descriptionSpan{
-    grid-column-start: 1;
-    grid-column-end: 2;
-    font-size: 1.5em;
-    font-weight: normal;
-}
- a{
-     font-style: normal;
-     text-decoration: none;
-     color: black;
- }
+

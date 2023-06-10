@@ -125,14 +125,18 @@ public class PreloadDatabase {
 
         return args -> {
 
-             //Preload AppUsers
+
+            //Preload AppUsers
             log.info("Preloading " + repository.save(admin));
             log.info("Preloading " + repository.save(owner));
             log.info("Preloading " + repository.save(trainer));
-            for (AppUser appUser: trainerList ) {
+            for (AppUser appUser : trainerList) {
                 log.info("Preloading " + repository.save(appUser));
-                            }
+
+            }
+
+
+
         };
     }
-
 }

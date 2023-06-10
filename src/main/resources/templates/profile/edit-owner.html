@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil bearbeiten</title>
+    <link rel="stylesheet" href="../../static/css/reset-config.css">
+    <link rel="stylesheet" href="../../static/css/profiles/profile.css">
+    <link rel="stylesheet" href="../../static/css/profiles/edit-profile.css">
+    <link rel="stylesheet" href="../../static/css/main.css">
+    <link rel="stylesheet" href="../../static/css/button.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+</head>
+<body>
+
+        <div th:replace="includes/fragments ::header"></div>
+
+        <div class="content">
+
+            <div class="container-wrapper">
+
+            <div class="container">
+                <div class="profile">
+                    <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+
+                    <form
+                            th:action="@{profile/save-image}"
+                            th:object="${appuser}"
+                            method="POST"
+                            enctype="multipart/form-data">
+
+                        <div>
+                            <input type="file" name="image" accept="image/png, image/jpeg" required/>
+                        </div>
+                        <button class="button" type="submit">Profilbild hinzufügen</button>
+                    </form>
+                </div>
+
+                <div class="user-details">
+                    <form
+                            class="user-details-form"
+                            action='/user/registration/register'
+                            method="POST">
+
+                        <fieldset>
+                            <h2 style="font-size: 24px;margin-bottom: 10px;">Profil bearbeiten</h2>
+                            <div>
+                                <!-- Username -->
+                                <label>Username</label>
+                                <div>
+                                    <input type="text" id="usernameform" name="username" th:placeholder="${appuser.username}">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Firstname -->
+                                <label for="firstname">Vorname</label>
+                                <div>
+                                    <input type="text" id="firstname" name="firstname" th:placeholder="${appuser.firstname}">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Lastname -->
+                                <label for="lastname">Nachname</label>
+                                <div>
+                                    <input type="text" id="lastname" name="lastname" th:placeholder="${appuser.lastname}">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- E-mail -->
+                                <label for="email">E-Mail</label>
+                                <div>
+                                    <input type="text" id="email" name="email" th:placeholder="${appuser.email}">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Password-->
+                                <label for="password">Passwort</label>
+                                <div>
+                                    <input type="password" id="password" name="password" placeholder="">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Button -->
+                                <div>
+                                    <button class="button" type="submit">Speichern</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+
+
+                    <div class="user-details-links">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/user/profile"><i class="fa fa-user"></i> Profil</a>
+                        <a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div th:replace="~{includes/fragments :: footer}"></div>
+
+    </body>
+</html>
+
