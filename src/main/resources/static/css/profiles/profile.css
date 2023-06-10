@@ -15,15 +15,15 @@ body {
     margin-bottom: 30px;
 }
 
-
 .profil-div{
     display: grid;
     grid-template-columns: 2fr 1fr;
     margin-top: 1em;
 
 }
+
 label{
-    margin-bottom: 1em;
+    margin: 0.5em;
 }
 
 .left-profil-div{
@@ -43,10 +43,7 @@ label{
 }
 input{
     width: 100%;
-    padding-top: .5em;
-    padding-bottom: .5em;
-    margin-bottom: 1em;
-    width: 90%;
+    margin: 0.5em;
 }
 
 button{
@@ -64,4 +61,35 @@ button{
 
 img{
     height: 10em;
+}
+
+table {
+    display: flex;
+    flex-direction: column;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: white;
+}
+
+thead {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+}
+
+tr {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+th, td {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid black;
+}
+
+tbody {
+    flex: 1;
+    overflow-y: auto;
 }

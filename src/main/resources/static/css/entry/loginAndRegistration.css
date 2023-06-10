@@ -5,7 +5,7 @@
     background-color: whitesmoke;
     border-radius: 1em;
     width: min-content;
-    margin:auto;
+    margin: 20px auto;
     border: 0;
 }
 h1{
@@ -19,14 +19,14 @@ input{
     width: 30em;
 }
 
-.aling-body {
+/*.aling-body {
     display: grid;
     grid-template-rows:  1fr ;
     grid-template-columns:  1fr ;
     align-items: center;
     justify-content: space-around;
 
-}
+}*/
 
 select{
     width: 30em;

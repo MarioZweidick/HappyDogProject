@@ -137,7 +137,6 @@ public class UserProfileController {
         if(optionalAppUser.isPresent()){
             byte[] image = imageHandler.downloadImageFromAppUser(optionalAppUser.get());
 
-            if(optionalAppUser.get().getUserImages() != null) {
                 String type = optionalAppUser.get().getUserImages().getType();
                 return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
             }else{
