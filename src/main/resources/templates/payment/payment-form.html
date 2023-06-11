@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Bezahlung</title>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
+  <link rel="stylesheet" href="../../static/css/button.css">
   <link rel="stylesheet" href="../../static/css/entry/email-confirmation.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,8 +17,16 @@
 
 <div th:replace="~{includes/fragments :: header}"></div>
 <main>
-  <h2>Bezahlung (Mock)</h2>
 <div class="row">
+  <div class="col-25">
+    <div class="container">
+      <h4>Warenkorb <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>2</b></span></h4>
+      <p><a href="#">Training</a> <span class="price" th:text="${training.getPrice()} + ' €'"></span></p>
+      <p><a href="#">Bearbeitungsgebühren</a> <span class="price">2.0 €</span></p>
+      <hr>
+      <p>Gesamt <span class="price" style="color:black"><b th:text="${training.getPrice() + 2.0} + ' €'"></b></span></p>
+    </div>
+  </div>
   <div class="col-75">
     <div class="container">
       <form th:action="@{/payment-checkout(training_id=${training.training_id})}"
@@ -43,7 +52,7 @@
             </div>
           </div>
 
-          <div class="col-50">
+          <div class="col-50 full-width">
             <h3>Zahlung</h3>
             <label for="fname">Akzeptierte Karten</label>
             <div class="icon-container">
@@ -69,23 +78,12 @@
               </div>
             </div>
           </div>
-
         </div>
-        <label>
-          <input type="checkbox" checked="checked" name="sameadr" disabled> Lieferadresse wie Rechnungsadresse
-        </label>
-        <input type="submit" value="Weiter zur Kasse" class="btn">
+        <input type="submit" class="button" style="width: 100%" value="Weiter zur Kasse">
       </form>
     </div>
   </div>
-  <div class="col-25">
-    <div class="container">
-      <h4>Training <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-      <p><a href="#">Product 1</a> <span class="price" th:text="${training.getPrice()}">€</span></p>
-      <hr>
-      <p>Gesamt <span class="price" style="color:black"><b th:text="${training.getPrice()}">€</b></span></p>
-    </div>
-  </div>
+
 </div>
 </main>
 <div th:replace="~{includes/fragments::footer}"></div>

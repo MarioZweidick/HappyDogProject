@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Profile</title>
     <link rel="stylesheet" href="../../static/css/reset-config.css">
     <link rel="stylesheet" href="../../static/css/profiles/profile.css">
+    <link rel="stylesheet" href="../../static/css/button.css">
     <link rel="stylesheet" href="../../static/css/profiles/trainer-view.css">
     <link rel="stylesheet" href="../../static/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../static/css/trainer.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap-tables.css">
 
 </head>
 <body>
 <div th:replace="includes/fragments ::header"></div>
-<main>
-<div>
+<div class="content">
 
 
-    <div class="TrainerPage">
-        <img th:src="@{'/user/profile/image/' + ${appuser.appuser_id}}"/>
-        <div class="TrainerPageText">
 
-            <h1 th:href="${appuser.email}" th:text="${appuser.firstname}+' '+${appuser.lastname}"></h1>
 
-            <label>Kontakt: </label>
-            <br>
-            <a th:href="'mailto:'+${appuser.email}"><p th:text="${appuser.email}"></p></a>
-            <br>
-            <label>Über Mich</label>
-            <p th:text="${appuser.description}"></p>
-            <br>
-            <br>
-            <label>Bewertung: </label>
-            <p>3 Sterne, diggi</p>
-            <br>
+    <div class="container-wrapper">
+        <div class="container">
+            <div class="profile">
+                <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+                <h1 th:text="${appuser.username}" id="username"></h1>
+                <a style="text-decoration: none; text-align: center" th:href="@{/rating/view(trainer_id = ${appuser.appuser_id})}">
+                    <button class="button">Bewertungen</button>
+                </a>
+            </div>
+
+            <div class="user-details">
+
+                <p th:text="${appuser.firstname} + ' '+ ${appuser.lastname}"></p>
+                <p th:text="'Kontakt: ' + ${appuser.email}"></p>
+                <p th:text="'Über Mich: '+${appuser.description}"></p>
+
+            </div>
         </div>
     </div>
 
-
-    <div th:replace="~{includes/Lists:: traingingsList}"></div>
-
-
-    <br>
-    <a href="/">Home</a>
-
-
-    <a th:href="@{/rating/view(trainer_id=${appuser.appuser_id})}">Bewertungen</a>
-
-
+    <div class="table-wrapper">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Training</th>
+                <th scope="col">Beschreibung</th>
+                <th scope="col">Preis</th>
+                <th scope="col">Datum</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody style="text-align: center">
+            <tr th:each="training: ${appuser.trainings}">
+                <th><img th:src="@{'/user/training/image/' + ${training.training_id}}" style="border-radius: 10px"/></th>
+                <th th:text="${training.titel}"></th>
+                <td th:text="${training.description}"></td>
+                <td th:text="${training.price + '€'}"></td>
+                <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')} + ' Beginn: ' +${training.beginnTime} + ' Ende: ' + ${training.endTime}"></td>
+                <td><a th:href="@{/training/view(training_id = ${training.training_id})}"><i class="fa fa-search" style="font-size: 24px; color: black"></i></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-</main>
 <div th:replace="~{includes/fragments :: footer}"></div>
 </body>
 </html>

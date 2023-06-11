@@ -2,15 +2,23 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Buchung fehlgeschlagen</title>
+  <title>Stornierung fehlgeschlagen</title>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
   <link rel="stylesheet" href="../../static/css/entry/email-confirmation.css">
+  <link rel="stylesheet" href="../static/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<div th:replace="~{includes/fragments :: header}"></div>
+<main>
+  <div class="content-wrapper-center">
+    <div class="content-center">
+      <h1>Die Buchung wurde erflogreich storniert!</h1>
+      <a href="/"><i class="fa fa-home"></i> Zurück zur Startseite!</a>
+      <a href="/user/profile"><i class="fa fa-user"></i> Profil</a>
+    </div>
+  </div>
 
-<h1>Die Buchung wurde konnte nicht storniert werden!</h1>
-<hr>
-<a href="/">Zurück zur Startseite!</a>
-
+  <div th:replace="~{includes/fragments::footer}"></div>
 </body>
 </html>
