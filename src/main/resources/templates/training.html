@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Training</title>
     <link rel="stylesheet" href="../static/css/profiles/training.css">
+    <link rel="stylesheet" href="../static/css/button.css">
     <link rel="stylesheet" href="../static/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -15,7 +16,7 @@
 <div class="content-Box">
     <div class="content-Img-Place">
         <img th:src="@{'/user/training/image/' + ${training.training_id}}"/>
-        <iframe th:src="@{'https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q='+${training.location.street}+'%20'+${training.location.streetNumber}+',%20'+${training.location.plz}+'%20'+${training.location.city}+'+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'}">
+        <iframe th:src="@{'https://maps.google.com/maps?width=50px25&amp;height=600&amp;hl=en&amp;q='+${training.location.street}+'%20'+${training.location.streetNumber}+',%20'+${training.location.plz}+'%20'+${training.location.city}+'+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'}">
             <a href="https://www.maps.ie/distance-area-calculator.html">measure area map</a></iframe>
     </div>
     <div class="textPart">
@@ -30,8 +31,8 @@
             <h3>Addresse:</h3>
             <p th:text="${training.location.street + ' ' + training.location.streetNumber + ', ' + training.location.plz + ', ' + training.location.city}"></p>
         </div>
-        <a th:if="${!training.isBooked} "th:href="@{/payment-form(training_id=${training.training_id})}">
-            <button>Jetzt buchen!</button>
+        <a style="text-decoration: none" th:if="${!training.isBooked} "th:href="@{/payment-form(training_id=${training.training_id})}">
+            <button class="button">Jetzt buchen!</button>
         </a>
     </div>
 </div>

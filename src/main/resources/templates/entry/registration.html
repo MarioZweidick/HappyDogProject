@@ -6,7 +6,8 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
   <link rel="stylesheet" href="../../static/css/entry/loginAndRegistration.css">
-  <link rel="stylesheet" href="../../../static/main.css">
+  <link rel="stylesheet" href="../../static/main.css">
+  <link rel="stylesheet" href="../../static/css/button.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -22,7 +23,7 @@
 
       <fieldset>
         <div id="legend">
-          <legend class="">Register</legend>
+          <legend class="reg-title">Registrierung</legend>
         </div>
         <div>
           <!-- Username -->
@@ -73,9 +74,14 @@
         </div>
 
         <div>
+          <label>Ich habe die <a href="/agb">AGBs</a> gelesen und bin damit einverstanden.</label>
+          <input type="checkbox" required>
+        </div>
+
+        <div>
           <!-- Button -->
           <div>
-            <button id="register-button" type="submit">Register</button>
+            <button class="button" id="button" type="submit">Registrieren</button>
           </div>
         </div>
       </fieldset>
@@ -85,7 +91,7 @@
       <p id="confirm-email">Bitte Bestätige deine E-Mail Adresse!</p>
     </div>
     <br>
-    <a href="/user/login">Already have an account?</a>
+    <a href="/user/login">Du hast bereits einen Account?</a>
   </div>
 </main>
   <script>

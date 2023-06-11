@@ -12,9 +12,13 @@
 
 <div th:replace="~{includes/fragments :: header}"></div>
 <main>
-<h1>Die Buchung ist fehlgeschlagen!</h1>
-<hr>
-<a href="/">Zurück zur Startseite!</a>
+  <div class="content-wrapper-center">
+    <div class="content-center">
+        <h1>Die Buchung ist fehlgeschlagen!</h1>
+        <a href="/"><i class="fa fa-home"></i> Zurück zur Startseite!</a>
+        <a href="/user/profile"><i class="fa fa-user"></i> Profil</a>
+    </div>
+  </div>
 </main>
 
 <div th:replace="~{includes/fragments::footer}"></div>

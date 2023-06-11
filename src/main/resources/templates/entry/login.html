@@ -4,6 +4,7 @@
   <title>Please Log In</title>
   <link rel="stylesheet" href="../../static/css/reset-config.css">
   <link rel="stylesheet" href="../../static/css/entry/loginAndRegistration.css">
+  <link rel="stylesheet" href="../../static/css/button.css">
   <link rel="stylesheet" href="../../static/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -11,7 +12,7 @@
 <div th:replace="~{includes/fragments :: header}"></div>
 <main>
   <div class="login-div">
-    <h1>Please Log In</h1>
+    <h1>Anmelden</h1>
     <div th:if="${param.error}">
       Invalid username and password.</div>
     <div th:if="${param.logout}">
@@ -23,10 +24,10 @@
       <div>
         <input type="password" name="password" placeholder="Password"/>
       </div>
-      <input type="submit" value="Log in" />
+      <input class="button" id="button" type="submit" value="Log in" />
     </form>
     <br>
-    <a href="/user/registration">No Account? Register here!</a>
+    <a href="/user/registration">Kein Account? Hier anmelden!</a>
   </div>
 </main>
 <div th:replace="~{includes/fragments::footer}"></div>

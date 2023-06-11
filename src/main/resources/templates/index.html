@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" href="/static/css/button.css">
 
 </head>
 <body>
@@ -30,6 +31,7 @@
 
             </div>
             <div class="grid-item-2">
+                <p>Suchradius wählen</p>
                 <div class="search-range">
                     <select class="search-select" id="range" name="range" form="search-form">
                         <option value=10>10 Km</option>
@@ -42,12 +44,55 @@
 
         </div>
     </div>
-    <div th:if="${!param.isEmpty()}">
-        <h2 th:if="${param.q.contains('error_location')}">Der Ort konnte nicht gefunden werden!</h2>
-        <h2 th:if="${param.q.contains('error_no_location')}">Bitte Geben sie einen Ort ein!</h2>
+    <!--
+        <div th:if="${!param.isEmpty()}" style="text-align: center">
+            <h2 th:if="${param.q.contains('error_location')}">Der Ort konnte nicht gefunden werden!</h2>
+            <h2 th:if="${param.q.contains('error_no_location')}">Bitte Geben sie einen Ort ein!</h2>
     </div>
+    -->
+
+
+    <div class="how-to-title">
+        <p>Wie es funktioniert</p>
+        <h3>In 3 einfachen Schritten!</h3>
+    </div>
+
+    <div class="how-to-wrapper">
+        <div class="how-to-item1">
+            <h2>Schritt 1</h2>
+            <p>Starten Sie Ihr aufregendes Abenteuer und finden Sie mit nur wenigen Klicks Ihren idealen Hundetrainer!</p>
+        </div>
+        <div class="how-to-item2">
+            <h2>Schritt 2</h2>
+            <p>Tauchen Sie in die Welt der vielfältigen Trainingsangebote ein und finden Sie das perfekte Training!</p>
+        </div>
+        <div class="how-to-item3">
+            <h2>Schritt 3</h2>
+            <p>Buchen Sie das Training und freuen Sie sich auf die gemeinsame Zeit mit ihrem Vierbeiner!</p>
+        </div>
+    </div>
+
+    <div class="reg-btn">
+        <button class="button" onclick="window.location.href='/user/registration';" type="button">Jetzt kostenlos anmelden!</button>
+    </div>
+
+    <div class="about-us-wrapper">
+        <div class="about-us">
+            <h1>Über uns</h1>
+            <img src="/static/src/img/Original Logo.png" style="width: 200px; height: 200px">
+            <p>Wir sind ein Team aus fünf ambitionierten Menschen, die sich zusammengeschlossen haben, um diese Website im Rahmen eines Projekts für die Fachhochschule FH Campus02 zu erstellen. Obwohl diese Website als Projekt für die Fachhochschule begann, ist sie uns eine echte Herzensangelegenheit geworden. Unser Ziel ist es, dir dabei zu helfen, das beste Training für Ihren Hund zu finden. Wir glauben an die Kraft der guten Ausbildung und freuen uns darauf, Sie und Ihren vierbeinigen Freund auf dieser spannenden Reise zu unterstützen!</p>
+        </div>
+    </div>
+
 </main>
+
+
+
+
+
 <div th:replace="~{includes/fragments::footer}"></div>
 
+
+</script>
 </body>
 </html>

@@ -51,7 +51,7 @@
             </div>
 
             <div class="notifier">
-                <p th:if="${appuser.location != null}">Damit dein Profil öffentlich sichtbar ist, musst du einen Ort hinzufügen!</p>
+                <p th:if="${appuser.location == null}">Damit dein Profil öffentlich sichtbar ist, musst du einen Ort hinzufügen!</p>
             </div>
 
 

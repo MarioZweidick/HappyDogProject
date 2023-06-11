@@ -12,20 +12,34 @@
 </head>
 <body>
     <header th:fragment="header">
-        <a class="header-logo" href="../../index"><h1 class="title">HappyDog</h1></a>
-            <div class="nav-container">
-                <ul class="nav">
-                    <li><a href="/user/profile"><i class="fa fa-sign-in"></i></a></li>
-                    <li><a href="/user/registration"><i class="fa fa-user"></i></a></li>
-                </ul>
+
+        <div class="header-wrapper">
+            <div class="header-item-left">
+                <a class="header-logo" href="../../index"><h1 class="title"> <img src="/static/src/img/Logo_2.png" style="width: 150px; height: 150px" alt="logo"></h1></a>
             </div>
+            <div class="header-item-middle">
+                <img src="/static/src/img/Logo_title.png" style="width: 300px; height: 80px" alt="title">
+            </div>
+            <div class="header-item-right">
+                <a href="/user/profile"><i class="fa fa-sign-in"></i></a>
+                <a href="/user/registration"><i class="fa fa-user"></i></a>
+            </div>
+        </div>
+
+
     </header>
 
     <footer th:fragment="footer">
-        <div class="footer-links">
-            <a href="">Cookie Policy</a>
-            <a href="">HappyDog</a>
-            <a href="">Datenschutzerklärung</a>
+        <div class="footer-wrapper">
+            <div class="footer-item-left">
+                <a href="">Cookie Policy</a>
+            </div>
+            <div class="footer-item-middle">
+                <img src="/static/src/img/Logo_title.png" style="width: 150px; height: 40px" alt="title">
+            </div>
+            <div class="footer-item-right">
+                <a href="">Datenschutzerklärung</a>
+            </div>
         </div>
     </footer>
 

@@ -125,8 +125,6 @@ public class UserProfileController {
         }
 
         return "redirect:/user/profile";
-
-
     }
 
     @GetMapping("/profile/image/{id}")
@@ -137,14 +135,15 @@ public class UserProfileController {
         if(optionalAppUser.isPresent()){
             byte[] image = imageHandler.downloadImageFromAppUser(optionalAppUser.get());
 
-                String type = optionalAppUser.get().getUserImages().getType();
-                return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
+                if(optionalAppUser.get().getUserImages() != null){
+                    String type = optionalAppUser.get().getUserImages().getType();
+                    return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.valueOf(type)).body(image);
+                }else{
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                }
             }else{
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
     @GetMapping("/training/image/{id}")

@@ -13,10 +13,16 @@
 <div th:replace="~{includes/fragments :: header}"></div>
 
 <main>
-<h1>Training erfolgreich gebucht!</h1>
-<p>Du kannst dein gebuchtes Training auf deinem Profil einsehen.</p>
-<hr>
-<a href="/">Zurück zur Startseite!</a>
+  <div class="content-wrapper-center">
+    <div class="content-center">
+      <h1>Training erfolgreich gebucht!</h1>
+      <p>Du kannst dein gebuchtes Training auf deinem Profil einsehen.</p>
+      <a href="/"><i class="fa fa-home"></i> Zurück zur Startseite!</a>
+      <a href="/user/profile"><i class="fa fa-user"></i> Profil</a>
+
+    </div>
+  </div>
+
 </main>
 
 <div th:replace="~{includes/fragments::footer}"></div>
