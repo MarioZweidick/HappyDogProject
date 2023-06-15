@@ -48,8 +48,8 @@ public class PreloadDatabase {
             AppUserRoles.DOG_OWNER,
             true);
 
-    private final AppUserRating rating1 = new AppUserRating(6, "Trainer war ganz okay");
-    private final AppUserRating rating2 = new AppUserRating(10, "Hurensohn");
+    private final AppUserRating rating1 = new AppUserRating(4, "Trainer war ganz okay");
+    private final AppUserRating rating2 = new AppUserRating(5, "Hurensohn");
     private final AppUserRating rating3 = new AppUserRating(1, "Seine Frisur war scheiße!");
 
     private final AppUser trainer = new AppUser(
@@ -125,7 +125,7 @@ public class PreloadDatabase {
 
         return args -> {
 
-
+        /*
             //Preload AppUsers
             log.info("Preloading " + repository.save(admin));
             log.info("Preloading " + repository.save(owner));
@@ -135,7 +135,7 @@ public class PreloadDatabase {
 
             }
 
-
+            */
 
         };
     }

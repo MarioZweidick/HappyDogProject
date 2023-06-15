@@ -1,5 +1,6 @@
 package at.happydog.test.enity;
 
+import at.happydog.test.service.AppUserRatingService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
@@ -48,6 +49,8 @@ public class AppUser implements UserDetails {
     private String lastname;
     private String email;
 
+
+
     @JsonIgnore
     private String password;
 
@@ -69,6 +72,10 @@ public class AppUser implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_trainer_id")
     private List<AppUserRating> ratings = new ArrayList<>();
+
+
+    private double averageRating;
+
 
 
     //OnetoOne Datenbank entry - Ein User kann eine Location
@@ -121,6 +128,10 @@ public class AppUser implements UserDetails {
         this.password = password;
         this.role = role;
         this.ratings = ratings;
+        if(!ratings.isEmpty())
+        {
+            setAverageRating(AppUserRatingService.averageRating(ratings));
+        }
         this.location = location;
         this.enabled = enabled;
     }

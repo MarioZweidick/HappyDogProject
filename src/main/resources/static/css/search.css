@@ -6,6 +6,8 @@
     border-radius: 1em;
     margin-top: 50px;
     margin-bottom: 50px;
+    text-decoration: none;
+    color: black;
 }
 
 .list-item-text{
@@ -14,12 +16,10 @@
     align-items: flex-start;
     padding-left: 5%;
     color:black;
-
-
 }
 
 .list-item img{
-    height: 18em;
+    height: 14em;
     width: auto;
     grid-row-start: 1;
     grid-row-end: span 2;
@@ -40,12 +40,18 @@ body{
     height: 100%;
 }
 
-.img-div{
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
-}
+
 
 .img-div img{
     grid-column-start: 2;
     grid-column-end: span 1;
+}
+
+.rating{
+    display: grid;
+    grid-template-columns: min-content min-content max-content;
+    grid-template-rows: 1fr;
+    justify-content: left;
+    align-items: center;
+
 }
