@@ -68,7 +68,11 @@ public class UserProfileController {
         return "entry/email-confirmation.html";
     }
 
-
+    @RequestMapping("agb")
+    public String agbPage()
+    {
+        return "entry/agb.html";
+    }
     //Profile
 
     @GetMapping("/profile")
