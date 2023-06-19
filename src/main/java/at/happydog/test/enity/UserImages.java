@@ -39,6 +39,12 @@ public class UserImages {
     @Column(name = "imagedata")
     private byte[] imageData;
 
+    public UserImages(String name, String type, byte[] imageData) {
+        this.name = name;
+        this.type = type;
+        this.imageData = imageData;
+    }
+
     public UserImages() {
         imageData = new byte[0];
     }
