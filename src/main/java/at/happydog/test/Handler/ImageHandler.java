@@ -12,10 +12,7 @@ public class ImageHandler {
 
     //returns AppUserImage from multipartfile input
     public UserImages getAppUserImageFromMultipartfile(MultipartFile file) throws IOException {
-        UserImages appUserImages = new UserImages();
-        appUserImages.setName(file.getOriginalFilename());
-        appUserImages.setType(file.getContentType());
-        appUserImages.setImageData(ImageUtil.compressImage(file.getBytes()));
+        UserImages appUserImages = new UserImages(file.getOriginalFilename(), file.getContentType(),ImageUtil.compressImage(file.getBytes()));
         return appUserImages;
     }
 

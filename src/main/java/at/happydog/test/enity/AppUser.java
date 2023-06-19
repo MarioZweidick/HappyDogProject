@@ -1,12 +1,14 @@
 package at.happydog.test.enity;
 
 import at.happydog.test.service.AppUserRatingService;
+import at.happydog.test.service.AppUserService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -112,6 +114,16 @@ public class AppUser implements UserDetails {
         this.role = role;
         this.enabled = enabled;
     }
+    public AppUser(String username, String firstname, String lastname, String email, String password, AppUserRoles role, Boolean enabled, UserImages userImage) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+        this.userImages = userImage;
+    }
 
     public AppUser(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
@@ -137,6 +149,19 @@ public class AppUser implements UserDetails {
     }
 
     public AppUser(String username, String firstname, String lastname, String email, String password, AppUserRoles role, List<AppUserRating> ratings, Location location, Boolean enabled,String description) {
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.ratings = ratings;
+        this.location = location;
+        this.enabled = enabled;
+        this.description = description;
+    }
+
+    public AppUser(String username, String firstname, String lastname, String email, String password, AppUserRoles role, List<AppUserRating> ratings, Location location, Boolean enabled, String description, UserImages userImages) {
         this.username = username;
         this.firstname = firstname;
         this.lastname = lastname;
