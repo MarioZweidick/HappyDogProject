@@ -6,6 +6,7 @@ import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.enity.Location;
 import at.happydog.test.enity.Training;
+import at.happydog.test.exception.custom.AppUserException;
 import at.happydog.test.exception.custom.BookingException;
 import at.happydog.test.exception.custom.TrainingException;
 import at.happydog.test.registrationUtil.UserRegistrationRequest;
@@ -51,6 +52,7 @@ public class UserProfileController {
 
     private final AppUserService appUserService;
     private final TrainingService trainingService;
+    private final UserRegistrationService registrationService;
 
 
     @RequestMapping("/login")
@@ -112,6 +114,92 @@ public class UserProfileController {
 
         return owner;
     }
+
+    @PostMapping("/update-username")
+    public String updateUsername(@RequestParam String username){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        try {
+            appUserService.updateUsername(appUser.getUsername(), username);
+        } catch (AppUserException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getErrorMessage()).toString();
+        }
+
+        //TODO: Fix this error 500
+        return "redirect:/user/profile-edit";
+
+    }
+
+    @PostMapping("/update-email")
+    public String updateEmail(@RequestParam String email){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        try {
+            appUserService.updateEmail(appUser.getEmail(), email);
+        } catch (AppUserException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getErrorMessage()).toString();
+        }
+
+        //TODO: Fix this error 500
+        return "redirect:/user/profile-edit";
+
+    }
+
+    @PostMapping("/update-firstname")
+    public String updateFirstname(@RequestParam String firstname){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        try {
+            appUserService.updateFirstname(appUser, firstname);
+        } catch (AppUserException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getErrorMessage()).toString();
+        }
+
+        //TODO: Fix this error 500
+        return "redirect:/user/profile-edit";
+
+    }
+
+    @PostMapping("/update-lastname")
+    public String updateLastname(@RequestParam String lastname){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        try {
+            appUserService.updateLastname(appUser, lastname);
+        } catch (AppUserException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getErrorMessage()).toString();
+        }
+
+        //TODO: Fix this error 500
+        return "redirect:/user/profile-edit";
+
+    }
+
+    @PostMapping("/update-description")
+    public String updateDescription(@RequestParam String description){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(auth.getName());
+
+        try {
+            appUserService.updateDescription(appUser, description);
+        } catch (AppUserException ex) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getErrorMessage()).toString();
+        }
+
+        //TODO: Fix this error 500
+        return "redirect:/user/profile-edit";
+
+    }
+
 
     @GetMapping( "/delete-training")
     public String deleteTraining(@RequestParam Long training_id){

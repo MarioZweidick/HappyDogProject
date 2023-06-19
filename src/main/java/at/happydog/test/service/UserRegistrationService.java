@@ -41,11 +41,11 @@ public class UserRegistrationService {
         boolean passwordIsValid = passwordValidator.test(request.getPassword());
 
         if(!usernameIsValid || !emailIsValid) {
-            throw new IllegalStateException("Email or Username not valid");
+            throw new IllegalStateException("Email oder Benutzer nicht erlaubt!");
         }
 
         if(!passwordIsValid) {
-            throw new IllegalStateException("The password needs at least 8 Characters, 1 Upper-Case Letter and 1 Number");
+            throw new IllegalStateException("Das Passwort muss mindestens 8 Zeichen, 1 Großbuchstaben und 1 Zahl haben!");
         }
 
         String token = appUserService.singUpUser(new AppUser(
