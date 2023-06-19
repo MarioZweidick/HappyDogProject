@@ -11,6 +11,10 @@ fieldset{
     border: none;
 }
 
+#description-input{
+    height:200px;
+}
+
 
 .profile{
     max-width: 50%;

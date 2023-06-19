@@ -41,7 +41,7 @@
                 <div class="user-details">
                     <form
                             class="user-details-form"
-                            action='/user/registration/register'
+                            action='/user/update-username'
                             method="POST">
 
                         <fieldset>
@@ -50,51 +50,86 @@
                                 <!-- Username -->
                                 <label>Username</label>
                                 <div>
-                                    <input type="text" id="usernameform" name="username" th:placeholder="${appuser.username}">
-                                </div>
-                            </div>
-
-                            <div>
-                                <!-- Firstname -->
-                                <label for="firstname">Vorname</label>
-                                <div>
-                                    <input type="text" id="firstname" name="firstname" th:placeholder="${appuser.firstname}">
-                                </div>
-                            </div>
-
-                            <div>
-                                <!-- Lastname -->
-                                <label for="lastname">Nachname</label>
-                                <div>
-                                    <input type="text" id="lastname" name="lastname" th:placeholder="${appuser.lastname}">
-                                </div>
-                            </div>
-
-                            <div>
-                                <!-- E-mail -->
-                                <label for="email">E-Mail</label>
-                                <div>
-                                    <input type="text" id="email" name="email" th:placeholder="${appuser.email}">
-                                </div>
-                            </div>
-
-                            <div>
-                                <!-- Password-->
-                                <label for="password">Passwort</label>
-                                <div>
-                                    <input type="password" id="password" name="password" placeholder="">
+                                    <input type="text" name="username" th:placeholder="${appuser.username}">
                                 </div>
                             </div>
 
                             <div>
                                 <!-- Button -->
                                 <div>
-                                    <button class="button" type="submit">Speichern</button>
+                                    <button class="button" type="submit">Username speichern</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <form
+                            class="user-details-form"
+                            action='/user/update-email'
+                            method="POST">
+
+                        <fieldset>
+                            <div>
+                                <!-- Username -->
+                                <label>Email</label>
+                                <div>
+                                    <input type="text" name="email" th:placeholder="${appuser.email}">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Button -->
+                                <div>
+                                    <button class="button" type="submit">Email speichern</button>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
 
+                    <form
+                            class="user-details-form"
+                            action='/user/update-firstname'
+                            method="POST">
+
+                        <fieldset>
+                            <div>
+                                <!-- Username -->
+                                <label>Vorname</label>
+                                <div>
+                                    <input type="text" name="firstname" th:placeholder="${appuser.firstname}">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Button -->
+                                <div>
+                                    <button class="button" type="submit">Vorname speichern</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <form
+                            class="user-details-form"
+                            action='/user/update-lastname'
+                            method="POST">
+
+                        <fieldset>
+                            <div>
+                                <!-- Username -->
+                                <label>Nachname</label>
+                                <div>
+                                    <input type="text" name="lastname" th:placeholder="${appuser.lastname}">
+                                </div>
+                            </div>
+
+                            <div>
+                                <!-- Button -->
+                                <div>
+                                    <button class="button" type="submit">Nachname speichern</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
 
 
                     <div class="user-details-links">

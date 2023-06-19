@@ -6,8 +6,12 @@ import at.happydog.test.email.EmailSender;
 import at.happydog.test.enity.*;
 import at.happydog.test.exception.custom.AppUserException;
 import at.happydog.test.imageUtil.ImageUtil;
+import at.happydog.test.registrationUtil.UserRegistrationRequest;
 import at.happydog.test.registrationUtil.token.ConfirmationToken;
 import at.happydog.test.registrationUtil.token.ConfirmationTokenService;
+import at.happydog.test.registrationUtil.validator.EmailValidator;
+import at.happydog.test.registrationUtil.validator.PasswordValidator;
+import at.happydog.test.registrationUtil.validator.UsernameValidator;
 import at.happydog.test.repository.AppUserImageRepository;
 import at.happydog.test.repository.AppUserRepository;
 import at.happydog.test.repository.LocationRepository;
@@ -26,6 +30,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 /**
  AppUserService class
@@ -51,6 +56,10 @@ public class AppUserService implements UserDetailsService {
     private final TrainingRepository trainingRepository;
     private final LocationRepository locationRepository;
     private final LocationService locationService;
+
+    private UsernameValidator usernameValidator;
+    private EmailValidator emailValidator;
+    private PasswordValidator passwordValidator;
 
 
     //Implemented with UserDetailsService. Every user request will be checked with this.
@@ -119,6 +128,81 @@ public class AppUserService implements UserDetailsService {
         return token;
     }
 
+    public AppUser updateUsername(String oldUsername, String newUsername){
+
+
+        boolean usernameIsValid = usernameValidator.test(newUsername);
+
+        if(!usernameIsValid) {
+            throw new IllegalStateException("Benutzer nicht erlaubt!");
+        }
+
+        Boolean usernameExists = appUserRepository.existsByUsername(newUsername);
+        if(usernameExists) {
+            throw new IllegalStateException("Username already exists!");
+        }
+
+        Optional<AppUser> appUser = appUserRepository.findByUsername(oldUsername);
+
+        if (appUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + oldUsername + " not found!");
+        }
+
+        appUser.get().setUsername(newUsername);
+
+        return appUserRepository.save(appUser.get());
+    }
+
+    public AppUser updateEmail(String oldEmail, String newEmail){
+
+
+        boolean usernameIsValid = usernameValidator.test(newEmail);
+
+        if(!usernameIsValid) {
+            throw new IllegalStateException("Email nicht erlaubt!");
+        }
+
+        Boolean emailExists = appUserRepository.existsByEmail(newEmail);
+        if(emailExists) {
+            throw new IllegalStateException("Email already exists!");
+        }
+
+        Optional<AppUser> appUser = appUserRepository.findByEmail(oldEmail);
+
+        if (appUser.isEmpty()) {
+            throw new UsernameNotFoundException("User with email " + oldEmail + " not found!");
+        }
+
+        appUser.get().setEmail(newEmail);
+
+        return appUserRepository.save(appUser.get());
+    }
+
+    public AppUser updateFirstname(AppUser oldAppUser, String newFirstname){
+        Optional<AppUser> appUser = Optional.ofNullable(oldAppUser);
+
+        appUser.get().setFirstname(newFirstname);
+
+        return appUserRepository.save(appUser.get());
+    }
+
+    public AppUser updateLastname(AppUser oldAppUser, String newLastname){
+        Optional<AppUser> appUser = Optional.ofNullable(oldAppUser);
+
+        appUser.get().setLastname(newLastname);
+
+        return appUserRepository.save(appUser.get());
+    }
+
+    public AppUser updateDescription(AppUser oldAppUser, String newDescription){
+        Optional<AppUser> appUser = Optional.ofNullable(oldAppUser);
+
+        appUser.get().setDescription(newDescription);
+
+        return appUserRepository.save(appUser.get());
+    }
+
+
     //Enables AppUser
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
@@ -132,6 +216,7 @@ public class AppUserService implements UserDetailsService {
             appUser.setRole(AppUserRoles.DOG_OWNER);
         }
     }
+
 
     public void setConfirmationToken(String token, AppUser appUser){
 

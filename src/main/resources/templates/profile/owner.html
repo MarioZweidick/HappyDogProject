@@ -46,6 +46,7 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Training</th>
                 <th scope="col">Beschreibung</th>
                 <th scope="col">Preis</th>
@@ -56,6 +57,7 @@
             </thead>
             <tbody style="text-align: center">
             <tr th:each="training: ${trainings}">
+                <th><img th:src="@{'/user/training/image/' + ${training.training_id}}" style="border-radius: 10px"/></th>
                 <th th:text="${training.titel}"></th>
                 <td th:text="${training.description}"></td>
                 <td th:text="${training.price + '€'}"></td>
