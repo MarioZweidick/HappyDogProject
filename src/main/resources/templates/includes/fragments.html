@@ -9,6 +9,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
 </head>
 <body>
     <header th:fragment="header">
@@ -32,16 +34,43 @@
     <footer th:fragment="footer">
         <div class="footer-wrapper">
             <div class="footer-item-left">
-                <a href="">Cookie Policy</a>
+                <a href="/contact">Kontakt</a> <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p> <a href="/user/agb">AGB</a>
             </div>
             <div class="footer-item-middle">
                 <img src="/static/src/img/Logo_title.png" style="width: 150px; height: 40px" alt="title">
             </div>
             <div class="footer-item-right">
-                <a href="">Datenschutzerklärung</a>
+                <a href="/privacy">Datenschutz</a> <p>&nbsp;&nbsp;|&nbsp;&nbsp;</p><a href="/cookies">Cookies</a>
             </div>
         </div>
     </footer>
+
+    <div th:fragment="cookie">
+        <div id="cookie-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;"></div>
+        <div id="cookie-banner" style="display: none; position: fixed; top: 50%; left: 50%; max-width: 30%; min-height: 10%; background-color: #f5f5f5; border: 1px solid #ccc; padding: 20px; text-align: center; transform: translate(-50%, -50%); z-index: 1001; border-radius: 25px;">
+            <img src="/static/src/img/cookie.png" alt="cookie">
+            <p>Diese Website benutzt auschließlich technisch notwendige Cookies um dir die beste Benutzererfahrung zu bieten. <a href="/cookies">Mehr erfahren</a></p>
+            <button id="cookie-accept" class="button" style="cursor: pointer;">Akzeptieren</button>
+        </div>
+
+        <script>
+            window.onload = function() {
+                if (document.cookie.split(';').some((item) => item.trim().startsWith('cookieAccepted='))) {
+                    document.getElementById('cookie-banner').style.display = 'none';
+                    document.getElementById('cookie-overlay').style.display = 'none';
+                } else {
+                    document.getElementById('cookie-banner').style.display = 'block';
+                    document.getElementById('cookie-overlay').style.display = 'block';
+                }
+                document.getElementById('cookie-accept').addEventListener('click', function() {
+                    document.cookie = "cookieAccepted=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+                    document.getElementById('cookie-banner').style.display = 'none';
+                    document.getElementById('cookie-overlay').style.display = 'none';
+                });
+            }
+        </script>
+    </div>
+
 
 
 </body>

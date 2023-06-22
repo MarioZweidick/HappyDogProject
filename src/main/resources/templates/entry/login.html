@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="aling-body">
+<div th:replace="~{includes/fragments :: cookie}"></div>
 <div th:replace="~{includes/fragments :: header}"></div>
 <main>
   <div class="login-div">
@@ -24,7 +25,9 @@
       <div>
         <input type="password" name="password" placeholder="Password"/>
       </div>
-      <input class="button" id="button" type="submit" value="Log in" />
+      <div>
+        <input class="button" id="button" type="submit" value="Log in" />
+      </div>
     </form>
     <br>
     <a href="/user/registration">Kein Account? Hier anmelden!</a>

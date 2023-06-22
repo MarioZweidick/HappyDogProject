@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+
 <div th:fragment="trainerList" th:each="appuser: ${appusers}">
     <!--/*@thymesVar id="appuser" type="at.happydog.test.enity.AppUser"*/-->
     <div th:if="${!appuser.trainings.isEmpty()}">

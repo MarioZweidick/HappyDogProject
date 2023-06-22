@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontakt</title>
+    <link rel="stylesheet" href="../../static/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/button.css">
+</head>
+<body>
+<div th:replace="~{includes/fragments :: cookie}"></div>
+<div th:replace="includes/fragments:: header"></div>
+
+<div style="
+width: 80%;
+margin: 50px auto 50px auto;
+padding: 5em;
+background-color: #FEFEFE;
+box-shadow: 2px 1px 5px 1px #0202024b;
+border-radius: 1em;
+">
+    <h1>Kontakt</h1>
+    <br>
+    <div>
+        Happydog<br/>
+        Max Mustermann<br/>
+        Beispielstraße 42<br/>
+        D-98765 Musterstadt<br/>
+        E-Mail contact@happydog.com<br/>
+        Telefax 05123 45678910<br/>
+    </div>
+
+    <form action="" method="post" style="margin-top: 2em;">
+        <label for="email" style="margin-bottom: 1em">Email:</label><br>
+        <input type="email" id="email" name="email" required style="padding: 3px; border-radius: 5px;"><br>
+        <label for="message" style="margin-bottom: 1em">Nachricht:</label><br>
+        <textarea id="message" name="message" rows="4" cols="50" required style="padding: 3px; border-radius: 5px;"></textarea><br>
+        <input type="button" class="button" value="Absenden">
+    </form>
+
+</div>
+<div th:replace="includes/fragments ::footer"></div>
+</body>
+</html>

@@ -2,7 +2,8 @@
 
     align-items: center;
     padding: 2em;
-    background-color: whitesmoke;
+    background-color: #FEFEFE;
+    box-shadow: 2px 1px 5px 1px #0202024b;
     border-radius: 1em;
     width: min-content;
     margin: 20px auto;
@@ -18,6 +19,7 @@ input{
     margin-bottom: 1em;
     width: 30em;
 }
+
 
 /*.aling-body {
     display: grid;
@@ -35,12 +37,33 @@ select{
     margin-bottom: 1em;
 }
 
-button{
-    width: 30em;
+fieldset{
+    border: 0;
+}
+
+.reg-title{
+    margin: auto;
+    padding-bottom: 1em;
+}
+
+#button{
+    width: 20em;
     padding-bottom: 1em;
     padding-top: 1em;
 }
 
-fieldset{
-    border: 0;
+.input-div{
+    text-align: left;
+}
+
+.agb-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox {
+    width: 3em;
+    vertical-align: middle;
 }

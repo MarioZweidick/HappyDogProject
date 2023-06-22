@@ -13,6 +13,7 @@
 
 </head>
 <body class="aling-body">
+<div th:replace="~{includes/fragments :: cookie}"></div>
 <div th:replace="~{includes/fragments :: header}"></div>
 <main>
   <div class="login-div">
@@ -25,7 +26,7 @@
         <div id="legend">
           <legend class="reg-title">Registrierung</legend>
         </div>
-        <div>
+        <div class="input-div">
           <!-- Username -->
           <label>Username</label>
           <div>
@@ -33,7 +34,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="input-div">
           <!-- Firstname -->
           <label for="firstname">Vorname</label>
           <div>
@@ -41,7 +42,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="input-div">
           <!-- Lastname -->
           <label for="lastname">Nachname</label>
           <div>
@@ -49,7 +50,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="input-div">
           <!-- E-mail -->
           <label for="email">E-Mail</label>
           <div>
@@ -57,7 +58,7 @@
           </div>
         </div>
 
-        <div>
+        <div class="input-div">
           <!-- Password-->
           <label for="password">Passwort</label>
           <div>
@@ -73,10 +74,12 @@
           </select>
         </div>
 
-        <div>
-          <label>Ich habe die <a target="_blank" href="/user/agb">AGBs</a> gelesen und bin damit einverstanden.</label>
-          <input type="checkbox" required>
+        <div class="agb-container">
+          <label>Ich habe die <a target="_blank" href="/user/agb">AGBs</a> gelesen und bin damit einverstanden.
+            <input class="checkbox" type="checkbox" required>
+          </label>
         </div>
+
 
         <div>
           <!-- Button -->

@@ -28,6 +28,15 @@ public class ViewController {
         return new ModelAndView("index");
     }
 
+    @GetMapping("cookies")
+    public ModelAndView cookiePolicy() {return new ModelAndView("entry/cookies");}
+
+    @GetMapping("privacy")
+    public ModelAndView privacyPolicy() {return new ModelAndView("entry/privacy");}
+
+    @GetMapping("contact")
+    public ModelAndView contact() {return new ModelAndView("contact");}
+
 
     @GetMapping( "/rating/view")
     public ModelAndView ratingView(@RequestParam Long trainer_id){

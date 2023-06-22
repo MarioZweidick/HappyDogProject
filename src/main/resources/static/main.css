@@ -89,7 +89,7 @@ body {
 main {
     flex-grow: 1;
     z-index: 100;
-    margin: 20px 0px;
+    margin: 0px 0px;
 }
 
 .title {
@@ -225,7 +225,7 @@ main {
 .footer-wrapper div a{
     text-decoration: none;
     color: black;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 
@@ -295,19 +295,19 @@ body {
 
 .how-to-wrapper div:first-child{
 
-    background: rgb(243,222,186);
-    background: linear-gradient(90deg, rgba(243,222,186,1) 50%, rgba(171,196,170,1) 100%);
+    background: rgb(254,254,254);
+    background: linear-gradient(90deg, rgba(254,254,254,1) 0%, rgba(171,196,170,0.01) 35%);
 }
 
 .how-to-wrapper div:nth-child(2){
 
-  background-color: #abc4aa;
+  background-color: rgba(171,196,170,0.01);
 }
 
 .how-to-wrapper div:last-child{
 
     background: rgb(171,196,170);
-    background: linear-gradient(90deg, rgba(171,196,170,1) 0%, rgba(169,144,126,1) 50%);
+    background: linear-gradient(90deg, rgba(171,196,170,0.01) 65%, rgba(254,254,254,1) 100%);
 }
 
 .about-us-wrapper{

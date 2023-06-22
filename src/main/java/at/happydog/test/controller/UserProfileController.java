@@ -75,6 +75,9 @@ public class UserProfileController {
     {
         return "entry/agb.html";
     }
+
+
+
     //Profile
 
     @GetMapping("/profile")
