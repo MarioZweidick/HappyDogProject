@@ -125,7 +125,7 @@ public class PreloadDatabase {
 
         return args -> {
 
-        /*
+
             //Preload AppUsers
             log.info("Preloading " + repository.save(admin));
             log.info("Preloading " + repository.save(owner));
@@ -135,7 +135,7 @@ public class PreloadDatabase {
 
             }
 
-            */
+
 
         };
     }

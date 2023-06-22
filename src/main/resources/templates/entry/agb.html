@@ -7,12 +7,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<div th:replace="~{includes/fragments :: cookie}"></div>
 <div th:replace="includes/fragments:: header"></div>
 
+<div style="
+width: 80%;
+margin: 50px auto 50px auto;
+padding: 5em;
+background-color: #FEFEFE;
+box-shadow: 2px 1px 5px 1px #0202024b;
+border-radius: 1em;
+">
 
-Allgemeine Geschäftsbedingungen der Firma Happydog<br/>
-
-<br/>
+<h1>Allgemeine Geschäftsbedingungen der Firma Happydog</h1>
+<br>
 <p style="font-weight: bold; padding-bottom: 10px;">§1 Geltung gegenüber Unternehmern und Begriffsdefinitionen</p>
 (1) Die nachfolgenden Allgemeinen Geschäftbedingungen gelten für alle Lieferungen zwischen uns und einem Verbraucher
 in ihrer zum Zeitpunkt der Bestellung gültigen Fassung.<br/>
@@ -219,6 +227,8 @@ Wir haben uns den Verhaltenskodizes der folgenden Einrichtungen unterworfen:
 Als Vertragssprache steht ausschließlich Deutsch zur Verfügung.<br/>
 
 <br/>
+
+</div>
 <div th:replace="includes/fragments ::footer"></div>
 </body>
 </html>
