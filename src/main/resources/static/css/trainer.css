@@ -26,6 +26,14 @@
 
 }
 
+.th-width{
+
+}
+.th-width img{
+    width: 100%;
+    height: auto;
+}
+
 .user-details-links{
     margin-top: 30px;
 }
@@ -53,7 +61,7 @@
 }
 
 .profile img {
-    width: 250px;
+    width: auto;
     height: 250px;
     border-radius: 20%;
     text-align: center;
@@ -112,4 +120,8 @@
     text-align: center;
 }
 
-
+.user-details-description p{
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: lighter;
+}

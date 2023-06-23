@@ -27,61 +27,65 @@
     <div class="content">
 
 
-            <div class="container-wrapper">
-                <div class="container">
-                    <div class="profile">
-                        <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
-                        <h1 th:text="${appuser.username}" id="username"></h1>
-                    </div>
+        <div class="container-wrapper">
+            <div class="container">
+                <div class="profile">
+                    <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
+                    <h1 th:text="${appuser.username}" id="username"></h1>
+                </div>
 
-                    <div class="user-details">
+                <div class="user-details">
 
-                        <p th:text="${appuser.firstname}"></p>
-                        <p th:text="${appuser.lastname}"></p>
-                        <p th:text="${appuser.email}"></p>
-                        <p th:text="${appuser.description}"></p>
+                    <p th:text="${appuser.firstname}"></p>
+                    <p th:text="${appuser.lastname}"></p>
+                    <p th:text="${appuser.email}"></p>
+                    <p th:text="${appuser.description}"></p>
 
-                        <div class="user-details-links">
-                            <a href="/"><i class="fa fa-home"></i> Home</a>
-                            <a href="/user/profile-edit"><i class="fa fa-pencil-square-o"></i> Bearbeiten</a>
-                            <a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a>
-                        </div>
+                    <div class="user-details-links">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/user/profile-edit"><i class="fa fa-pencil-square-o"></i> Bearbeiten</a>
+                        <a href="/user/logout"><i class="fa fa-sign-out"></i> Logout</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="notifier">
-                <p th:if="${appuser.location == null}">Damit dein Profil öffentlich sichtbar ist, musst du einen Ort hinzufügen!</p>
-            </div>
+        <div class="notifier">
+            <p th:if="${appuser.location == null}">Damit dein Profil öffentlich sichtbar ist, musst du einen Ort
+                hinzufügen!</p>
+        </div>
 
 
-            <div class="table-wrapper">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Training</th>
-                        <th scope="col">Beschreibung</th>
-                        <th scope="col">Preis</th>
-                        <th scope="col">Datum</th>
-                        <th scope="col"></th>
-                        <th scope="col">Löschen</th>
-                    </tr>
-                    </thead>
-                    <tbody style="text-align: center">
-                    <tr th:each="training: ${trainings}">
-                        <th><img th:src="@{'/user/training/image/' + ${training.training_id}}" style="border-radius: 10px"/></th>
-                        <th th:text="${training.titel}"></th>
-                        <td th:text="${training.description}"></td>
-                        <td th:text="${training.price + '€'}"></td>
-                        <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
-                        <td><a th:href="@{/training/view(training_id = ${training.training_id})}"><i class="fa fa-search" style="font-size: 24px; color: black"></i></a></td>
-                        <td><a th:href="@{/user/delete-training(training_id = ${training.training_id})}"><i class="fa fa-times" style="font-size: 24px; color: red"></i></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
+        <div class="table-wrapper">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th class="th-width" scope="col"></th>
+                    <th scope="col">Training</th>
+                    <th scope="col">Beschreibung</th>
+                    <th scope="col">Preis</th>
+                    <th scope="col">Datum</th>
+                    <th scope="col"></th>
+                    <th scope="col">Löschen</th>
+                </tr>
+                </thead>
+                <tbody style="text-align: center">
+                <tr th:each="training: ${trainings}">
+                    <th class="th-width"><img th:src="@{'/user/training/image/' + ${training.training_id}}"
+                                              style="border-radius: 10px"/></th>
+                    <th th:text="${training.titel}"></th>
+                    <td th:text="${training.description}"></td>
+                    <td th:text="${training.price + '€'}"></td>
+                    <td th:text="${#dates.format(training.date, 'dd.MM.yyyy')}"></td>
+                    <td><a th:href="@{/training/view(training_id = ${training.training_id})}"><i class="fa fa-search"
+                                                                                                 style="font-size: 24px; color: black"></i></a>
+                    </td>
+                    <td><a th:href="@{/user/delete-training(training_id = ${training.training_id})}"><i
+                            class="fa fa-times" style="font-size: 24px; color: red"></i></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
 
         <div class="add-training-wrapper">
@@ -118,7 +122,8 @@
                     <div>
                         <label>Datum</label>
                         <div>
-                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" id="date" name="date" placeholder="" required>
+                            <input type="date" pattern="\d{4}-\d{2}-\d{2}" id="date" name="date" placeholder=""
+                                   required>
                         </div>
                     </div>
 
@@ -134,7 +139,8 @@
                     <div>
                         <label>Endzeit</label>
                         <div>
-                            <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="end_time" name="endtime" placeholder="00:00"
+                            <input type="time" pattern="\d{4}-\d{2}-\d{2}" id="end_time" name="endtime"
+                                   placeholder="00:00"
                                    required>
                         </div>
                     </div>
@@ -147,9 +153,10 @@
                         <input type="text" id="postalcode" name="plz" placeholder="Postleitzahl" required>
                     </div>
                     <div>
-                        <input type="file" id="picture" name="picture" accept="image/png, image/jpeg, image/jpg" required/>
+                        <input type="file" id="picture" name="picture" accept="image/png, image/jpeg, image/jpg"
+                               required/>
                     </div>
-                    <button  class="button" type="submit">Training hinzufügen</button>
+                    <button class="button" type="submit">Training hinzufügen</button>
                 </form>
             </div>
         </div>
@@ -158,8 +165,6 @@
         </div>
 
     </div>
-
-    <div th:replace="~{includes/fragments :: footer}"></div>
 
 </div>
 

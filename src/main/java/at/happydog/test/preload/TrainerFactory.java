@@ -3,6 +3,7 @@ package at.happydog.test.preload;
 import at.happydog.test.enity.AppUser;
 import at.happydog.test.enity.AppUserRoles;
 import at.happydog.test.enity.Location;
+import at.happydog.test.enity.Training;
 import at.happydog.test.security.PasswordEncoder;
 
 import java.math.BigDecimal;
@@ -13,6 +14,9 @@ public class TrainerFactory {
 
     public  List<AppUser> createAndConfigureUser(int amount)
     {
+        TrainingFactory trainingFactory = new TrainingFactory();
+        List<Training> trainingsList = trainingFactory.createTraining(3);
+
         List<AppUser> returnConfigeredUserList = new ArrayList<>();
         for(int i = 0; i<amount-1;i++)
         {
@@ -33,9 +37,15 @@ public class TrainerFactory {
                    "\n" +
                    "Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer");
 
-           returnConfigeredUserList.add(trainer);
+           /*for (Training training: trainingsList)
+           {
+               trainer.addTraining(training);
+           }
+           returnConfigeredUserList.add(trainer);*/
 
         }
         return returnConfigeredUserList;
     }
+
+
 }

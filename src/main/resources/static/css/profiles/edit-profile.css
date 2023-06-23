@@ -76,7 +76,7 @@ fieldset{
 }
 
 .profile img {
-    width: 250px;
+    width: auto;
     height: 250px;
     border-radius: 20%;
 }
