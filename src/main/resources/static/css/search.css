@@ -49,9 +49,10 @@ body{
 
 .rating{
     display: grid;
-    grid-template-columns: min-content min-content max-content;
+    grid-template-columns: min-content max-content max-content;
     grid-template-rows: 1fr;
     justify-content: left;
     align-items: center;
+
 
 }

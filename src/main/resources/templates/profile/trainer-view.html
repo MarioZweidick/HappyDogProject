@@ -29,8 +29,7 @@
         <div class="container-wrapper">
             <div class="container">
                 <div class="profile">
-                    <img th:src="@{'profile/image/' + ${appuser.appuser_id}}"/>
-                    <h1 th:text="${appuser.username}" id="username"></h1>
+                    <img th:src="@{'/user/profile/image/' + ${appuser.appuser_id}}"/>
                     <a style="text-decoration: none" th:href="@{/rating/view(trainer_id=${appuser.appuser_id})}"><button class="button">Bewertungen</button></a>
                 </div>
 
@@ -55,7 +54,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th scope="col"></th>
+                    <th class="th-width" scope="col"></th>
                     <th scope="col">Training</th>
                     <th scope="col">Beschreibung</th>
                     <th scope="col">Preis</th>
@@ -66,7 +65,7 @@
                 </thead>
                 <tbody style="text-align: center">
                 <tr th:each="training: ${appuser.getTrainings()}">
-                    <th><img th:src="@{'/user/training/image/' + ${training.training_id}}" style="border-radius: 10px"/></th>
+                    <th class="th-width"><img  th:src="@{'/user/training/image/' + ${training.training_id}}" style="border-radius: 10px"/></th>
                     <th th:text="${training.titel}"></th>
                     <td th:text="${training.description}"></td>
                     <td th:text="${training.price + '€'}"></td>

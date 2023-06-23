@@ -65,9 +65,6 @@ public class PreloadDatabase {
             AppUserRoles.DOG_OWNER,
             true);
 
-    private final AppUserRating rating1 = new AppUserRating(4, "Positiv, gute Trainer, Verbesserung im Gehorsam, Gruppentraining strukturiert. Wenig individuelle Aufmerksamkeit");
-    private final AppUserRating rating2 = new AppUserRating(5, "Empfehlenswertes Hundetraining! Kompetente Trainer, individuelles Training, schnelle Fortschritte. Danke!");
-    private final AppUserRating rating3 = new AppUserRating(1, "Enttäuschendes Hundetraining, unprofessionelle Trainer, keine Fortschritte, keine individuelle Betreuung. Nicht empfehlenswert.");
 
     private final AppUser trainer1 = new AppUser(
             "trainer1",
@@ -76,7 +73,7 @@ public class PreloadDatabase {
             "trainer1@mail.com",
             new PasswordEncoder().bCryptPasswordEncoder().encode("trainer"),
             AppUserRoles.DOG_TRAINER,
-            new ArrayList<>(Arrays.asList(rating1, rating2, rating3)),
+            null,
             new Location("Stregengasse", "6", "Graz", "8054", new BigDecimal(47.033030), new BigDecimal(15.400400)),
             true, trainerDescription1);
 
@@ -103,13 +100,13 @@ public class PreloadDatabase {
 
     private final AppUser trainer4 = new AppUser(
             "trainer4",
-            "Tom",
-            "Wagner",
+            "Ricardo",
+            " Delgado",
             "trainer@mail.com",
             new PasswordEncoder().bCryptPasswordEncoder().encode("trainer"),
             AppUserRoles.DOG_TRAINER,
             null,
-            new Location("Stregengasse", "6", "Graz", "8054", new BigDecimal(23.1135925), new BigDecimal(82.3665956)),
+            new Location("Stregengasse", "6", "Havanna", "8054", new BigDecimal(23.1135925), new BigDecimal(-82.3665956)),
             true, trainerDescription4);
 
     private final AppUser trainer5 = new AppUser(
@@ -123,73 +120,70 @@ public class PreloadDatabase {
             new Location("Stregengasse", "6", "Graz", "8054", new BigDecimal(47.033030), new BigDecimal(15.400400)),
             true, trainerDescription5);
 
-
-    private Training training1 = new Training("Agility Training",
-            descriptionTraining1,
-            35.0,
-            new Date(2023 - 1900, 04, 14),
-            LocalTime.of(10, 15, 0),
-            LocalTime.of(11, 0, 0),
-            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
-
-    private Training training2 = new Training("Beginner Training",
-            descriptionTraining2,
-            35.0,
-            new Date(2023 - 1900, 04, 14),
-            LocalTime.of(10, 15, 0),
-            LocalTime.of(11, 0, 0),
-            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
-
-    private Training training3 = new Training("Fortgeschrittenen Training",
-            descriptionTraining3,
-            35.0,
-            new Date(2023 - 1900, 04, 14),
-            LocalTime.of(10, 15, 0),
-            LocalTime.of(11, 0, 0),
-            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
-
-    private Training training4 = new Training("Fortgeschrittenen Training",
-            descriptionTraining3,
-            35.0,
-            new Date(2023 - 1900, 04, 14),
-            LocalTime.of(10, 15, 0),
-            LocalTime.of(11, 0, 0),
-            new Location("Graz", new BigDecimal(23.1135925), new BigDecimal(82.3665956)), true);
-
-    private Training training5 = new Training("Fortgeschrittenen Training",
-            descriptionTraining3,
-            35.0,
-            new Date(2023 - 1900, 04, 14),
-            LocalTime.of(10, 15, 0),
-            LocalTime.of(11, 0, 0),
-            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
-
-
-    private Training Trainer2Training1 = training1;
-
-
-
     @Bean
-    CommandLineRunner initDatabase(AppUserRepository repository,TrainingRepository trainingRepository, AppUserService appUserService, TrainingService trainingService) {
+    CommandLineRunner initDatabase(AppUserRepository repository, AppUserService appUserService, TrainingService trainingService) {
 
-        trainer1.addTraining(training1);
-        trainer2.addTraining(training2);
-        trainer3.addTraining(training3);
-        trainer4.addTraining(training4);
-        trainer5.addTraining(training5);
 
+        TrainingFactory trainingFactory = new TrainingFactory();
+        List<Training> trainingList = trainingFactory.createTraining(15);
+
+        RatingFactory ratingFactory = new RatingFactory();
+        List<AppUserRating> ratingList1 = ratingFactory.createRating(3);
+        List<AppUserRating> ratingList2 = ratingFactory.createRating(3);
+        List<AppUserRating> ratingList3 = ratingFactory.createRating(3);
+        List<AppUserRating> ratingList4 = ratingFactory.createRating(3);
+        List<AppUserRating> ratingList5 = ratingFactory.createRating(3);
+
+        trainer1.setRatings(ratingList1);
+        trainer2.setRatings(ratingList2);
+        trainer3.setRatings(ratingList3);
+        trainer4.setRatings(ratingList4);
+        trainer5.setRatings(ratingList5);
+
+        for (int i = 0; i<trainingList.size();i++) {
+
+            if(i<3) {
+                trainer1.addTraining(trainingList.get(i));
+                            }else if(i<6)
+                trainer2.addTraining(trainingList.get(i));
+            else if(i<9)
+                trainer3.addTraining(trainingList.get(i));
+            else if(i<12)
+                trainer4.addTraining(trainingList.get(i));
+            else
+                trainer5.addTraining(trainingList.get(i));
+        }
+
+        trainer1.setAverageRating(4);
+        trainer2.setAverageRating(4.8);
+        trainer3.setAverageRating(2.7);
+        trainer4.setAverageRating(3.9);
+        trainer5.setAverageRating(4.2);
 
 
         try {
-            //trainingService.addTrainingImage(training1,ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Training/agilityTraining.jpg"));
 
             appUserService.addAppUserImage(trainer1, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer1.jpg"));
             appUserService.addAppUserImage(trainer2, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer2.jpg"));
             appUserService.addAppUserImage(trainer3, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer3.jpg"));
-            appUserService.addAppUserImage(trainer4, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer4.jpg"));
+            appUserService.addAppUserImage(trainer4, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer4.png"));
             appUserService.addAppUserImage(trainer5, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer5.jpg"));
             appUserService.addAppUserImage(owner, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/owner/1644157411838.jpg"));
 
+            for (Training training:trainingList) {
+
+                if (training.getTitel() == "Agility Training")
+                {
+                    trainingService.addTrainingImage(training,ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Training/agilityTraining.jpg"));
+                }else if(training.getTitel() == "Beginner Training")
+                {
+                    trainingService.addTrainingImage(training,ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Training/AnfängerTraining.jpg"));
+                } else if (training.getTitel() == "Fortgeschrittenen Training") {
+                    trainingService.addTrainingImage(training,ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Training/FotgeschrittenHundetraining.png"));
+
+                }
+
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -197,10 +191,8 @@ public class PreloadDatabase {
 
 
         return args -> {
-            //Preload Training
-            //trainingRepository.save(training1);
 
-            //Preload AppUsers
+
             repository.save(admin);
             repository.save(owner);
             repository.save(trainer1);
@@ -208,8 +200,6 @@ public class PreloadDatabase {
             repository.save(trainer3);
             repository.save(trainer4);
             repository.save(trainer5);
-            //log.info("Preloading " + repository.save(trainer4));
-            //  log.info("Preloading " + repository.save(trainer5));
 
 
         };

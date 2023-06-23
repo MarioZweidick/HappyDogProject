@@ -13,7 +13,7 @@
             <img th:src="@{'user/profile/image/' + ${appuser.appuser_id}}"/>
             <div>
                 <H2 th:text="${appuser.firstname} + ' ' + ${appuser.lastname}"/>
-                <p th:text="${appuser.trainings.size()} + ' trainings in ' + ${appuser.location.city}"/>
+                <p th:text="${appuser.trainings.size()} + '. Training/s in ' + ${appuser.location.city}"/>
                 <div class="rating">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-star" viewBox="0 0 16 16">
@@ -30,26 +30,29 @@
     <H2>Leider wurde kein Hundetrainer gefunden</H2>
 </div>
 <div th:fragment="traingingsList" th:each="training: ${appuser.trainings}" th:if="${!training.isBooked}">
-    <a th:href="@{/training/view(training_id = ${training.training_id})}">
-        <div class="trainerview">
-            <img th:src="@{'/user/training/image/' + ${training.training_id}}"/>
-            <div class="verticalDesign">
+    <!--/*@thymesVar id="training" type="at.happydog.test.enity.Training"*/-->
+    <div th:if="${!training.isBooked}">
+        <a th:href="@{/training/view(training_id = ${training.training_id})}">
+            <div class="trainerview">
+                <img th:src="@{'/user/training/image/' + ${training.training_id}}"/>
                 <div class="verticalDesign">
-                    <h1 th:text="${training.titel}"></h1>
-                    <h2 th:text="${training.price} + ' €'"></h2>
+                    <div class="verticalDesign">
+                        <h1 th:text="${training.titel}"></h1>
+                        <h2 th:text="${training.price} + ' €'"></h2>
+                    </div>
+                    <h2 th:text="${training.description}" class="descriptionSpan"></h2>
                 </div>
-                <h2 th:text="${training.description}" class="descriptionSpan"></h2>
-            </div>
-            <div class="verticalDesign">
                 <div class="verticalDesign">
-                    <p th:text="${#dates.format(training.date,'dd.MM.yyyy')}"></p>
-                    <div class="startEndTime">
-                        <p th:text="|${training.beginnTime} bis ${training.endTime}|"></p>
+                    <div class="verticalDesign">
+                        <p th:text="${#dates.format(training.date,'dd.MM.yyyy')}"></p>
+                        <div class="startEndTime">
+                            <p th:text="|${training.beginnTime} bis ${training.endTime}|"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>
 
 </body>
