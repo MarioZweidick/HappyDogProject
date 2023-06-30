@@ -44,7 +44,7 @@ public class TrainingFactory {
                             new Date(2023 - 1900, 04, 14),
                             LocalTime.of(10, 15, 0),
                             LocalTime.of(11, 0, 0),
-                            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
+                            new Location("Georgie-Gasse","76","Graz","8020", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
                     trainingList.add(training1);
                     continue;
 
@@ -55,7 +55,7 @@ public class TrainingFactory {
                             new Date(2023 - 1900, 04, 14),
                             LocalTime.of(10, 15, 0),
                             LocalTime.of(11, 0, 0),
-                            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
+                            new Location("Mozart-Gasse","5","Graz","8010", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
                     trainingList.add(training2);
                     continue;
 
@@ -66,7 +66,7 @@ public class TrainingFactory {
                             new Date(2023 - 1900, 04, 14),
                             LocalTime.of(10, 15, 0),
                             LocalTime.of(11, 0, 0),
-                            new Location("Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
+                            new Location("Liebengasse","31","8042","Graz", new BigDecimal(47.0707), new BigDecimal(15.4395)), true);
                     trainingList.add(training3);
 
             }
