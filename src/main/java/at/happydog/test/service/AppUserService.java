@@ -94,7 +94,7 @@ public class AppUserService implements UserDetailsService {
             AppUser existingUser = appUserRepository.findByEmail(appUser.getEmail()).get();
 
             if(existingUser.isEnabled()){
-                   throw new AppUserException("Username or Email already taken");
+                   throw new AppUserException("Benutzername oder E-Mail exisitert bereits!");
             }
 
 
@@ -238,7 +238,6 @@ public class AppUserService implements UserDetailsService {
 
     @Transactional
     public AppUser addAppUserImage(AppUser appUser, MultipartFile multipartFile) throws IOException {
-
 
         ImageHandler userImageHandler = new ImageHandler();
 

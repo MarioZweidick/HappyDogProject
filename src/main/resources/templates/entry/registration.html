@@ -90,6 +90,11 @@
       </fieldset>
   </form>
 
+    <div th:if="${!param.isEmpty()}" style="text-align: center">
+      <p th:if="${param.q.contains('user_error')}">Die E-Mail oder Benutzername kann nicht gewählt werden!</p>
+      <p th:if="${param.q.contains('input_error')}">Diese E-Mail oder Benutzername ist nicht erlaubt!</p>
+    </div>
+
     <div id="email-confirmation" style="display: none">
       <p id="confirm-email">Bitte Bestätige deine E-Mail Adresse!</p>
     </div>

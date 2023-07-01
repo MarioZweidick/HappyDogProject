@@ -23,12 +23,13 @@ public class UserRegistrationController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserRegistrationRequest request){
+
         try {
             registrationService.register(request);
         } catch (AppUserException ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getErrorMessage());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getErrorMessage());
         }
-        return ResponseEntity.status(HttpStatus.OK).body("User registered successfully");
+        return ResponseEntity.status(HttpStatus.OK).body("Benutzer erfolgreich registriert!");
     }
 
     @GetMapping()
