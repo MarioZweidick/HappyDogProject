@@ -167,7 +167,7 @@ public class PreloadDatabase {
             appUserService.addAppUserImage(trainer2, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer2.jpg"));
             appUserService.addAppUserImage(trainer3, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer3.jpg"));
             appUserService.addAppUserImage(trainer4, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer4.png"));
-            appUserService.addAppUserImage(trainer5, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer5.jpg"));
+            appUserService.addAppUserImage(trainer5, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/Trainer/Trainer5.png"));
             appUserService.addAppUserImage(owner, ImageLoader.createMultiPartFromJpeg("src/main/resources/servtecPhotos/owner/1644157411838.jpg"));
 
             for (Training training:trainingList) {

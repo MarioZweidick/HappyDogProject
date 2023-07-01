@@ -1,6 +1,7 @@
 package at.happydog.test.service;
 
 import at.happydog.test.enity.AppUser;
+import at.happydog.test.exception.custom.AppUserException;
 import at.happydog.test.registrationUtil.UserRegistrationRequest;
 import at.happydog.test.registrationUtil.token.ConfirmationToken;
 import at.happydog.test.registrationUtil.token.ConfirmationTokenService;
@@ -41,23 +42,28 @@ public class UserRegistrationService {
         boolean passwordIsValid = passwordValidator.test(request.getPassword());
 
         if(!usernameIsValid || !emailIsValid) {
-            throw new IllegalStateException("Email oder Benutzer nicht erlaubt!");
+            throw new AppUserException("Email oder Benutzer nicht erlaubt!");
         }
 
         if(!passwordIsValid) {
-            throw new IllegalStateException("Das Passwort muss mindestens 8 Zeichen, 1 Großbuchstaben und 1 Zahl haben!");
+            throw new AppUserException("Das Passwort muss mindestens 8 Zeichen, 1 Großbuchstaben und 1 Zahl haben!");
         }
 
-        String token = appUserService.singUpUser(new AppUser(
-                request.getUsername(),
-                request.getFirstname(),
-                request.getLastname(),
-                request.getEmail(),
-                request.getPassword(),
-                request.getRole()
-        ));
+        try {
+            String token = appUserService.singUpUser(new AppUser(
+                    request.getUsername(),
+                    request.getFirstname(),
+                    request.getLastname(),
+                    request.getEmail(),
+                    request.getPassword(),
+                    request.getRole()
+            ));
 
-        return token;
+            return token;
+        }catch (AppUserException ex){
+            throw new AppUserException(ex.getErrorMessage());
+        }
+
     }
 
     //Checkt Token und bestätigt wenn viable (Token expired nach 15min)
