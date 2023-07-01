@@ -17,7 +17,7 @@
 <div class="content-Box">
     <div class="content-Img-Place">
         <img th:src="@{'/user/training/image/' + ${training.training_id}}"/>
-        <iframe th:src="@{'https://maps.google.com/maps?width=50px25&amp;height=600&amp;hl=en&amp;q='+${training.location.street}+'%20'+${training.location.streetNumber}+',%20'+${training.location.plz}+'%20'+${training.location.city}+'+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'}">
+        <iframe  th:src="@{'https://maps.google.com/maps?width=50px25&amp;height=600&amp;hl=en&amp;q='+${training.location.street}+'%20'+${training.location.streetNumber}+',%20'+${training.location.plz}+'%20'+${training.location.city}+'+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'}">
             <a href="https://www.maps.ie/distance-area-calculator.html">measure area map</a></iframe>
     </div>
     <div class="textPart">
@@ -30,7 +30,7 @@
             <h3>Beschreibung: </h3>
             <p th:text="${training.description}"></p>
             <h3>Addresse:</h3>
-            <p th:text="${training.location.street + ' ' + training.location.streetNumber + ', ' + training.location.plz + ', ' + training.location.city}"></p>
+            <p th:text="${training.location.getCity() + ', ' + training.location.getStreet() + ', ' + training.location.getStreetNumber() + ', ' + training.location.getPlz()}"></p>
         </div>
         <a style="text-decoration: none" th:if="${!training.isBooked} "th:href="@{/payment-form(training_id=${training.training_id})}">
             <button class="button">Jetzt buchen!</button>

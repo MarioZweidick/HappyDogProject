@@ -27,12 +27,28 @@
 }
 
 .th-width{
+    width: 150px;
 
 }
 .th-width img{
-    width: 100%;
+    width: 125px;
     height: auto;
 }
+
+.th-width1
+{
+    width: 20%;
+    height: auto;
+}
+
+table, table * {border: none;}
+
+th-width2
+{
+    width: 5%;
+    height: auto;
+}
+
 
 .user-details-links{
     margin-top: 30px;
@@ -63,7 +79,7 @@
 .profile img {
     width: auto;
     height: 250px;
-    border-radius: 20%;
+    border-radius: 25px;
     text-align: center;
     justify-content: center;
     align-self: center;
@@ -125,3 +141,4 @@
     text-decoration: none;
     font-weight: lighter;
 }
+
