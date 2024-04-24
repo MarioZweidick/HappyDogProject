@@ -2,7 +2,7 @@ name: "Build, Push to GCP and set application version"
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
 
 jobs:
