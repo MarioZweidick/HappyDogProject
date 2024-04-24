@@ -1,0 +1,58 @@
+name: "Build, Push to ECR and set application version"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  BuildAndPushImageAndSetVersion:
+    name: "Build, Push to  GCP Artifact registry and set application version"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Set build version
+        run: |
+          echo "PROJECT_VERSION=$(date +'%Y').$(date +'%m%d').$(date +'%H%M%S')" >> $GITHUB_ENV
+          echo "Build version is $PROJECT_VERSION"
+
+      - name: Build with Maven
+        run: mvn clean install
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: 'latest'
+          project_id: ${{ secrets.GKE_PROJECT }}
+          service_account_key: ${{ secrets.GKE_KEY }}
+          export_default_credentials: true
+
+      - name: Authenticate Docker
+        run: gcloud auth configure-docker
+
+      - name: Build Docker image
+        run: docker build -t gcr.io/${{ secrets.GKE_PROJECT }}/happy-dog-project:$PROJECT_VERSION  .
+
+      - name: Push Docker image to GCP Container Registry
+        run: docker push gcr.io/${{ secrets.GKE_PROJECT }}/happy-dog-project:$PROJECT_VERSION
+
+      - name: Update appVersion in testservice helm chart.
+        run: |
+          sed -i "s|appVersion: .*|appVersion: $PROJECT_VERSION|" kubernetes/testservice/Chart.yaml
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add kubernetes/testservice/Chart.yaml
+          git commit -m "CI: updated version to ${GRADLE_PROJECT_VERSION}"
+          git push
