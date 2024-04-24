@@ -43,10 +43,10 @@ jobs:
         run: gcloud auth configure-docker
 
       - name: Build Docker image
-        run: docker build -t gcr.io/${{ secrets.GKE_PROJECT }}/happy-dog-project:$PROJECT_VERSION  .
+        run: docker build -t happy-dog-project:$PROJECT_VERSION  .
 
       - name: Push Docker image to GCP Container Registry
-        run: docker push gcr.io/${{ secrets.GKE_PROJECT }}/happy-dog-project:$PROJECT_VERSION
+        run: docker push happy-dog-project:$PROJECT_VERSION
 
       - name: Update appVersion in testservice helm chart.
         run: |
