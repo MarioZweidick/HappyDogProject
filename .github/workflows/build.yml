@@ -1,4 +1,4 @@
-name: "Build, Push to ECR and set application version"
+name: "Build, Push to GCP and set application version"
 on:
   push:
     branches:
