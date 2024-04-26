@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: happy-dog-app
-          image: gcr.io/gcr.io/amplified-brook-419416/happy-dog-project:2024.0424.181644
+          image: gcr.io/amplified-brook-419416/happy-dog-project:2024.0426.135039
           ports:
             - containerPort: 8080
