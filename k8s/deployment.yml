@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: happy-dog-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: happy-dog
+  template:
+    metadata:
+      labels:
+        app: happy-dog
+    spec:
+      containers:
+        - name: happy-dog-app
+          image: gcr.io/happy-dog-project:2024.0424.181644
+          ports:
+            - containerPort: 8080
