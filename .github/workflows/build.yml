@@ -48,14 +48,14 @@ jobs:
       - name: Push Docker image to GCP Container Registry
         run: docker push gcr.io/${{ secrets.GKE_PROJECT }}/happy-dog-project:$PROJECT_VERSION
 
-#      - name: Update appVersion in testservice helm chart.
-#        run: |
-#          sed -i "s|appVersion: .*|appVersion: $PROJECT_VERSION|" kubernetes/testservice/Chart.yaml
-#
-#      - name: Commit and Push Changes
-#        run: |
-#          git config user.email "actions@github.com"
-#          git config user.name "GitHub Actions"
-#          git add kubernetes/testservice/Chart.yaml
-#          git commit -m "CI: updated version to ${GRADLE_PROJECT_VERSION}"
-#          git push
+      - name: Update image tag
+        run: |
+          sed -i "s|          image: gcr.io/amplified-brook-419416/happy-dog-project:.*|          image: gcr.io/amplified-brook-419416/happy-dog-project:$PROJECT_VERSION|" k8s/deployment.yml
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add kubk8s/deployment.yml
+          git commit -m "CI: updated version to ${PROJECT_VERSION}"
+          git push
