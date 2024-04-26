@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: happy-dog-app
-          image: gcr.io/amplified-brook-419416/happy-dog-project:2024.0426.135039
+          image: gcr.io/amplified-brook-419416/happy-dog-project:2024.0426.145530
           env:
             - name: JDBC_URL
               valueFrom:
