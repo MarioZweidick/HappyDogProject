@@ -15,5 +15,21 @@ spec:
       containers:
         - name: happy-dog-app
           image: gcr.io/amplified-brook-419416/happy-dog-project:2024.0426.135039
+          env:
+            - name: JDBC_URL
+              valueFrom:
+                secretKeyRef:
+                  name: jdbc-configuration
+                  key: JDBC_URL
+            - name: JDBC_USER
+              valueFrom:
+                secretKeyRef:
+                  name: jdbc-configuration
+                  key: JDBC_USER
+            - name: JDBC_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: jdbc-configuration
+                  key: JDBC_PWD
           ports:
             - containerPort: 8080
